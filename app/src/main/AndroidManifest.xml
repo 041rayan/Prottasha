@@ -74,6 +74,8 @@
         <activity android:name=".focus.ui.FocusActivity" android:exported="false" />
         <activity android:name=".insights.ui.ReflectionActivity" android:exported="false" />
         <activity android:name=".methodology.MethodologyActivity" android:exported="false" />
+        <activity android:name=".circle.ui.PodChatActivity" android:exported="false" />
+        <activity android:name=".circle.ui.AccountabilityActivity" android:exported="false" />
 
         <!-- Main Dashboard Activity -->
         <activity

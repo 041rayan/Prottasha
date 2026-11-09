@@ -49,6 +49,24 @@ function firestoreFor(uid, claims) {
   return testEnv.authenticatedContext(uid, claims).firestore();
 }
 
+async function seedPod() {
+  await testEnv.withSecurityRulesDisabled(async (context) => {
+    const db = context.firestore();
+    const now = Timestamp.now();
+    await setDoc(doc(db, 'users/alice'), {
+      displayName: 'Alice', podPseudonym: 'HopefulAlice',
+      createdAt: now, updatedAt: now, schemaVersion: 1,
+    });
+    await setDoc(doc(db, 'users/bob'), {
+      displayName: 'Bob', podPseudonym: 'SteadyBob',
+      createdAt: now, updatedAt: now, schemaVersion: 1,
+    });
+    await setDoc(doc(db, 'pods/omega'), { name: 'Omega', createdAt: now });
+    await setDoc(doc(db, 'pods/omega/members/alice'), { role: 'OWNER', joinedAt: now });
+    await setDoc(doc(db, 'pods/omega/members/bob'), { role: 'MEMBER', joinedAt: now });
+  });
+}
+
 before(async () => {
   const [firestoreRules, databaseRules] = await Promise.all([
     readFile('firestore.rules', 'utf8'),
@@ -222,14 +240,75 @@ describe('Firestore user profiles', () => {
   });
 });
 
-describe('Realtime Database', () => {
-  test('stays deny-all until the presence schema is implemented', async () => {
-    const guestDb = testEnv.unauthenticatedContext().database();
-    const userDb = testEnv.authenticatedContext('alice', verifiedClaims).database();
+describe('Closed Circle pod', () => {
+  test('members can read while verified nonmembers cannot', async () => {
+    await seedPod();
+    await assertSucceeds(getDoc(doc(firestoreFor('alice', verifiedClaims), 'pods/omega')));
+    await assertFails(getDoc(doc(firestoreFor('mallory', verifiedClaims), 'pods/omega')));
+    await assertFails(getDoc(doc(firestoreFor('alice', unverifiedClaims), 'pods/omega')));
+  });
 
-    await assertFails(get(ref(guestDb, 'presence/alice')));
-    await assertFails(set(ref(guestDb, 'presence/alice'), true));
-    await assertFails(get(ref(userDb, 'presence/alice')));
-    await assertFails(set(ref(userDb, 'presence/alice'), true));
+  test('clients cannot self-add membership or promote roles', async () => {
+    await seedPod();
+    const bob = firestoreFor('bob', verifiedClaims);
+    await assertFails(setDoc(doc(bob, 'pods/omega/members/mallory'), {
+      role: 'MEMBER', joinedAt: serverTimestamp(),
+    }));
+    await assertFails(updateDoc(doc(bob, 'pods/omega/members/bob'), { role: 'OWNER' }));
+    await assertSucceeds(deleteDoc(doc(bob, 'pods/omega/members/bob')));
+  });
+
+  test('member message derives sender authority and bounds content', async () => {
+    await seedPod();
+    const alice = firestoreFor('alice', verifiedClaims);
+    const message = doc(alice, 'pods/omega/messages/m1');
+    await assertSucceeds(setDoc(message, {
+      senderUid: 'alice', senderPseudonym: 'HopefulAlice', text: 'Keep going',
+      createdAt: serverTimestamp(), updatedAt: serverTimestamp(), schemaVersion: 1,
+    }));
+    await assertFails(setDoc(doc(alice, 'pods/omega/messages/spoof'), {
+      senderUid: 'bob', senderPseudonym: 'SteadyBob', text: 'spoof',
+      createdAt: serverTimestamp(), updatedAt: serverTimestamp(), schemaVersion: 1,
+    }));
+    await assertSucceeds(updateDoc(message, { text: 'Edited', updatedAt: serverTimestamp() }));
+    await assertSucceeds(deleteDoc(message));
+  });
+
+  test('reports stay private while moderator can review status', async () => {
+    await seedPod();
+    const bob = firestoreFor('bob', verifiedClaims);
+    const report = doc(bob, 'pods/omega/messages/m1/reports/bob');
+    await assertSucceeds(setDoc(report, {
+      reason: 'Concerning content', createdAt: serverTimestamp(), status: 'OPEN',
+    }));
+    await assertSucceeds(getDoc(report));
+    await assertFails(getDoc(doc(firestoreFor('mallory', verifiedClaims),
+      'pods/omega/messages/m1/reports/bob')));
+    await assertSucceeds(updateDoc(doc(firestoreFor('alice', verifiedClaims),
+      'pods/omega/messages/m1/reports/bob'), { status: 'REVIEWED' }));
+  });
+});
+
+describe('Realtime Database', () => {
+  test('presence is membership-scoped and users write only themselves', async () => {
+    await testEnv.withSecurityRulesDisabled(async (context) => {
+      const admin = context.database();
+      await set(ref(admin, 'podMembers/omega/alice'), true);
+      await set(ref(admin, 'podMembers/omega/bob'), true);
+    });
+    const guestDb = testEnv.unauthenticatedContext().database();
+    const aliceDb = testEnv.authenticatedContext('alice', verifiedClaims).database();
+    const malloryDb = testEnv.authenticatedContext('mallory', verifiedClaims).database();
+
+    await assertFails(get(ref(guestDb, 'presence/omega')));
+    await assertSucceeds(set(ref(aliceDb, 'presence/omega/alice'), {
+      online: true, lastChanged: Date.now(),
+    }));
+    await assertSucceeds(get(ref(aliceDb, 'presence/omega')));
+    await assertFails(set(ref(aliceDb, 'presence/omega/bob'), {
+      online: true, lastChanged: Date.now(),
+    }));
+    await assertFails(get(ref(malloryDb, 'presence/omega')));
+    await assertSucceeds(set(ref(aliceDb, 'podMembers/omega/alice'), null));
   });
 });

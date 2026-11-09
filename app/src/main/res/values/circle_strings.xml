@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="circle_title">Circle</string>
+    <string name="circle_closed_status">Closed academic pod — membership is provisioned by the evaluator setup.</string>
+    <string name="circle_open">Open showcase pod</string>
+    <string name="circle_accountability">Accountability partner</string>
+    <string name="circle_empty">No messages are available.</string>
+    <string name="circle_membership_required">This verified account is not provisioned for the showcase pod.</string>
+    <string name="circle_send_rejected">Message rejected by membership rules.</string>
+    <string name="circle_message">%1$s\n%2$s</string>
+    <string name="circle_message_hint">Encouragement (max 1000 characters)</string>
+    <string name="circle_send">Send</string>
+    <string name="accountability_title">Share with someone you choose</string>
+    <string name="accountability_hint">Preview the exact message before sharing</string>
+    <string name="accountability_pick">Choose one contact</string>
+    <string name="accountability_share">Open Sharesheet</string>
+</resources>

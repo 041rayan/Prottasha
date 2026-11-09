@@ -18,6 +18,17 @@ service cloud.firestore {
         && request.auth.token.email_verified == true;
     }
 
+    function isPodMember(podId) {
+      return hasVerifiedEmail()
+        && exists(/databases/$(database)/documents/pods/$(podId)/members/$(request.auth.uid));
+    }
+
+    function isPodModerator(podId) {
+      return isPodMember(podId)
+        && get(/databases/$(database)/documents/pods/$(podId)/members/$(request.auth.uid)).data.role
+          in ['OWNER', 'MODERATOR'];
+    }
+
     function hasValidProfileKeys(data) {
       return data.keys().hasAll([
           'displayName',
@@ -101,10 +112,74 @@ service cloud.firestore {
 
       // Unverified users retain the right to erase the profile they created.
       allow delete: if owns(uid);
+
+      match /blocks/{blockedUid} {
+        allow read, create, delete: if owns(uid) && request.auth.uid != blockedUid;
+        allow update: if false;
+      }
     }
 
-    // Circle collections remain closed until their membership schema and
-    // emulator tests are implemented together.
+    match /pods/{podId} {
+      allow get: if isPodMember(podId);
+      allow list, create, update, delete: if false;
+
+      match /members/{uid} {
+        allow get: if isPodMember(podId)
+          || (hasVerifiedEmail() && request.auth.uid == uid);
+        allow list: if isPodMember(podId);
+        allow delete: if isPodMember(podId) && request.auth.uid == uid;
+        allow create, update: if false;
+      }
+
+      match /messages/{messageId} {
+        allow get, list: if isPodMember(podId);
+        allow create: if isPodMember(podId)
+          && request.resource.data.keys().hasOnly([
+            'senderUid', 'senderPseudonym', 'text', 'createdAt', 'updatedAt', 'schemaVersion'
+          ])
+          && request.resource.data.senderUid == request.auth.uid
+          && request.resource.data.senderPseudonym
+            == get(/databases/$(database)/documents/users/$(request.auth.uid)).data.podPseudonym
+          && request.resource.data.text is string
+          && request.resource.data.text.size() > 0
+          && request.resource.data.text.size() <= 1000
+          && request.resource.data.createdAt == request.time
+          && request.resource.data.updatedAt == request.time
+          && request.resource.data.schemaVersion == 1;
+        allow update: if isPodMember(podId)
+          && resource.data.senderUid == request.auth.uid
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text', 'updatedAt'])
+          && request.resource.data.text is string
+          && request.resource.data.text.size() > 0
+          && request.resource.data.text.size() <= 1000
+          && request.resource.data.updatedAt == request.time;
+        allow delete: if isPodMember(podId)
+          && (resource.data.senderUid == request.auth.uid || isPodModerator(podId));
+
+        match /reactions/{uid} {
+          allow get, list: if isPodMember(podId);
+          allow create, update, delete: if isPodMember(podId) && request.auth.uid == uid;
+        }
+
+        match /reports/{uid} {
+          allow create: if isPodMember(podId)
+            && request.auth.uid == uid
+            && request.resource.data.keys().hasOnly(['reason', 'createdAt', 'status'])
+            && request.resource.data.reason is string
+            && request.resource.data.reason.size() > 0
+            && request.resource.data.reason.size() <= 500
+            && request.resource.data.createdAt == request.time
+            && request.resource.data.status == 'OPEN';
+          allow get: if isPodMember(podId)
+            && (request.auth.uid == uid || isPodModerator(podId));
+          allow list: if isPodModerator(podId);
+          allow update: if isPodModerator(podId)
+            && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']);
+          allow delete: if false;
+        }
+      }
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }

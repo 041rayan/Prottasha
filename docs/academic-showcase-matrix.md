@@ -28,8 +28,8 @@ Each row must link a rubric-visible capability to real implementation, automated
 | HTTP and JSON | Sourced support/quote repository | Parser/fallback tests | Online then offline result | PENDING |
 | Firebase Authentication | Password-policy-matched state machine + Sign In/Create/Verify/Reset account gate | Auth repository/profile unit suite; Auth instrumentation package 5/5; rules 12/12 | BG7 signed-out routing/validation/rotation/Back pass; disposable live lifecycle remains Task 15 | PARTIAL |
 | UID cloud profile | Minimal own profile with separate generated pseudonym | Profile contract tests + Firestore rules 12/12 | Live bootstrap with disposable account remains final Firebase flow | PARTIAL |
-| Firestore | Membership-scoped closed pod | Emulator attack tests | Two-user message/report/block flow | PENDING |
-| Realtime Database | Membership-scoped presence | Emulator rules tests | Connect/disconnect presence | PENDING |
+| Firestore | Membership-scoped closed pod with immutable roles/messages/reports | Emulator attack suite 16/16 overall | UI 2/2; live two-user pod provisioning remains approval-gated | PARTIAL |
+| Realtime Database | Mirrored-membership presence with own-write-only authority | Emulator membership/cross-write tests | Live disconnect presence remains approval-gated | PARTIAL |
 | Local encrypted image | Bounded metadata-scrubbed JPEG + UID AES-GCM store | `EncryptedPrivateFileStoreTest` 5/5 on API 33 | BG7 key-loss, tamper, A/B, reopen, quarantine/restore proof; feature UI integration remains | PARTIAL |
 | Rotation and saved state | Forms, onboarding, editors, timers | Recreation tests | Rotate during each critical draft | PENDING |
 | Accessibility and dynamic UI | TalkBack, 48dp, 200% font, reduced motion | Quality tests + lint | Accessibility checklist | PENDING |

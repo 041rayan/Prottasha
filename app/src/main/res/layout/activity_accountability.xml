@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="@dimen/spacing_large">
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/accountability_title" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_headline" android:textStyle="bold" />
+    <EditText android:id="@+id/accountability_preview" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_medium" android:hint="@string/accountability_hint" android:inputType="textCapSentences|textMultiLine" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/accountability_pick" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/accountability_pick" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/accountability_share" style="@style/Widget.Prottasha.Button.Pill" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/accountability_share" />
+</LinearLayout>

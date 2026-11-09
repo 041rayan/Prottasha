@@ -14,6 +14,7 @@ public interface AuthGateway {
         EMAIL_IN_USE,
         WEAK_PASSWORD,
         TOO_MANY_REQUESTS,
+        REQUIRES_RECENT_LOGIN,
         UNKNOWN
     }
 
@@ -48,6 +49,10 @@ public interface AuthGateway {
     void sendVerification(ResultCallback<Boolean> callback);
 
     void sendPasswordReset(String email, ResultCallback<Boolean> callback);
+
+    void reauthenticate(String email, String password, ResultCallback<Boolean> callback);
+
+    void deleteCurrentUser(ResultCallback<Boolean> callback);
 
     void signOut();
 }

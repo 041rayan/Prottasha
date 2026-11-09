@@ -64,3 +64,16 @@ The warning inventory remains visible and must decrease as prototype screens are
 | `testDebugUnitTest assembleDebug lintDebug compileDebugAndroidTestJavaWithJavac` | PASS; lint 0 errors, 235 inventoried warnings |
 
 The `NewerVersionAvailable` warning for SQLCipher is intentionally retained: upgrading requires the same direct-native and Room lifecycle proof on the BG7.
+
+## Task 5 account and legacy boundary gate
+
+| Gate | Result |
+|---|---|
+| Account deletion coordinator unit contract | PASS: reauth, ordered cloud/Auth deletion, rollback, interruption recovery, post-Auth retry |
+| Legacy import framework on TECNO BG7/API 33 | PASS, 4/4 tests |
+| Encrypted local + legacy device group | PASS, 18/18 tests |
+| Auth/account/bootstrap device group | PASS, 9/9 tests |
+| Legacy source retention | PASS: read-only inspection and byte-for-byte source preservation |
+| Prototype seed boundary | PASS: existing seed signatures are flagged; newly created legacy databases remain empty |
+
+Task 5 performs no live account deletion and no legacy-source contraction. The cloud gateway deletes only the current UID profile until Task 13 adds bounded Circle-owned records.

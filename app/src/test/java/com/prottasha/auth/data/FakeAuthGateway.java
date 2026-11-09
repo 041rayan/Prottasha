@@ -7,6 +7,7 @@ import com.prottasha.core.result.AppResult;
 import com.prottasha.core.result.ResultCallback;
 
 import java.util.ArrayDeque;
+import java.util.List;
 import java.util.Queue;
 
 public final class FakeAuthGateway implements AuthGateway {
@@ -18,10 +19,14 @@ public final class FakeAuthGateway implements AuthGateway {
     @Nullable public AppResult<SessionUser> reloadResult;
     public AppResult<Boolean> verificationResult = AppResult.success(true);
     public AppResult<Boolean> resetResult = AppResult.success(true);
+    public AppResult<Boolean> reauthenticationResult = AppResult.success(true);
+    public AppResult<Boolean> deleteResult = AppResult.success(true);
+    @Nullable public List<String> events;
     public boolean holdSignIn;
     public int signOutCalls;
     public int verificationCalls;
     public int resetCalls;
+    public int deleteCalls;
 
     private final Queue<Runnable> pending = new ArrayDeque<>();
 
@@ -70,6 +75,26 @@ public final class FakeAuthGateway implements AuthGateway {
     public void sendPasswordReset(String email, ResultCallback<Boolean> callback) {
         resetCalls++;
         callback.onResult(resetResult);
+    }
+
+    @Override
+    public void reauthenticate(
+            String email,
+            String password,
+            ResultCallback<Boolean> callback) {
+        if (events != null) {
+            events.add("reauth");
+        }
+        callback.onResult(reauthenticationResult);
+    }
+
+    @Override
+    public void deleteCurrentUser(ResultCallback<Boolean> callback) {
+        if (events != null) {
+            events.add("auth-delete");
+        }
+        deleteCalls++;
+        callback.onResult(deleteResult);
     }
 
     @Override

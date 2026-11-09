@@ -7,6 +7,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
@@ -30,6 +31,9 @@ public final class FirebaseAuthGatewayTest {
         assertCode(AuthGateway.FailureCode.WEAK_PASSWORD,
                 new FirebaseAuthWeakPasswordException(
                         "ERROR_WEAK_PASSWORD", "detail", "reason"));
+        assertCode(AuthGateway.FailureCode.REQUIRES_RECENT_LOGIN,
+                new FirebaseAuthRecentLoginRequiredException(
+                        "ERROR_REQUIRES_RECENT_LOGIN", "detail"));
         assertCode(AuthGateway.FailureCode.UNKNOWN, new IllegalStateException("secret detail"));
     }
 

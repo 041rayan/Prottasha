@@ -20,6 +20,7 @@
     <string name="auth_refresh_verification">I verified — refresh</string>
     <string name="auth_resend_verification">Resend verification</string>
     <string name="auth_change_account">Change account / sign out</string>
+    <string name="auth_manage_account">Manage or delete account</string>
     <string name="auth_reset_title">Reset password</string>
     <string name="auth_reset_explanation">Enter your email. For privacy, the confirmation is the same whether or not an account exists.</string>
     <string name="auth_send_reset">Send reset email</string>

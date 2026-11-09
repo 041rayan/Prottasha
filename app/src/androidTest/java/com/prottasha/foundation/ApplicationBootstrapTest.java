@@ -38,6 +38,10 @@ public final class ApplicationBootstrapTest {
                 application.appGraph().userSessionDatabaseProvider());
         assertSame(application.appGraph().userSessionManager(),
                 application.appGraph().userSessionManager());
+        assertSame(application.appGraph().encryptedPrivateFileStore(),
+                application.appGraph().encryptedPrivateFileStore());
+        assertSame(application.appGraph().accountDeletionCoordinator(),
+                application.appGraph().accountDeletionCoordinator());
         assertTrue(FirebaseApp.getApps(context).size() > 0);
     }
 

@@ -247,6 +247,25 @@ public final class EncryptedUserDatabaseTest {
         }
     }
 
+    @Test
+    public void postAuthCleanupDestroysQuarantineByOpaqueHash() throws Exception {
+        Context context = ApplicationProvider.getApplicationContext();
+        SessionUser user = uniqueUser("post-auth-cleanup");
+        UserSessionDatabaseProvider provider = new UserSessionDatabaseProvider(context);
+        String uidHash = UserDatabaseIdentity.fromUid(user.uid()).uidHash();
+
+        provider.open(user).importJournalDao().upsert(journal("delete", "READY"));
+        provider.close();
+        provider.quarantine(user);
+
+        provider.destroyByUidHash(uidHash);
+
+        assertFalse(provider.quarantinedDatabaseFile(user).exists());
+        assertFalse(provider.keyEnvelopeFile(user).exists());
+        assertThrows(SecurityException.class,
+                () -> provider.openForVerifiedBackgroundOwner(uidHash));
+    }
+
     private static ImportJournalEntity journal(String sourceHash, String state) {
         return new ImportJournalEntity(
                 sourceHash, state, "{}", "{}", System.currentTimeMillis());

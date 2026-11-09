@@ -1,5 +1,6 @@
 package com.prottasha.auth.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.prottasha.R;
 import com.prottasha.auth.domain.AuthState;
 import com.prottasha.databinding.FragmentVerifyEmailBinding;
+import com.prottasha.settings.account.AccountActivity;
 
 public final class VerifyEmailFragment extends Fragment {
 
@@ -35,6 +37,8 @@ public final class VerifyEmailFragment extends Fragment {
         binding.authRefreshVerificationButton.setOnClickListener(ignored ->
                 viewModel.refreshVerification());
         binding.authSignOutButton.setOnClickListener(ignored -> viewModel.signOut());
+        binding.authManageAccountButton.setOnClickListener(ignored ->
+                startActivity(new Intent(requireContext(), AccountActivity.class)));
         viewModel.state().observe(getViewLifecycleOwner(), state -> render(state));
     }
 

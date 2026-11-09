@@ -122,12 +122,51 @@ public final class EncryptedPrivateFileStore {
         }
     }
 
+    public void quarantine(UserDatabaseIdentity identity) throws IOException {
+        File source = namespaceDirectory(identity);
+        if (!source.exists()) {
+            return;
+        }
+        File target = quarantinedNamespace(identity);
+        File parent = target.getParentFile();
+        if (parent == null || (!parent.exists() && !parent.mkdirs())) {
+            throw new IOException("Unable to create private-file quarantine");
+        }
+        if (target.exists() || !source.renameTo(target)) {
+            throw new IOException("Unable to quarantine encrypted private files");
+        }
+    }
+
+    public void restore(UserDatabaseIdentity identity) throws IOException {
+        File source = quarantinedNamespace(identity);
+        if (!source.exists()) {
+            return;
+        }
+        File target = namespaceDirectory(identity);
+        File parent = target.getParentFile();
+        if (parent == null || (!parent.exists() && !parent.mkdirs())) {
+            throw new IOException("Unable to restore private-file namespace");
+        }
+        if (target.exists() || !source.renameTo(target)) {
+            throw new IOException("Unable to restore encrypted private files");
+        }
+    }
+
     public void destroy(UserDatabaseIdentity identity) throws IOException, GeneralSecurityException {
         IOException fileFailure = null;
         try {
             deleteRecursively(namespaceDirectory(identity));
         } catch (IOException error) {
             fileFailure = error;
+        }
+        try {
+            deleteRecursively(quarantinedNamespace(identity));
+        } catch (IOException error) {
+            if (fileFailure == null) {
+                fileFailure = error;
+            } else {
+                fileFailure.addSuppressed(error);
+            }
         }
         keyManager.deleteSecret(identity.privateFileKeyAlias(), keyEnvelopeFile(identity));
         if (fileFailure != null) {
@@ -145,6 +184,11 @@ public final class EncryptedPrivateFileStore {
     File keyEnvelopeFile(UserDatabaseIdentity identity) {
         return new File(new File(context.getNoBackupFilesDir(), "key_envelopes"),
                 identity.privateFileKeyAlias() + ".bin");
+    }
+
+    File quarantinedNamespace(UserDatabaseIdentity identity) {
+        return new File(new File(context.getNoBackupFilesDir(),
+                "pending_deletion/private_images"), identity.uidHash());
     }
 
     private NormalizedImage normalize(InputStream source) throws IOException {
@@ -284,7 +328,8 @@ public final class EncryptedPrivateFileStore {
     }
 
     private boolean protectedDataExists(UserDatabaseIdentity identity) {
-        return containsEncryptedFile(namespaceDirectory(identity));
+        return containsEncryptedFile(namespaceDirectory(identity))
+                || containsEncryptedFile(quarantinedNamespace(identity));
     }
 
     private static boolean containsEncryptedFile(File file) {

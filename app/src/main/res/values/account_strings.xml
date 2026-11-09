@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="account_title">Account and deletion</string>
+    <string name="account_delete_explanation">Deletion first verifies your password, quarantines encrypted local data, removes owned cloud data, deletes Firebase Authentication last, then destroys local keys. A failed cloud or Auth step restores the quarantine.</string>
+    <string name="account_ready">Enter your current password and confirm permanent deletion.</string>
+    <string name="account_no_verified_session">No verified account session is open.</string>
+    <string name="account_current_password">Current password</string>
+    <string name="account_password_required">Enter your current password.</string>
+    <string name="account_delete_confirmation">I understand that account deletion is permanent.</string>
+    <string name="account_confirmation_required">Confirm permanent deletion before continuing.</string>
+    <string name="account_delete_action">Delete account</string>
+    <string name="account_retry_cleanup">Retry local cleanup</string>
+    <string name="account_status_reauthenticating">Verifying your current password…</string>
+    <string name="account_status_quarantining">Quarantining encrypted local data…</string>
+    <string name="account_status_deleting_cloud">Deleting owned cloud profile data…</string>
+    <string name="account_status_deleting_auth">Deleting the Firebase account…</string>
+    <string name="account_status_restoring">Deletion stopped; restoring local data…</string>
+    <string name="account_status_cleaning">Account deleted; destroying local keys…</string>
+    <string name="account_status_restore_retry">Local data restoration must be retried before deletion can continue.</string>
+    <string name="account_status_cleanup_retry">The account is deleted, but local cleanup must be retried.</string>
+    <string name="account_status_complete">Account and local encrypted data deleted.</string>
+    <string name="account_status_failed">Deletion stopped safely. Review your connection or password and retry.</string>
+</resources>

@@ -211,7 +211,18 @@ public final class UserSessionDatabaseProvider {
 
     public synchronized void destroy(SessionUser user) throws IOException, GeneralSecurityException {
         closeIfOwner(user);
-        UserDatabaseIdentity identity = UserDatabaseIdentity.fromUid(user.uid());
+        destroyIdentity(UserDatabaseIdentity.fromUid(user.uid()));
+    }
+
+    public synchronized void destroyByUidHash(String uidHash)
+            throws IOException, GeneralSecurityException {
+        UserDatabaseIdentity identity = UserDatabaseIdentity.fromUidHash(uidHash);
+        closeIfIdentity(identity);
+        destroyIdentity(identity);
+    }
+
+    private void destroyIdentity(UserDatabaseIdentity identity)
+            throws IOException, GeneralSecurityException {
         File databaseFile = databaseFile(identity);
         File quarantinedFile = quarantinedDatabaseFile(identity);
         deleteIfPresent(databaseFile);
@@ -352,11 +363,14 @@ public final class UserSessionDatabaseProvider {
     }
 
     private void closeIfOwner(SessionUser user) {
+        closeIfIdentity(UserDatabaseIdentity.fromUid(user.uid()));
+    }
+
+    private void closeIfIdentity(UserDatabaseIdentity requested) {
         if (activeIdentity == null) {
             return;
         }
-        String requestedHash = UserDatabaseIdentity.fromUid(user.uid()).uidHash();
-        if (!activeIdentity.uidHash().equals(requestedHash)) {
+        if (!activeIdentity.uidHash().equals(requested.uidHash())) {
             throw new IllegalStateException("A different user database is active");
         }
         close();

@@ -45,6 +45,10 @@
             android:exported="false"
             android:parentActivityName=".auth.ui.AuthActivity" />
 
+        <activity
+            android:name=".settings.account.AccountActivity"
+            android:exported="false" />
+
         <!-- Main Dashboard Activity -->
         <activity
             android:name=".ui.main.MainActivity"

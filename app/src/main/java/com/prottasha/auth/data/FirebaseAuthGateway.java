@@ -6,8 +6,10 @@ import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.prottasha.auth.domain.SessionUser;
@@ -138,6 +140,44 @@ public final class FirebaseAuthGateway implements AuthGateway {
     }
 
     @Override
+    public void reauthenticate(
+            String email,
+            String password,
+            ResultCallback<Boolean> callback) {
+        if (auth == null) {
+            callback.onResult(configurationFailure());
+            return;
+        }
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) {
+            callback.onResult(unknownFailure());
+            return;
+        }
+        user.reauthenticate(EmailAuthProvider.getCredential(email, password))
+                .addOnCompleteListener(task -> callback.onResult(
+                        task.isSuccessful()
+                                ? AppResult.success(true)
+                                : failure(task.getException())));
+    }
+
+    @Override
+    public void deleteCurrentUser(ResultCallback<Boolean> callback) {
+        if (auth == null) {
+            callback.onResult(configurationFailure());
+            return;
+        }
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) {
+            callback.onResult(unknownFailure());
+            return;
+        }
+        user.delete().addOnCompleteListener(task -> callback.onResult(
+                task.isSuccessful()
+                        ? AppResult.success(true)
+                        : failure(task.getException())));
+    }
+
+    @Override
     public void signOut() {
         if (auth != null) {
             auth.signOut();
@@ -153,6 +193,9 @@ public final class FirebaseAuthGateway implements AuthGateway {
         }
         if (error instanceof FirebaseAuthWeakPasswordException) {
             return new AuthFailure(FailureCode.WEAK_PASSWORD);
+        }
+        if (error instanceof FirebaseAuthRecentLoginRequiredException) {
+            return new AuthFailure(FailureCode.REQUIRES_RECENT_LOGIN);
         }
         if (error instanceof FirebaseAuthUserCollisionException) {
             return new AuthFailure(FailureCode.EMAIL_IN_USE);

@@ -168,6 +168,33 @@ public final class EncryptedPrivateFileStoreTest {
         }
     }
 
+    @Test
+    public void quarantineAndRestorePreserveEncryptedPrivateImage() throws Exception {
+        Context context = ApplicationProvider.getApplicationContext();
+        UserDatabaseIdentity identity = uniqueIdentity("quarantine");
+        EncryptedPrivateFileStore store = new EncryptedPrivateFileStore(context);
+
+        try {
+            StoredPrivateImage saved = store.storeImage(
+                    identity,
+                    EncryptedPrivateFileStore.Category.JOURNAL,
+                    new ByteArrayInputStream(jpegWithTrailingLocationMetadata(80, 40)));
+            byte[] expected = store.readImage(
+                    identity, EncryptedPrivateFileStore.Category.JOURNAL, saved.storageId());
+
+            store.quarantine(identity);
+            assertTrue(store.quarantinedNamespace(identity).isDirectory());
+            assertThrows(FileNotFoundException.class, () -> store.readImage(
+                    identity, EncryptedPrivateFileStore.Category.JOURNAL, saved.storageId()));
+
+            store.restore(identity);
+            assertArrayEquals(expected, store.readImage(
+                    identity, EncryptedPrivateFileStore.Category.JOURNAL, saved.storageId()));
+        } finally {
+            store.destroy(identity);
+        }
+    }
+
     private static UserDatabaseIdentity uniqueIdentity(String prefix) {
         return UserDatabaseIdentity.fromUid(prefix + "-" + UUID.randomUUID());
     }

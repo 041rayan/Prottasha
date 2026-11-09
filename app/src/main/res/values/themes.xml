@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base application theme: Obsidian & Biophilic Calm -->
+    <!-- Base application theme: Obsidian Hope. -->
     <style name="Theme.Prottasha" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="android:windowBackground">@color/color_bg_primary</item>
-        <item name="android:colorBackground">@color/color_bg_primary</item>
-        <item name="colorSurface">@color/color_surface_card</item>
-        <item name="colorPrimary">@color/color_identity_glow</item>
-        <item name="colorOnPrimary">@color/color_text_inverse</item>
-        <item name="colorSecondary">@color/color_vote_emerald</item>
-        <item name="colorOnSecondary">@color/color_text_inverse</item>
+        <item name="android:windowBackground">@color/color_background</item>
+        <item name="android:colorBackground">@color/color_background</item>
+        <item name="colorSurface">@color/color_surface</item>
+        <item name="colorSurfaceVariant">@color/color_surface_raised</item>
+        <item name="colorPrimary">@color/color_hope</item>
+        <item name="colorOnPrimary">@color/color_on_hope</item>
+        <item name="colorSecondary">@color/color_identity</item>
+        <item name="colorOnSecondary">@color/color_on_identity</item>
+        <item name="colorError">@color/color_crisis</item>
+        <item name="colorOnError">@color/color_on_crisis</item>
         <item name="android:textColorPrimary">@color/color_text_primary</item>
         <item name="android:textColorSecondary">@color/color_text_secondary</item>
-        <item name="android:navigationBarColor">@color/color_bg_primary</item>
-        <item name="android:statusBarColor">@color/color_bg_primary</item>
+        <item name="android:navigationBarColor">@color/color_background</item>
+        <item name="android:statusBarColor">@color/color_background</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <!-- Splash Screen Theme -->
     <style name="Theme.Prottasha.Splash" parent="Theme.Prottasha">
-        <item name="android:windowBackground">@color/color_bg_primary</item>
+        <item name="android:windowBackground">@color/color_background</item>
     </style>
 
     <!-- Pause Interstitial Overlay Theme (Over other apps) -->
     <style name="Theme.Prottasha.PauseOverlay" parent="Theme.Prottasha">
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">#E60B0F17</item>
+        <item name="android:windowBackground">@color/color_pause_scrim</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
     </style>
@@ -39,8 +43,8 @@
 
     <!-- Pill Button Styles -->
     <style name="Widget.Prottasha.Button.Pill" parent="Widget.Material3.Button">
-        <item name="android:textColor">@color/color_text_primary</item>
+        <item name="android:textColor">@color/color_on_hope</item>
         <item name="cornerRadius">@dimen/pill_button_radius</item>
-        <item name="backgroundTint">@color/color_identity_glow</item>
+        <item name="backgroundTint">@color/color_hope</item>
     </style>
 </resources>

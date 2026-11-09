@@ -1,0 +1,11 @@
+{
+  "name": "prottasha-firebase-rules",
+  "private": true,
+  "scripts": {
+    "test:rules": "firebase emulators:exec --only auth,firestore,database --project demo-prottasha \"node --test firebase-tests/*.test.mjs\""
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^6.0.0",
+    "firebase": "^13.2.0"
+  }
+}

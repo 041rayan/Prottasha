@@ -1,0 +1,112 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function hasPasswordAccount() {
+      return request.auth != null
+        && request.auth.token.email is string
+        && request.auth.token.email.size() > 0
+        && request.auth.token.firebase.sign_in_provider == 'password';
+    }
+
+    function owns(uid) {
+      return hasPasswordAccount() && request.auth.uid == uid;
+    }
+
+    function hasVerifiedEmail() {
+      return hasPasswordAccount()
+        && request.auth.token.email_verified == true;
+    }
+
+    function hasValidProfileKeys(data) {
+      return data.keys().hasAll([
+          'displayName',
+          'podPseudonym',
+          'createdAt',
+          'updatedAt',
+          'schemaVersion'
+        ])
+        && data.keys().hasOnly([
+          'displayName',
+          'podPseudonym',
+          'createdAt',
+          'updatedAt',
+          'schemaVersion',
+          'avatarSeed',
+          'avatarPalette',
+          'avatarStyle'
+        ]);
+    }
+
+    function hasValidAvatar(data) {
+      return !data.keys().hasAny([
+          'avatarSeed',
+          'avatarPalette',
+          'avatarStyle'
+        ])
+        || (
+          data.keys().hasAll([
+            'avatarSeed',
+            'avatarPalette',
+            'avatarStyle'
+          ])
+          && data.avatarSeed is string
+          && data.avatarSeed.size() > 0
+          && data.avatarSeed.size() <= 64
+          && data.avatarPalette is string
+          && data.avatarPalette.size() > 0
+          && data.avatarPalette.size() <= 24
+          && data.avatarStyle is string
+          && data.avatarStyle.size() > 0
+          && data.avatarStyle.size() <= 24
+        );
+    }
+
+    function hasValidProfileData(data) {
+      return hasValidProfileKeys(data)
+        && data.displayName is string
+        && data.displayName.size() > 0
+        && data.displayName.size() <= 80
+        && data.podPseudonym is string
+        && data.podPseudonym.size() > 0
+        && data.podPseudonym.size() <= 40
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp
+        && data.schemaVersion is int
+        && data.schemaVersion == 1
+        && hasValidAvatar(data);
+    }
+
+    match /users/{uid} {
+      allow get: if owns(uid);
+      allow list: if false;
+
+      allow create: if owns(uid)
+        && hasValidProfileData(request.resource.data)
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+
+      allow update: if owns(uid)
+        && hasVerifiedEmail()
+        && hasValidProfileData(request.resource.data)
+        && request.resource.data.updatedAt == request.time
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'displayName',
+          'podPseudonym',
+          'updatedAt',
+          'avatarSeed',
+          'avatarPalette',
+          'avatarStyle'
+        ]);
+
+      // Unverified users retain the right to erase the profile they created.
+      allow delete: if owns(uid);
+    }
+
+    // Circle collections remain closed until their membership schema and
+    // emulator tests are implemented together.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -4,10 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -45,32 +41,4 @@ public class ImageStorageHelper {
         }
     }
 
-    /**
-     * Uploads picture to Firebase Storage (when Blaze plan is active).
-     */
-    public static void uploadPictureToFirebaseStorage(String userId, Bitmap bitmap, OnUploadCallback callback) {
-        try {
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference ref = storage.getReference().child("vision_boards/" + userId + ".jpg");
-
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 85, baos);
-            byte[] data = baos.toByteArray();
-
-            ref.putBytes(data)
-                    .addOnSuccessListener(taskSnapshot -> {
-                        if (callback != null) callback.onSuccess("gs://" + ref.getPath());
-                    })
-                    .addOnFailureListener(e -> {
-                        if (callback != null) callback.onFailure(e.getMessage());
-                    });
-        } catch (Exception e) {
-            if (callback != null) callback.onFailure("Firebase Storage not configured: " + e.getMessage());
-        }
-    }
-
-    public interface OnUploadCallback {
-        void onSuccess(String path);
-        void onFailure(String error);
-    }
 }

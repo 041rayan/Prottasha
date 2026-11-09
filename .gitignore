@@ -19,4 +19,10 @@ build/
 .cxx
 *.png
 
+# Firebase rules test artifacts
+/node_modules/
+/firebase-debug.log
+/firestore-debug.log
+/database-debug.log
+/ui-debug.log
 

@@ -5,14 +5,22 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
+import com.prottasha.core.AppGraph;
+
 public class ProttashaApp extends Application {
 
     public static final String FOCUS_NOTIFICATION_CHANNEL_ID = "prottasha_focus_channel";
+    private AppGraph appGraph;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        appGraph = new AppGraph(this);
         createNotificationChannels();
+    }
+
+    public AppGraph appGraph() {
+        return appGraph;
     }
 
     private void createNotificationChannels() {

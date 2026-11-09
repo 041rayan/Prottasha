@@ -1,15 +1,20 @@
 package com.prottasha.service;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.pm.PackageManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import com.prottasha.ProttashaApp;
 import com.prottasha.R;
@@ -45,8 +50,17 @@ public class ProttashaFocusService extends Service {
     }
 
     private void updateNotification() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                && ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
         Notification notification = buildNotification();
-        androidx.core.app.NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, notification);
+        try {
+            NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, notification);
+        } catch (SecurityException ignored) {
+            // Notification permission or channel access can be revoked while the service is active.
+        }
     }
 
     private Notification buildNotification() {

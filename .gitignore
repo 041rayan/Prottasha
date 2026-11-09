@@ -1,0 +1,18 @@
+# Plans and specifications (ignored per project instructions)
+*.plan.md
+*.spec.md
+*plan*.md
+*spec*.md
+plans/
+specs/
+
+# Android Gradle build files and caches
+*.iml
+.gradle
+/local.properties
+/.idea/
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx

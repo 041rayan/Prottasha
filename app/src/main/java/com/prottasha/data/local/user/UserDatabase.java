@@ -16,6 +16,9 @@ import com.prottasha.habits.data.HabitEntity;
 import com.prottasha.habits.data.HabitEventEntity;
 import com.prottasha.habits.data.HabitSubstepEntity;
 import com.prottasha.habits.data.HabitVacationEntity;
+import com.prottasha.habits.data.HabitReminderEntity;
+import com.prottasha.habits.data.HabitDayNoteEntity;
+import com.prottasha.habits.data.HabitDayImageEntity;
 
 @Database(
         entities = {
@@ -27,9 +30,12 @@ import com.prottasha.habits.data.HabitVacationEntity;
                 HabitSubstepEntity.class,
                 HabitEventEntity.class,
                 HabitDayAggregateEntity.class,
-                HabitVacationEntity.class
+                HabitVacationEntity.class,
+                HabitReminderEntity.class,
+                HabitDayNoteEntity.class,
+                HabitDayImageEntity.class
         },
-        version = 3,
+        version = 4,
         exportSchema = true)
 public abstract class UserDatabase extends RoomDatabase {
     public abstract LocalAccountDao localAccountDao();

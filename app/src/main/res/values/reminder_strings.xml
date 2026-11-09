@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reminder_channel">Habit reminders</string>
+    <string name="reminder_private_body">Open Prottasha to review today’s private progress.</string>
+    <string name="reminder_action">Record</string>
+    <string name="widget_neutral_title">Prottasha Today</string>
+    <string name="widget_neutral_body">Open to review your private plan.</string>
+    <string name="widget_description">Private daily Prottasha shortcut</string>
+</resources>

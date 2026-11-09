@@ -95,3 +95,12 @@ Task 5 performs no live account deletion and no legacy-source contraction. The c
 | Pure habit engines | PASS: schedule, type semantics, no-data stats, streak, rebound |
 | Habits package on TECNO BG7/API 33 | PASS, 3/3 tests |
 | Visible flow | Build/Avoid/Amount rows plus editor and truthful zero-data state |
+
+## Task 8 depth/reminder gate
+
+| Gate | Result |
+|---|---|
+| Reminder occurrence calculator | PASS: daily, selected days, DST gap, cross-midnight quiet hours |
+| Reminder/widget safety on TECNO BG7/API 33 | PASS, 3/3 tests |
+| Concrete legacy identity/habit mapping | PASS, 1/1; prototype rows excluded and source unchanged |
+| Widget | Neutral private copy; no database work in `onUpdate` |

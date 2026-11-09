@@ -19,4 +19,11 @@
     <string name="habit_action_lapse">Record lapse</string>
     <string name="habit_action_increment">+1</string>
     <string name="habit_archive">Archive</string>
+    <string name="habit_note_hint">Private note for today</string>
+    <string name="habit_note_save">Save note</string>
+    <string name="habit_note_saved">Saved</string>
+    <plurals name="habit_history_days">
+        <item quantity="one">%1$d completed day out of %2$d recorded day</item>
+        <item quantity="other">%1$d completed days out of %2$d recorded days</item>
+    </plurals>
 </resources>

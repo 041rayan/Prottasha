@@ -60,7 +60,29 @@ public final class UserDatabaseMigrations {
         }
     };
 
-    public static final Migration[] ALL = {MIGRATION_1_2, MIGRATION_2_3};
+    public static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS habit_reminders ("
+                    + "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, habitId INTEGER NOT NULL, "
+                    + "hour INTEGER NOT NULL, minute INTEGER NOT NULL, dayMask INTEGER NOT NULL, "
+                    + "enabled INTEGER NOT NULL, FOREIGN KEY(habitId) REFERENCES habits(id) "
+                    + "ON UPDATE NO ACTION ON DELETE CASCADE)");
+            database.execSQL("CREATE INDEX IF NOT EXISTS index_habit_reminders_habitId ON habit_reminders(habitId)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS habit_day_notes ("
+                    + "habitId INTEGER NOT NULL, epochDay INTEGER NOT NULL, note TEXT NOT NULL, "
+                    + "updatedAt INTEGER NOT NULL, PRIMARY KEY(habitId, epochDay), "
+                    + "FOREIGN KEY(habitId) REFERENCES habits(id) ON UPDATE NO ACTION ON DELETE CASCADE)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS habit_day_images ("
+                    + "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, habitId INTEGER NOT NULL, "
+                    + "epochDay INTEGER NOT NULL, storageId TEXT NOT NULL, "
+                    + "FOREIGN KEY(habitId) REFERENCES habits(id) ON UPDATE NO ACTION ON DELETE CASCADE)");
+            database.execSQL("CREATE INDEX IF NOT EXISTS index_habit_day_images_habitId ON habit_day_images(habitId)");
+            database.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS index_habit_day_images_storageId ON habit_day_images(storageId)");
+        }
+    };
+
+    public static final Migration[] ALL = {MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4};
     public static final RoomDatabase.Callback ENABLE_FOREIGN_KEYS =
             new RoomDatabase.Callback() {
                 @Override

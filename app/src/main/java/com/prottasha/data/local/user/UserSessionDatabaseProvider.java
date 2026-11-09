@@ -93,6 +93,11 @@ public final class UserSessionDatabaseProvider {
         }
     }
 
+    public synchronized String verifiedBackgroundOwnerHashOrNull() {
+        return context.getSharedPreferences(SESSION_PREFERENCES, Context.MODE_PRIVATE)
+                .getString(VERIFIED_OWNER_HASH, null);
+    }
+
     private UserDatabase openIdentity(UserDatabaseIdentity requested, boolean allowCreate)
             throws IOException, GeneralSecurityException {
         if (activeDatabase != null) {

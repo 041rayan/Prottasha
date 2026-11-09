@@ -57,6 +57,9 @@ public final class HabitsFragment extends Fragment {
             row.habitAction.setEnabled(!item.completed);
             row.habitAction.setOnClickListener(ignored -> viewModel.act(item));
             row.habitArchive.setOnClickListener(ignored -> viewModel.archive(item.habit.id));
+            row.getRoot().setOnClickListener(ignored -> startActivity(
+                    new Intent(requireContext(), HabitDetailActivity.class)
+                            .putExtra(HabitDetailActivity.EXTRA_HABIT_ID, item.habit.id)));
             binding.habitsContainer.addView(row.getRoot());
         }
     }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_large">
+        <TextView android:id="@+id/habit_history_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_headline" android:textStyle="bold" />
+        <com.prottasha.habits.ui.HabitCalendarView android:id="@+id/habit_history_calendar" android:layout_width="match_parent" android:layout_height="140dp" android:layout_marginTop="@dimen/spacing_medium" />
+        <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_medium" android:hint="@string/habit_note_hint">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/habit_note_input" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textCapSentences|textMultiLine" android:minLines="3" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.button.MaterialButton android:id="@+id/habit_note_save" style="@style/Widget.Prottasha.Button.Pill" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_medium" android:text="@string/habit_note_save" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

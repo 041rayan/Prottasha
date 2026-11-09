@@ -45,4 +45,22 @@ public interface HabitDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void upsertAggregate(HabitDayAggregateEntity aggregate);
+
+    @Query("SELECT * FROM habit_day_aggregates WHERE habitId = :habitId ORDER BY epochDay DESC LIMIT :limit")
+    List<HabitDayAggregateEntity> listAggregates(long habitId, int limit);
+
+    @Query("SELECT * FROM habit_day_notes WHERE habitId = :habitId AND epochDay = :epochDay")
+    HabitDayNoteEntity findNote(long habitId, long epochDay);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void upsertNote(HabitDayNoteEntity note);
+
+    @Query("SELECT * FROM habit_reminders WHERE enabled = 1")
+    List<HabitReminderEntity> listEnabledReminders();
+
+    @Query("SELECT * FROM habit_reminders WHERE id = :reminderId")
+    HabitReminderEntity findReminder(long reminderId);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    long upsertReminder(HabitReminderEntity reminder);
 }

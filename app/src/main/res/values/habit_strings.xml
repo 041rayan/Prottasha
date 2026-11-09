@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="habits_title">Habits</string>
+    <string name="habits_add">Add a real habit</string>
+    <string name="habits_empty">No habits yet. Create Build, Avoid, or Amount tracking without sample progress.</string>
+    <string name="habit_edit_title">New habit</string>
+    <string name="habit_title_hint">Habit title</string>
+    <string name="habit_title_required">Enter a habit title.</string>
+    <string name="habit_type_build">Build — complete an action</string>
+    <string name="habit_type_avoid">Avoid — record an explicit lapse</string>
+    <string name="habit_type_amount">Amount — accumulate toward a target</string>
+    <string name="habit_target_hint">Daily target</string>
+    <string name="habit_default_target">1</string>
+    <string name="habit_target_required">Enter a positive target.</string>
+    <string name="habit_save">Save habit</string>
+    <string name="habit_save_failed">The habit could not be saved.</string>
+    <string name="habit_progress">%1$d of %2$d today</string>
+    <string name="habit_action_done">Done</string>
+    <string name="habit_action_lapse">Record lapse</string>
+    <string name="habit_action_increment">+1</string>
+    <string name="habit_archive">Archive</string>
+</resources>

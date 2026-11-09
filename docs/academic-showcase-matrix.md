@@ -16,6 +16,7 @@ Each row must link a rubric-visible capability to real implementation, automated
 | Legacy compatibility boundary | Read-only source snapshot with SHA-256, counts, prototype flags, idempotent encrypted import journal | `LegacyImportFrameworkTest` 4/4 | BG7 source remains byte-for-byte unchanged; feature mappers remain deferred | PASS |
 | Versioned onboarding | Saved purpose/identity draft; persistence only on finish; honest skip | `OnboardingAndShellTest` 4/4 | BG7 recreation, skip, finish, and version gate pass | PASS |
 | Five-tab main shell | Today, Habits, Guard, Insights, Circle with Lifeline/settings | Navigation UI/device tests | BG7 shows honest empty Today and predictable Back | PASS |
+| Event-ledger habits | UID-encrypted Room v3 habits/events/daily aggregates for Build, Avoid, Amount | Habit engine unit suite + habits instrumentation 3/3 | BG7 creates all three types, preserves account isolation, rejects duplicate nonces | PARTIAL |
 | BroadcastReceiver | Reminder and network/power state receivers | Receiver tests | Reboot/time/airplane scenario | PENDING |
 | Foreground Service | Active focus session only | Service tests | Pause/resume/end notification | PENDING |
 | Content Provider | User-selected accountability contact | Permission/picker tests | Select or manually enter partner | PENDING |

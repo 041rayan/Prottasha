@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_large">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/habit_edit_title" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_headline" android:textStyle="bold" />
+        <com.google.android.material.textfield.TextInputLayout android:id="@+id/habit_title_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_medium" android:hint="@string/habit_title_hint">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/habit_title_input" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textCapSentences" android:maxLength="100" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <RadioGroup android:id="@+id/habit_type_group" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_medium" android:checkedButton="@id/habit_type_build">
+            <RadioButton android:id="@+id/habit_type_build" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/touch_target_min" android:text="@string/habit_type_build" />
+            <RadioButton android:id="@+id/habit_type_avoid" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/touch_target_min" android:text="@string/habit_type_avoid" />
+            <RadioButton android:id="@+id/habit_type_amount" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/touch_target_min" android:text="@string/habit_type_amount" />
+        </RadioGroup>
+        <com.google.android.material.textfield.TextInputLayout android:id="@+id/habit_target_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/habit_target_hint" android:visibility="gone">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/habit_target_input" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:text="@string/habit_default_target" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.button.MaterialButton android:id="@+id/habit_save_button" style="@style/Widget.Prottasha.Button.Pill" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_large" android:minHeight="@dimen/touch_target_min" android:text="@string/habit_save" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -53,6 +53,11 @@
             android:name=".onboarding.OnboardingActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".habits.ui.HabitEditActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.main.MainActivity" />
+
         <!-- Main Dashboard Activity -->
         <activity
             android:name=".ui.main.MainActivity"

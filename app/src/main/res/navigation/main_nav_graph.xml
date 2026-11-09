@@ -4,7 +4,7 @@
     android:id="@+id/main_nav_graph"
     app:startDestination="@id/nav_today">
     <fragment android:id="@+id/nav_today" android:name="com.prottasha.today.TodayFragment" android:label="@string/tab_today" />
-    <fragment android:id="@+id/nav_habits" android:name="com.prottasha.ui.main.ShellPlaceholderFragment" android:label="@string/tab_habits" />
+    <fragment android:id="@+id/nav_habits" android:name="com.prottasha.habits.ui.HabitsFragment" android:label="@string/tab_habits" />
     <fragment android:id="@+id/nav_guard" android:name="com.prottasha.ui.main.ShellPlaceholderFragment" android:label="@string/tab_guard" />
     <fragment android:id="@+id/nav_insights" android:name="com.prottasha.ui.main.ShellPlaceholderFragment" android:label="@string/tab_insights" />
     <fragment android:id="@+id/nav_circle" android:name="com.prottasha.ui.main.ShellPlaceholderFragment" android:label="@string/tab_circle" />

@@ -86,3 +86,12 @@ Task 5 performs no live account deletion and no legacy-source contraction. The c
 | Onboarding and shell on TECNO BG7/API 33 | PASS, 4/4 tests |
 | Visible route | Verified session opens encrypted DB, then onboarding or five-tab Main by version |
 | Empty-state truth | PASS: no seeded identity, habits, progress, presence, or metrics |
+
+## Task 7 visible habits gate
+
+| Gate | Result |
+|---|---|
+| Room v2→v3 | Exported habits, immutable events, daily aggregates, substeps, vacations |
+| Pure habit engines | PASS: schedule, type semantics, no-data stats, streak, rebound |
+| Habits package on TECNO BG7/API 33 | PASS, 3/3 tests |
+| Visible flow | Build/Avoid/Amount rows plus editor and truthful zero-data state |

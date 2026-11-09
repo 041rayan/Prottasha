@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/spacing_small">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_medium">
+        <TextView android:id="@+id/habit_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_title" android:textStyle="bold" />
+        <TextView android:id="@+id/habit_type" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/color_text_secondary" android:textSize="@dimen/text_label" />
+        <TextView android:id="@+id/habit_progress" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/color_text_secondary" android:textSize="@dimen/text_body" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton android:id="@+id/habit_archive" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="@dimen/touch_target_min" android:text="@string/habit_archive" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/habit_action" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="@dimen/touch_target_min" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

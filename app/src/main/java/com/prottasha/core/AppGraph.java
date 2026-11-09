@@ -13,6 +13,7 @@ import com.prottasha.core.security.EncryptedPrivateFileStore;
 import com.prottasha.data.local.user.UserSessionDatabaseProvider;
 import com.prottasha.identity.data.IdentityRepository;
 import com.prottasha.habits.data.HabitRepository;
+import com.prottasha.guard.data.GuardRuleRepository;
 
 public final class AppGraph {
 
@@ -26,6 +27,7 @@ public final class AppGraph {
     private final AccountDeletionCoordinator accountDeletionCoordinator;
     private final IdentityRepository identityRepository;
     private final HabitRepository habitRepository;
+    private final GuardRuleRepository guardRuleRepository;
 
     public AppGraph(Context context) {
         applicationContext = context.getApplicationContext();
@@ -37,6 +39,8 @@ public final class AppGraph {
         userSessionManager = new UserSessionManager(userSessionDatabaseProvider, authRepository);
         identityRepository = new IdentityRepository(userSessionDatabaseProvider);
         habitRepository = new HabitRepository(userSessionDatabaseProvider, executors.disk());
+        guardRuleRepository = new GuardRuleRepository(
+                userSessionDatabaseProvider, executors.disk());
         encryptedPrivateFileStore = new EncryptedPrivateFileStore(applicationContext);
         accountDeletionCoordinator = new AccountDeletionCoordinator(
                 applicationContext,
@@ -87,5 +91,9 @@ public final class AppGraph {
 
     public HabitRepository habitRepository() {
         return habitRepository;
+    }
+
+    public GuardRuleRepository guardRuleRepository() {
+        return guardRuleRepository;
     }
 }

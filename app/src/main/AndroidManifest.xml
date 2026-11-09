@@ -63,6 +63,9 @@
             android:exported="false"
             android:parentActivityName=".ui.main.MainActivity" />
 
+        <activity android:name=".guard.ui.AppPickerActivity" android:exported="false" />
+        <activity android:name=".guard.ui.GuardRuleEditActivity" android:exported="false" />
+
         <!-- Main Dashboard Activity -->
         <activity
             android:name=".ui.main.MainActivity"

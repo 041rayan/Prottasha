@@ -82,7 +82,24 @@ public final class UserDatabaseMigrations {
         }
     };
 
-    public static final Migration[] ALL = {MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4};
+    public static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS guard_rules ("
+                    + "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, target TEXT NOT NULL, "
+                    + "label TEXT NOT NULL, mode TEXT NOT NULL, budgetMinutes INTEGER NOT NULL, "
+                    + "startMinute INTEGER NOT NULL, endMinute INTEGER NOT NULL, enabled INTEGER NOT NULL)");
+            database.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS index_guard_rules_target ON guard_rules(target)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS guard_schedules ("
+                    + "ruleId INTEGER NOT NULL, dayOfWeek INTEGER NOT NULL, enabled INTEGER NOT NULL, "
+                    + "PRIMARY KEY(ruleId, dayOfWeek), FOREIGN KEY(ruleId) REFERENCES guard_rules(id) "
+                    + "ON UPDATE NO ACTION ON DELETE CASCADE)");
+        }
+    };
+
+    public static final Migration[] ALL = {
+            MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5
+    };
     public static final RoomDatabase.Callback ENABLE_FOREIGN_KEYS =
             new RoomDatabase.Callback() {
                 @Override

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/spacing_large">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/guard_title" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_display" android:textStyle="bold" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_small" android:text="@string/guard_body" android:textColor="@color/color_text_secondary" android:textSize="@dimen/text_body" />
+        <TextView android:id="@+id/guard_grayscale_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_medium" android:textColor="@color/color_text_secondary" android:textSize="@dimen/text_label" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/guard_add_button" style="@style/Widget.Prottasha.Button.Pill" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_medium" android:text="@string/guard_add" />
+        <TextView android:id="@+id/guard_empty" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_large" android:text="@string/guard_empty" android:textColor="@color/color_text_secondary" android:textSize="@dimen/text_body" />
+        <LinearLayout android:id="@+id/guard_rules" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

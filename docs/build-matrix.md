@@ -104,3 +104,12 @@ Task 5 performs no live account deletion and no legacy-source contraction. The c
 | Reminder/widget safety on TECNO BG7/API 33 | PASS, 3/3 tests |
 | Concrete legacy identity/habit mapping | PASS, 1/1; prototype rows excluded and source unchanged |
 | Widget | Neutral private copy; no database work in `onUpdate` |
+
+## Task 9 Guard configuration gate
+
+| Gate | Result |
+|---|---|
+| Guard engine | PASS: Pause/Budget/Block, cross-midnight, quality, cooldown, essentials |
+| Guard UI/platform on TECNO BG7/API 33 | PASS, 4/4 tests |
+| Package visibility | Launcher query only; no `QUERY_ALL_PACKAGES` |
+| Grayscale | Debug-only protected permission with honest unavailable state by default |

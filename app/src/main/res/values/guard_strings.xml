@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="guard_title">Guard</string>
+    <string name="guard_body">Choose Pause, Budget, or Block independently for each distracting app. Essential and emergency apps are never selectable.</string>
+    <string name="guard_add">Choose an app</string>
+    <string name="guard_empty">No Guard rules yet.</string>
+    <string name="guard_grayscale_available">Grayscale capability is available for this debug showcase.</string>
+    <string name="guard_grayscale_guidance">Grayscale is optional. Grant WRITE_SECURE_SETTINGS by ADB to the debug app to enable it.</string>
+    <string name="guard_rule_summary">%1$s — %2$s %3$d</string>
+    <string name="guard_mode_pause">Pause — step back before opening</string>
+    <string name="guard_mode_budget">Budget — allow minutes, then block</string>
+    <string name="guard_mode_block">Block — no continue action</string>
+    <string name="guard_budget_hint">Daily minutes</string>
+    <string name="guard_budget_default">20</string>
+    <string name="guard_budget_required">Enter a positive budget.</string>
+    <string name="guard_save">Save Guard rule</string>
+    <string name="guard_save_failed">The Guard rule could not be saved.</string>
+</resources>

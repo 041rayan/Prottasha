@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="focus_title">Focus session</string>
+    <string name="focus_minutes_hint">Minutes</string>
+    <string name="focus_default_minutes">25</string>
+    <string name="focus_start">Start focus</string>
+    <string name="focus_pause">Pause</string>
+    <string name="focus_resume">Resume</string>
+    <string name="focus_end">End session</string>
+    <string name="focus_notification_title">Focus session active</string>
+    <string name="focus_notification_body">Tap to pause, resume, or end.</string>
+</resources>

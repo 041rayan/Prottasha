@@ -1,6 +1,7 @@
 package com.prottasha.today;
 
 import android.os.Bundle;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.prottasha.ProttashaApp;
 import com.prottasha.databinding.FragmentTodayBinding;
+import com.prottasha.focus.ui.FocusActivity;
 
 public final class TodayFragment extends Fragment {
 
@@ -32,6 +34,8 @@ public final class TodayFragment extends Fragment {
         ProttashaApp application = (ProttashaApp) requireActivity().getApplication();
         TodayViewModel viewModel = new ViewModelProvider(this, new TodayViewModel.Factory(
                 application.appGraph().identityRepository())).get(TodayViewModel.class);
+        binding.todayFocusButton.setOnClickListener(ignored ->
+                startActivity(new Intent(requireContext(), FocusActivity.class)));
         viewModel.activeIdentity().observe(getViewLifecycleOwner(), identity -> {
             binding.todayIdentityCard.setVisibility(identity == null ? View.GONE : View.VISIBLE);
             if (identity != null) {

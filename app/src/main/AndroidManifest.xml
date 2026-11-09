@@ -70,6 +70,8 @@
             android:name=".intervention.ui.AccessibilityDisclosureActivity"
             android:exported="false" />
 
+        <activity android:name=".focus.ui.FocusActivity" android:exported="false" />
+
         <!-- Main Dashboard Activity -->
         <activity
             android:name=".ui.main.MainActivity"

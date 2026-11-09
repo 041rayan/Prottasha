@@ -1,23 +1,26 @@
 package com.prottasha.service;
 
 import android.accessibilityservice.AccessibilityService;
-import android.content.Intent;
 import android.view.accessibility.AccessibilityEvent;
 
 import com.prottasha.ProttashaApp;
 import com.prottasha.guard.domain.EssentialTargetPolicy;
 import com.prottasha.intervention.platform.ServicePackageFilter;
-import com.prottasha.ui.pause.PauseInterstitialActivity;
+import com.prottasha.intervention.platform.InterventionController;
+import com.prottasha.intervention.platform.InterventionOverlayController;
 
 public final class ProttashaAccessibilityService extends AccessibilityService {
     private static final long COOLDOWN_MS = 15_000L;
     private final ServicePackageFilter filter = new ServicePackageFilter();
     private long lastInterventionAt;
     private volatile long lastEventAt;
+    private InterventionController interventionController;
 
     @Override
     protected void onServiceConnected() {
         ProttashaApp app = (ProttashaApp) getApplication();
+        interventionController = new InterventionController(
+                new InterventionOverlayController(this, app.appGraph().interventionEvents()));
         app.appGraph().executors().disk().execute(() -> {
             try {
                 filter.replace(app.appGraph().userSessionDatabaseProvider().requireOpen()
@@ -39,11 +42,9 @@ public final class ProttashaAccessibilityService extends AccessibilityService {
         String mode = filter.modeFor(packageName);
         if (mode == null || System.currentTimeMillis() - lastInterventionAt < COOLDOWN_MS) return;
         lastInterventionAt = System.currentTimeMillis();
-        Intent intent = new Intent(this, PauseInterstitialActivity.class)
-                .putExtra(PauseInterstitialActivity.EXTRA_TARGET_PACKAGE, packageName)
-                .putExtra("guard_mode", mode)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        if (interventionController != null) {
+            interventionController.intervene(packageName, mode);
+        }
     }
 
     public long lastEventAt() { return lastEventAt; }

@@ -15,6 +15,7 @@ import com.prottasha.identity.data.IdentityRepository;
 import com.prottasha.habits.data.HabitRepository;
 import com.prottasha.guard.data.GuardRuleRepository;
 import com.prottasha.core.platform.NetworkPowerStateRepository;
+import com.prottasha.intervention.data.InterventionEventRepository;
 
 public final class AppGraph {
 
@@ -30,6 +31,7 @@ public final class AppGraph {
     private final HabitRepository habitRepository;
     private final GuardRuleRepository guardRuleRepository;
     private final NetworkPowerStateRepository networkPowerStateRepository;
+    private final InterventionEventRepository interventionEventRepository;
 
     public AppGraph(Context context) {
         applicationContext = context.getApplicationContext();
@@ -44,6 +46,8 @@ public final class AppGraph {
         guardRuleRepository = new GuardRuleRepository(
                 userSessionDatabaseProvider, executors.disk());
         networkPowerStateRepository = new NetworkPowerStateRepository();
+        interventionEventRepository = new InterventionEventRepository(
+                userSessionDatabaseProvider, executors.disk());
         encryptedPrivateFileStore = new EncryptedPrivateFileStore(applicationContext);
         accountDeletionCoordinator = new AccountDeletionCoordinator(
                 applicationContext,
@@ -102,5 +106,9 @@ public final class AppGraph {
 
     public NetworkPowerStateRepository networkPowerState() {
         return networkPowerStateRepository;
+    }
+
+    public InterventionEventRepository interventionEvents() {
+        return interventionEventRepository;
     }
 }

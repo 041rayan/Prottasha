@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/color_pause_scrim" android:gravity="center"
+    android:orientation="vertical" android:padding="@dimen/spacing_large">
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/intervention_title" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_display" android:textStyle="bold" />
+    <TextView android:id="@+id/intervention_target" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_small" android:textColor="@color/color_text_secondary" android:textSize="@dimen/text_body" />
+    <com.google.android.material.textfield.TextInputLayout android:id="@+id/intervention_intention_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_large" android:hint="@string/intervention_intention_hint">
+        <com.google.android.material.textfield.TextInputEditText android:id="@+id/intervention_intention" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textCapSentences" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.button.MaterialButton android:id="@+id/intervention_step_back" style="@style/Widget.Prottasha.Button.Pill" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_large" android:text="@string/intervention_step_back" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/intervention_continue" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/intervention_continue" />
+</LinearLayout>

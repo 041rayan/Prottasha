@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:padding="@dimen/spacing_large">
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/focus_title" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_headline" android:textStyle="bold" />
+    <EditText android:id="@+id/focus_minutes" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/focus_minutes_hint" android:inputType="number" android:text="@string/focus_default_minutes" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/focus_start" style="@style/Widget.Prottasha.Button.Pill" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/focus_start" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/focus_pause" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/focus_pause" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/focus_resume" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/focus_resume" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/focus_end" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/focus_end" />
+</LinearLayout>

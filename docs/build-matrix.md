@@ -122,3 +122,12 @@ Task 5 performs no live account deletion and no legacy-source contraction. The c
 | Accessibility disclosure on TECNO BG7/API 33 | PASS, affirmative versioned consent |
 | Service privacy | Window-state events only, dynamic selected packages, no node content retrieval |
 | Network/power state | Broadcasts update observable state; no Toast/fake sync claims |
+
+## Task 11 intervention/focus gate
+
+| Gate | Result |
+|---|---|
+| Intervention/focus unit suite | PASS: terminal semantics, intention, Block, rapid reopen, timer restore |
+| Guard modes on TECNO BG7/API 33 | PASS, 3/3 tests |
+| Focus service on TECNO BG7/API 33 | PASS, 1/1 persisted start/end test |
+| Overlay type | `TYPE_ACCESSIBILITY_OVERLAY`; no `SYSTEM_ALERT_WINDOW` |

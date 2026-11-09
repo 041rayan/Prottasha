@@ -43,6 +43,14 @@
             android:textSize="@dimen/text_title"
             android:textStyle="bold" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/today_focus_button"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/focus_start" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

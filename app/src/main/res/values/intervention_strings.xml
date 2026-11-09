@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intervention_title">Step back</string>
+    <string name="intervention_intention_hint">What are you opening this for?</string>
+    <string name="intervention_intention_required">State your intention first.</string>
+    <string name="intervention_step_back">Return home</string>
+    <string name="intervention_continue">Continue intentionally</string>
+</resources>

@@ -1,98 +1,76 @@
 package com.prottasha.service;
 
-import android.Manifest;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.pm.PackageManager;
 import android.content.Intent;
-import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
 
 import com.prottasha.ProttashaApp;
 import com.prottasha.R;
-import com.prottasha.ui.main.MainActivity;
+import com.prottasha.focus.data.FocusSessionEntity;
+import com.prottasha.focus.ui.FocusActivity;
 
-public class ProttashaFocusService extends Service {
-
+public final class ProttashaFocusService extends Service {
+    public static final String ACTION_START = "com.prottasha.focus.START";
+    public static final String ACTION_PAUSE = "com.prottasha.focus.PAUSE";
+    public static final String ACTION_RESUME = "com.prottasha.focus.RESUME";
+    public static final String ACTION_END = "com.prottasha.focus.END";
+    public static final String EXTRA_DURATION_MILLIS = "duration_millis";
     private static final int NOTIFICATION_ID = 1001;
-    private final Handler handler = new Handler(Looper.getMainLooper());
-    private int elapsedMinutes = 0;
-    private boolean isRunning = false;
-
-    private final Runnable timerRunnable = new Runnable() {
-        @Override
-        public void run() {
-            if (isRunning) {
-                elapsedMinutes++;
-                updateNotification();
-                handler.postDelayed(this, 60000); // Update every minute
-            }
-        }
-    };
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (!isRunning) {
-            isRunning = true;
-            elapsedMinutes = 0;
-            startForeground(NOTIFICATION_ID, buildNotification());
-            handler.postDelayed(timerRunnable, 60000);
+        if (intent == null || intent.getAction() == null) return START_NOT_STICKY;
+        ProttashaApp app = (ProttashaApp) getApplication();
+        String action = intent.getAction();
+        if (ACTION_END.equals(action)) {
+            app.appGraph().executors().disk().execute(() -> {
+                try { app.appGraph().userSessionDatabaseProvider().requireOpen().focusDao().clear(); }
+                catch (IllegalStateException ignored) { }
+            });
+            stopForeground(STOP_FOREGROUND_REMOVE);
+            stopSelf();
+            return START_NOT_STICKY;
         }
-        return START_STICKY;
+        long now = System.currentTimeMillis();
+        app.appGraph().executors().disk().execute(() -> {
+            try {
+                com.prottasha.focus.data.FocusDao dao = app.appGraph()
+                        .userSessionDatabaseProvider().requireOpen().focusDao();
+                FocusSessionEntity current = dao.find();
+                if (ACTION_START.equals(action)) {
+                    dao.save(new FocusSessionEntity(1,
+                            intent.getLongExtra(EXTRA_DURATION_MILLIS, 25 * 60_000L),
+                            now, 0L, "RUNNING"));
+                } else if (current != null && ACTION_PAUSE.equals(action)) {
+                    dao.save(new FocusSessionEntity(1, current.durationMillis, current.startedAt,
+                            current.accumulatedMillis + Math.max(0, now - current.startedAt), "PAUSED"));
+                } else if (current != null && ACTION_RESUME.equals(action)) {
+                    dao.save(new FocusSessionEntity(1, current.durationMillis, now,
+                            current.accumulatedMillis, "RUNNING"));
+                }
+            } catch (IllegalStateException ignored) { }
+        });
+        startForeground(NOTIFICATION_ID, notification());
+        return START_NOT_STICKY;
     }
 
-    private void updateNotification() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-                && ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
-                != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        Notification notification = buildNotification();
-        try {
-            NotificationManagerCompat.from(this).notify(NOTIFICATION_ID, notification);
-        } catch (SecurityException ignored) {
-            // Notification permission or channel access can be revoked while the service is active.
-        }
-    }
-
-    private Notification buildNotification() {
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(
-                this, 0, notificationIntent,
-                PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT
-        );
-
-        String title = "Prottasha Deep Focus Active";
-        String content = "Living as ideal identity • " + elapsedMinutes + " minutes distraction-free";
-
+    private Notification notification() {
+        PendingIntent open = PendingIntent.getActivity(this, 0,
+                new Intent(this, FocusActivity.class),
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         return new NotificationCompat.Builder(this, ProttashaApp.FOCUS_NOTIFICATION_CHANNEL_ID)
-                .setContentTitle(title)
-                .setContentText(content)
-                .setSmallIcon(R.drawable.ic_tab_identity)
-                .setContentIntent(pendingIntent)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(getString(R.string.focus_notification_title))
+                .setContentText(getString(R.string.focus_notification_body))
+                .setContentIntent(open)
                 .setOngoing(true)
-                .setPriority(NotificationCompat.PRIORITY_LOW)
                 .build();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        isRunning = false;
-        handler.removeCallbacks(timerRunnable);
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
+    @Nullable @Override public IBinder onBind(Intent intent) { return null; }
 }

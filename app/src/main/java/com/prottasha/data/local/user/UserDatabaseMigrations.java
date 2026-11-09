@@ -106,8 +106,21 @@ public final class UserDatabaseMigrations {
         }
     };
 
+    public static final Migration MIGRATION_6_7 = new Migration(6, 7) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS intervention_events ("
+                    + "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, target TEXT NOT NULL, "
+                    + "type TEXT NOT NULL, timestamp INTEGER NOT NULL, intention TEXT NOT NULL)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS focus_session ("
+                    + "id INTEGER NOT NULL, durationMillis INTEGER NOT NULL, startedAt INTEGER NOT NULL, "
+                    + "accumulatedMillis INTEGER NOT NULL, state TEXT NOT NULL, PRIMARY KEY(id))");
+        }
+    };
+
     public static final Migration[] ALL = {
-            MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6
+            MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5,
+            MIGRATION_5_6, MIGRATION_6_7
     };
     public static final RoomDatabase.Callback ENABLE_FOREIGN_KEYS =
             new RoomDatabase.Callback() {

@@ -19,3 +19,11 @@ firebase deploy --only firestore:rules,database --dry-run --project prottasha-cs
 ```
 
 Live deployment requires explicit approval and remote ruleset hash verification.
+
+## Live rules deployment — 2026-11-10
+
+- Explicit deployment approval received.
+- Firestore ruleset: `8bb7963e-f078-43b1-8029-a0cfadd9496f`.
+- Firestore local/remote SHA-256: `ba8e02dd8a9e32f03e7ffdc57450126219224fc79fdb8fdfde879b6cbd42dc3b` (exact match).
+- RTDB semantic SHA-256: `26b0529da2839ceeb34eec591a26ccf25e9d9e832d612633b68ac4f4f32e8233` (exact semantic match).
+- Membership remains unprovisioned; no users or pod data were created.

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FA0B0F17"
+    android:padding="@dimen/spacing_large">
+
+    <!-- Top Badge -->
+    <TextView
+        android:id="@+id/tvPauseTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MINDFUL FRICTION PAUSE (EX-01)"
+        android:textColor="@color/color_friction_amber"
+        android:textSize="@dimen/text_caption"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/spacing_large" />
+
+    <!-- Core Question -->
+    <TextView
+        android:id="@+id/tvPauseQuestion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:text="@string/pause_question"
+        android:textColor="@color/color_text_primary"
+        android:textSize="@dimen/text_headline"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/tvPauseTag"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvIdentityReminder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:text="“Every action you take is a vote for the type of person you wish to become.” — Atomic Habits"
+        android:textColor="@color/color_text_secondary"
+        android:textSize="@dimen/text_body"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/tvPauseQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Breathing Pulsing Circle Container -->
+    <FrameLayout
+        android:id="@+id/pauseBreathingContainer"
+        android:layout_width="@dimen/breathing_circle_size"
+        android:layout_height="@dimen/breathing_circle_size"
+        android:background="@drawable/bg_breathing_circle"
+        app:layout_constraintTop_toBottomOf="@id/tvIdentityReminder"
+        app:layout_constraintBottom_toTopOf="@id/actionsLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tvPauseCountdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="10s"
+            android:textColor="@color/color_text_primary"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPauseBreathingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:text="Inhale deeply…"
+            android:textColor="@color/color_identity_glow"
+            android:textSize="@dimen/text_caption" />
+
+    </FrameLayout>
+
+    <!-- Bottom Actions Layout -->
+    <LinearLayout
+        android:id="@+id/actionsLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/spacing_medium">
+
+        <!-- Primary Action: Explicit Low-Effort Exit (EX-01) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStepBack"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:backgroundTint="@color/color_vote_emerald"
+            android:text="Step back to my ideal self (+1 Vote)"
+            android:textColor="@color/color_text_inverse"
+            android:textSize="@dimen/text_body"
+            android:textStyle="bold" />
+
+        <!-- Optional conscious intention proceed (unlocked only after delay) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnProceedWithIntention"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xsmall"
+            android:text="I need to use this app with intention (locked)"
+            android:textColor="@color/color_text_tertiary"
+            android:enabled="false" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

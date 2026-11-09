@@ -1,0 +1,34 @@
+{
+  "version": "2026.11",
+  "updated_at": "2026-11-09",
+  "clinics": [
+    {
+      "name": "Talk Hope Bangladesh (24/7 Lifeline)",
+      "specialization": "Free, confidential emotional crisis and suicide prevention helpline",
+      "phone": "+8809638881888",
+      "hours": "24/7 Daily",
+      "website": "https://facebook.com/talkhope.bd"
+    },
+    {
+      "name": "Kaan Pete Roi Helpline",
+      "specialization": "Emotional support & suicide prevention (volunteer-staffed)",
+      "phone": "09612119911",
+      "hours": "3:00 PM - 3:00 AM Daily",
+      "website": "https://facebook.com/kaan.pete.roi/"
+    },
+    {
+      "name": "Vent by Mindspace",
+      "specialization": "Youth & adult psychological counseling & addiction therapy",
+      "phone": "09678678778",
+      "hours": "6:00 PM - 6:00 AM Daily",
+      "website": "https://www.mindspacebd.com"
+    },
+    {
+      "name": "Bangladesh Child & Youth Helpline 1098",
+      "specialization": "Psychosocial support for youth and adolescents",
+      "phone": "1098",
+      "hours": "24/7 Daily",
+      "website": "https://dss.gov.bd"
+    }
+  ]
+}

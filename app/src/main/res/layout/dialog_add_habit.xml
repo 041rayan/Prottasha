@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_medium"
+    android:background="@color/color_surface_card">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Design a Habit (Atomic Habits)"
+        android:textColor="@color/color_text_primary"
+        android:textSize="@dimen/text_title"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:hint="Habit Title (e.g. Deep Reading)"
+        app:boxStrokeColor="@color/color_identity_glow">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etHabitTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_text_primary" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:hint="Law 1 Cue: Where &amp; When?"
+        app:boxStrokeColor="@color/color_identity_glow">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etHabitCue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_text_primary" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:hint="Law 3 Response: 2-Minute Version (AH-14)"
+        app:boxStrokeColor="@color/color_identity_glow">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etHabitResponse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_text_primary" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/switchIsGood"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:text="Good habit to build (vs bad habit to break)"
+        android:textColor="@color/color_text_secondary"
+        android:checked="true" />
+
+</LinearLayout>

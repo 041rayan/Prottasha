@@ -118,9 +118,28 @@ public final class UserDatabaseMigrations {
         }
     };
 
+    public static final Migration MIGRATION_7_8 = new Migration(7, 8) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS reflections ("
+                    + "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, epochDay INTEGER NOT NULL, "
+                    + "fact TEXT NOT NULL, interpretation TEXT NOT NULL, lesson TEXT NOT NULL, "
+                    + "createdAt INTEGER NOT NULL)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS reflection_images ("
+                    + "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, entryId INTEGER NOT NULL, "
+                    + "storageId TEXT NOT NULL, FOREIGN KEY(entryId) REFERENCES reflections(id) "
+                    + "ON UPDATE NO ACTION ON DELETE CASCADE)");
+            database.execSQL("CREATE INDEX IF NOT EXISTS index_reflection_images_entryId "
+                    + "ON reflection_images(entryId)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS trigger_plans ("
+                    + "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, cue TEXT NOT NULL, "
+                    + "plan TEXT NOT NULL, createdAt INTEGER NOT NULL)");
+        }
+    };
+
     public static final Migration[] ALL = {
             MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5,
-            MIGRATION_5_6, MIGRATION_6_7
+            MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8
     };
     public static final RoomDatabase.Callback ENABLE_FOREIGN_KEYS =
             new RoomDatabase.Callback() {

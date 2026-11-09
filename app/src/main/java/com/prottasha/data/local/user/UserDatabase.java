@@ -28,6 +28,11 @@ import com.prottasha.intervention.data.InterventionDao;
 import com.prottasha.intervention.data.InterventionEventEntity;
 import com.prottasha.focus.data.FocusDao;
 import com.prottasha.focus.data.FocusSessionEntity;
+import com.prottasha.insights.data.InsightsDao;
+import com.prottasha.insights.data.JournalEntryEntity;
+import com.prottasha.insights.data.JournalImageEntity;
+import com.prottasha.triggers.data.TriggerDao;
+import com.prottasha.triggers.data.TriggerPlanEntity;
 
 @Database(
         entities = {
@@ -47,9 +52,12 @@ import com.prottasha.focus.data.FocusSessionEntity;
                 GuardScheduleEntity.class,
                 UsageDailyEntity.class,
                 InterventionEventEntity.class,
-                FocusSessionEntity.class
+                FocusSessionEntity.class,
+                JournalEntryEntity.class,
+                JournalImageEntity.class,
+                TriggerPlanEntity.class
         },
-        version = 7,
+        version = 8,
         exportSchema = true)
 public abstract class UserDatabase extends RoomDatabase {
     public abstract LocalAccountDao localAccountDao();
@@ -60,4 +68,6 @@ public abstract class UserDatabase extends RoomDatabase {
     public abstract UsageDao usageDao();
     public abstract InterventionDao interventionDao();
     public abstract FocusDao focusDao();
+    public abstract InsightsDao insightsDao();
+    public abstract TriggerDao triggerPlanDao();
 }

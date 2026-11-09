@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="insights_title">Insights</string>
+    <string name="insights_no_data">No intervention decisions yet. Zero data is not a perfect score.</string>
+    <string name="insights_rate">%1$d%% follow-through across %2$d recorded decisions</string>
+    <string name="insights_sample_adequate">Pattern sample is large enough for a quiet observation, not a causal claim.</string>
+    <string name="insights_sample_limited">Limited sample—avoid drawing conclusions yet.</string>
+    <string name="insights_chart_description">%1$d percent follow-through across %2$d decisions</string>
+    <string name="insights_reflect">Write a reflection</string>
+    <string name="insights_methodology">How these numbers work</string>
+    <string name="reflection_title">Fact, interpretation, lesson</string>
+    <string name="reflection_fact">What happened? Keep it observable.</string>
+    <string name="reflection_interpretation">What did you make it mean?</string>
+    <string name="reflection_lesson">What will you try next?</string>
+    <string name="reflection_save">Save privately</string>
+    <string name="methodology_body">Research-supported: implementation intentions and self-monitoring can support behavior change. Evidence-informed: Prottasha’s Step Back and rebound summaries combine those ideas with local event data. Book-inspired: identity language draws from Atomic Habits; self-image reflection draws from Psycho-Cybernetics. Prottasha does not diagnose, treat, or prove reclaimed time. Rapid reopen is not counted as durable follow-through.</string>
+    <string name="support_entry">%1$s\n%2$s · %3$s\nStatus: %4$s\nSource: %5$s\nChecked: %6$s</string>
+</resources>

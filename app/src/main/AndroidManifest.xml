@@ -23,6 +23,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:usesCleartextTraffic="false"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/Theme.Prottasha">
 
         <!-- Account gate / launcher -->
@@ -71,6 +72,8 @@
             android:exported="false" />
 
         <activity android:name=".focus.ui.FocusActivity" android:exported="false" />
+        <activity android:name=".insights.ui.ReflectionActivity" android:exported="false" />
+        <activity android:name=".methodology.MethodologyActivity" android:exported="false" />
 
         <!-- Main Dashboard Activity -->
         <activity

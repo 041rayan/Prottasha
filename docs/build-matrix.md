@@ -131,3 +131,12 @@ Task 5 performs no live account deletion and no legacy-source contraction. The c
 | Guard modes on TECNO BG7/API 33 | PASS, 3/3 tests |
 | Focus service on TECNO BG7/API 33 | PASS, 1/1 persisted start/end test |
 | Overlay type | `TYPE_ACCESSIBILITY_OVERLAY`; no `SYSTEM_ALERT_WINDOW` |
+
+## Task 12 insights/support gate
+
+| Gate | Result |
+|---|---|
+| Insights/support unit suite | PASS: no-data truth, rapid reopen, sample threshold, HTTPS validation |
+| Insights/support on TECNO BG7/API 33 | PASS, 2/2 tests |
+| Methodology labels | Research-supported, evidence-informed, and book-inspired are separated |
+| Assessments | Not implemented; licensing gate remains closed |

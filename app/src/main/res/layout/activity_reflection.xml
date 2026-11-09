@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/spacing_large">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/reflection_title" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_headline" android:textStyle="bold" />
+        <EditText android:id="@+id/reflection_fact" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/reflection_fact" android:inputType="textCapSentences|textMultiLine" />
+        <EditText android:id="@+id/reflection_interpretation" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/reflection_interpretation" android:inputType="textCapSentences|textMultiLine" />
+        <EditText android:id="@+id/reflection_lesson" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/reflection_lesson" android:inputType="textCapSentences|textMultiLine" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/reflection_save" style="@style/Widget.Prottasha.Button.Pill" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/reflection_save" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

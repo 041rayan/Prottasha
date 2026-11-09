@@ -21,6 +21,7 @@ Each row must link a rubric-visible capability to real implementation, automated
 | Guard rule configuration | Per-target Pause/Budget/Block, essential-app exclusion, launcher-only picker | Guard engine unit suite + Guard instrumentation 4/4 | BG7 stores independent modes and shows honest grayscale capability | PASS |
 | Private usage observation | COMPLETE/PARTIAL/UNAVAILABLE aggregation, selected-package filter, host-only browser normalization | Usage/domain unit suite + disclosure device test | BG7 consent is separate/versioned; service retrieves no window content | PARTIAL |
 | Guard intervention and focus | Accessibility overlay, exactly-once state machine, persisted user-started focus service | Intervention/focus unit suite; BG7 modes 3/3 and focus 1/1 | Pause has immediate Step Back; Block has no continue; service is non-sticky | PASS |
+| Insights/reflection/support | Truthful follow-through snapshots, private fact/interpretation/lesson, sourced dial directory | Insights/support unit suite + BG7 flow 2/2 | Zero data is explicit; rapid reopen excluded; 999 entry shows source/date/hours | PASS |
 | BroadcastReceiver | Reminder and network/power state receivers | Receiver tests | Reboot/time/airplane scenario | PENDING |
 | Foreground Service | Active focus session only | Service tests | Pause/resume/end notification | PENDING |
 | Content Provider | User-selected accountability contact | Permission/picker tests | Select or manually enter partner | PENDING |

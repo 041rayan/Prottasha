@@ -47,7 +47,7 @@
     <string name="auth_status_offline">Offline: only a previously verified local session can continue.</string>
     <string name="auth_status_verification_sent">Verification email sent.</string>
     <string name="auth_status_reset_sent">If the address can receive a reset email, Firebase has sent one.</string>
-    <string name="auth_verified_secure_setup_pending">Email verified. Secure local account setup is the next implementation gate; legacy Main remains closed.</string>
+    <string name="auth_verified_secure_setup_pending">Email verified. Opening your encrypted local space…</string>
     <string name="auth_legal_title">Academic Terms and Privacy notice</string>
     <string name="auth_legal_body">Prottasha is an academic self-management application, not medical treatment. Authentication data and the minimal public pod profile use Firebase. Habits, usage, journals, triggers, and private images remain encrypted on this device. The showcase does not sell data or include advertising analytics. Deleting an account removes the defined local and cloud records through the in-app deletion flow once implemented. Circle is peer support, not professional care.</string>
     <string name="action_close">Close</string>

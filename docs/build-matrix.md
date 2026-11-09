@@ -77,3 +77,12 @@ The `NewerVersionAvailable` warning for SQLCipher is intentionally retained: upg
 | Prototype seed boundary | PASS: existing seed signatures are flagged; newly created legacy databases remain empty |
 
 Task 5 performs no live account deletion and no legacy-source contraction. The cloud gateway deletes only the current UID profile until Task 13 adds bounded Circle-owned records.
+
+## Task 6 visible shell gate
+
+| Gate | Result |
+|---|---|
+| SQLCipher Room v1→v2 schema | Identity + success-memory tables, explicit migration, exported schema |
+| Onboarding and shell on TECNO BG7/API 33 | PASS, 4/4 tests |
+| Visible route | Verified session opens encrypted DB, then onboarding or five-tab Main by version |
+| Empty-state truth | PASS: no seeded identity, habits, progress, presence, or metrics |

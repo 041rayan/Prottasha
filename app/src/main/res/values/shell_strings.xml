@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tab_today">Today</string>
+    <string name="tab_habits">Habits</string>
+    <string name="tab_guard">Guard</string>
+    <string name="tab_insights">Insights</string>
+    <string name="tab_circle">Circle</string>
+    <string name="main_lifeline">Lifeline</string>
+    <string name="main_settings">Settings</string>
+    <string name="today_title">Today</string>
+    <string name="today_empty_title">Your day is clear</string>
+    <string name="today_empty_body">No habits are due yet. Add your first real habit in the next setup step—Prottasha will not invent progress for you.</string>
+    <string name="shell_placeholder_body">This destination is ready for its next vertical slice. No sample data is shown.</string>
+</resources>

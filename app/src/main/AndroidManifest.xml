@@ -49,6 +49,10 @@
             android:name=".settings.account.AccountActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".onboarding.OnboardingActivity"
+            android:exported="false" />
+
         <!-- Main Dashboard Activity -->
         <activity
             android:name=".ui.main.MainActivity"

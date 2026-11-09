@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/onboarding_nav_graph"
+    app:startDestination="@id/purposeFragment">
+
+    <fragment
+        android:id="@+id/purposeFragment"
+        android:name="com.prottasha.onboarding.PurposeFragment"
+        android:label="@string/onboarding_purpose_title" />
+    <fragment
+        android:id="@+id/identityFragment"
+        android:name="com.prottasha.onboarding.IdentityFragment"
+        android:label="@string/onboarding_identity_title" />
+</navigation>

@@ -11,6 +11,7 @@ import com.prottasha.auth.domain.ReauthenticationCoordinator;
 import com.prottasha.auth.domain.UserSessionManager;
 import com.prottasha.core.security.EncryptedPrivateFileStore;
 import com.prottasha.data.local.user.UserSessionDatabaseProvider;
+import com.prottasha.identity.data.IdentityRepository;
 
 public final class AppGraph {
 
@@ -22,6 +23,7 @@ public final class AppGraph {
     private final UserSessionManager userSessionManager;
     private final EncryptedPrivateFileStore encryptedPrivateFileStore;
     private final AccountDeletionCoordinator accountDeletionCoordinator;
+    private final IdentityRepository identityRepository;
 
     public AppGraph(Context context) {
         applicationContext = context.getApplicationContext();
@@ -31,6 +33,7 @@ public final class AppGraph {
         cloudUserProfileRepository = new CloudUserProfileRepository();
         userSessionDatabaseProvider = new UserSessionDatabaseProvider(applicationContext);
         userSessionManager = new UserSessionManager(userSessionDatabaseProvider, authRepository);
+        identityRepository = new IdentityRepository(userSessionDatabaseProvider);
         encryptedPrivateFileStore = new EncryptedPrivateFileStore(applicationContext);
         accountDeletionCoordinator = new AccountDeletionCoordinator(
                 applicationContext,
@@ -73,5 +76,9 @@ public final class AppGraph {
 
     public AccountDeletionCoordinator accountDeletionCoordinator() {
         return accountDeletionCoordinator;
+    }
+
+    public IdentityRepository identityRepository() {
+        return identityRepository;
     }
 }

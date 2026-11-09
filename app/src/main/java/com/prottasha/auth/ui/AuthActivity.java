@@ -20,6 +20,7 @@ public final class AuthActivity extends AppCompatActivity {
     private ActivityAuthBinding binding;
     private NavController navController;
     private AuthViewModel viewModel;
+    private boolean routingVerifiedUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,6 +65,11 @@ public final class AuthActivity extends AppCompatActivity {
         } else if (state.status() == AuthState.Status.VERIFIED_ONLINE
                 || state.status() == AuthState.Status.VERIFIED_OFFLINE) {
             binding.authStatusMessage.setText(R.string.auth_verified_secure_setup_pending);
+            if (!routingVerifiedUser) {
+                routingVerifiedUser = true;
+                startActivity(new android.content.Intent(this, LaunchActivity.class));
+                finish();
+            }
         }
 
         if (state.status() == AuthState.Status.UNVERIFIED && state.userOrNull() != null) {

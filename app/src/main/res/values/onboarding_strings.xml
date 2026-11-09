@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onboarding_purpose_title">What are you protecting?</string>
+    <string name="onboarding_purpose_body">Name the reason you want more choice over your attention. This stays encrypted on this device.</string>
+    <string name="onboarding_purpose_hint">My attention matters because…</string>
+    <string name="onboarding_identity_title">Who are you becoming?</string>
+    <string name="onboarding_identity_body">Use your own words. This is an identity cue, not a score or diagnosis.</string>
+    <string name="onboarding_identity_hint">I am someone who…</string>
+    <string name="onboarding_identity_required">Write an identity statement or skip for now.</string>
+    <string name="onboarding_finish">Finish setup</string>
+    <string name="action_continue">Continue</string>
+    <string name="action_back">Back</string>
+    <string name="action_skip_for_now">Skip for now</string>
+</resources>

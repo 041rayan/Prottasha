@@ -20,7 +20,8 @@ public final class ForegroundAndroidJUnitRunner extends AndroidJUnitRunner {
     @Override
     public void onStart() {
         String requestedClass = arguments.getString("class", "");
-        if (requestedClass.contains("com.prottasha.data.local.")) {
+        if (requestedClass.contains("com.prottasha.data.local.")
+                || requestedClass.contains("OnboardingAndShellTest")) {
             Intent host = new Intent(getTargetContext(), AuthActivity.class)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivitySync(host);

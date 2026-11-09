@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Prottasha</string>
+    <string name="app_tagline">Identity over willpower.</string>
+
+    <!-- Navigation Tabs -->
+    <string name="tab_identity_habits">Identity</string>
+    <string name="tab_tracker">Tracker</string>
+    <string name="tab_toolkit">Toolkit</string>
+    <string name="tab_pods_journal">Community</string>
+
+    <!-- Pause Interstitial Strings -->
+    <string name="pause_question">Is this your identity or your habit?</string>
+    <string name="pause_step_back">Step back to my ideal self</string>
+    <string name="pause_intention_entry">Enter intention to continue (unlocked after delay)</string>
+    <string name="pause_continue_anyway">Proceed with conscious intention</string>
+    <string name="pause_countdown_format">%d seconds left</string>
+    <string name="pause_breath_inhale">Inhale deeply…</string>
+    <string name="pause_breath_exhale">Exhale slowly…</string>
+
+    <!-- Four Laws Strings -->
+    <string name="law_1_obvious">1. Make it Obvious</string>
+    <string name="law_2_attractive">2. Make it Attractive</string>
+    <string name="law_3_easy">3. Make it Easy</string>
+    <string name="law_4_satisfying">4. Make it Satisfying</string>
+    <string name="never_miss_twice_title">Rebound Opportunity</string>
+    <string name="never_miss_twice_desc">A slip is just a vote, not the election. Resuming today keeps the habit alive!</string>
+
+    <!-- Hotlines & Helplines -->
+    <string name="emergency_999">Emergency Services (999)</string>
+    <string name="hotline_talk_hope">Talk Hope Helpline (+880 9638 881 888)</string>
+    <string name="hotline_kaan_pete_roi">Kaan Pete Roi (+880 9612-119911)</string>
+    <string name="hotline_mindspace">Vent by Mindspace (09678-678-778)</string>
+    <string name="hotline_child">Child &amp; Youth Helpline (1098)</string>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Obsidian & Biophilic Calm Palette -->
+    <color name="color_bg_primary">#0B0F17</color>
+    <color name="color_bg_secondary">#111827</color>
+    <color name="color_surface_card">#161F2E</color>
+    <color name="color_surface_elevated">#1E293B</color>
+    <color name="color_surface_glass">#80161F2E</color>
+    <color name="color_border_subtle">#334155</color>
+    <color name="color_border_focus">#6366F1</color>
+
+    <!-- Semantic Intent Tokens -->
+    <color name="color_identity_glow">#818CF8</color>
+    <color name="color_identity_dark">#4338CA</color>
+    <color name="color_vote_emerald">#10B981</color>
+    <color name="color_vote_emerald_dark">#047857</color>
+    <color name="color_friction_amber">#F59E0B</color>
+    <color name="color_friction_amber_dark">#B45309</color>
+    <color name="color_crisis_coral">#EF4444</color>
+    <color name="color_crisis_coral_dark">#B91C1C</color>
+
+    <!-- Typography Text Tokens -->
+    <color name="color_text_primary">#F8FAFC</color>
+    <color name="color_text_secondary">#94A3B8</color>
+    <color name="color_text_tertiary">#64748B</color>
+    <color name="color_text_inverse">#0B0F17</color>
+
+    <!-- Interactive States -->
+    <color name="color_ripple_light">#33FFFFFF</color>
+    <color name="color_ripple_identity">#33818CF8</color>
+    <color name="color_ripple_emerald">#3310B981</color>
+</resources>

@@ -17,6 +17,7 @@ import com.prottasha.R;
 import com.prottasha.databinding.FragmentGuardBinding;
 import com.prottasha.guard.data.GuardRuleEntity;
 import com.prottasha.guard.platform.GrayscaleCapabilityController;
+import com.prottasha.intervention.ui.AccessibilityDisclosureActivity;
 
 import java.util.List;
 
@@ -39,6 +40,8 @@ public final class GuardFragment extends Fragment {
                 app.appGraph().guardRuleRepository())).get(GuardViewModel.class);
         binding.guardAddButton.setOnClickListener(ignored ->
                 startActivity(new Intent(requireContext(), AppPickerActivity.class)));
+        binding.guardEnableService.setOnClickListener(ignored -> startActivity(
+                new Intent(requireContext(), AccessibilityDisclosureActivity.class)));
         GrayscaleCapabilityController grayscale = new GrayscaleCapabilityController(requireContext());
         binding.guardGrayscaleStatus.setText(grayscale.hasCapability()
                 ? R.string.guard_grayscale_available : R.string.guard_grayscale_guidance);

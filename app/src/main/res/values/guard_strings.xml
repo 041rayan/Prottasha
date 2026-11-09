@@ -3,6 +3,7 @@
     <string name="guard_title">Guard</string>
     <string name="guard_body">Choose Pause, Budget, or Block independently for each distracting app. Essential and emergency apps are never selectable.</string>
     <string name="guard_add">Choose an app</string>
+    <string name="guard_enable_service">Enable Guard observation</string>
     <string name="guard_empty">No Guard rules yet.</string>
     <string name="guard_grayscale_available">Grayscale capability is available for this debug showcase.</string>
     <string name="guard_grayscale_guidance">Grayscale is optional. Grant WRITE_SECURE_SETTINGS by ADB to the debug app to enable it.</string>

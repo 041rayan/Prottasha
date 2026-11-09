@@ -113,3 +113,12 @@ Task 5 performs no live account deletion and no legacy-source contraction. The c
 | Guard UI/platform on TECNO BG7/API 33 | PASS, 4/4 tests |
 | Package visibility | Launcher query only; no `QUERY_ALL_PACKAGES` |
 | Grayscale | Debug-only protected permission with honest unavailable state by default |
+
+## Task 10 usage/accessibility gate
+
+| Gate | Result |
+|---|---|
+| Usage/domain unit suite | PASS: overlap, malformed pairs, quality, canonical host privacy |
+| Accessibility disclosure on TECNO BG7/API 33 | PASS, affirmative versioned consent |
+| Service privacy | Window-state events only, dynamic selected packages, no node content retrieval |
+| Network/power state | Broadcasts update observable state; no Toast/fake sync claims |

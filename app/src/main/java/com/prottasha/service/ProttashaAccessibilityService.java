@@ -4,52 +4,48 @@ import android.accessibilityservice.AccessibilityService;
 import android.content.Intent;
 import android.view.accessibility.AccessibilityEvent;
 
+import com.prottasha.ProttashaApp;
+import com.prottasha.guard.domain.EssentialTargetPolicy;
+import com.prottasha.intervention.platform.ServicePackageFilter;
 import com.prottasha.ui.pause.PauseInterstitialActivity;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
-public class ProttashaAccessibilityService extends AccessibilityService {
-
-    // Default distraction packages (Short video feeds, social media, casinos)
-    private static final Set<String> BLOCKED_PACKAGES = new HashSet<>(Arrays.asList(
-            "com.zhiliaoapp.musically",       // TikTok
-            "com.instagram.android",          // Instagram
-            "com.facebook.katana",            // Facebook
-            "com.google.android.youtube",     // YouTube
-            "com.twitter.android",            // X / Twitter
-            "com.snapchat.android"            // Snapchat
-    ));
-
-    private long lastInterventionTime = 0;
-    private static final long COOLDOWN_MS = 15000; // 15-second cooldown per app launch
+public final class ProttashaAccessibilityService extends AccessibilityService {
+    private static final long COOLDOWN_MS = 15_000L;
+    private final ServicePackageFilter filter = new ServicePackageFilter();
+    private long lastInterventionAt;
+    private volatile long lastEventAt;
 
     @Override
-    public void onAccessibilityEvent(AccessibilityEvent event) {
-        if (event == null || event.getEventType() != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-            return;
-        }
-
-        CharSequence packageNameChar = event.getPackageName();
-        if (packageNameChar == null) return;
-        String packageName = packageNameChar.toString();
-
-        // Guard against recursive loop when Prottasha itself is in foreground (Review Focus 1)
-        if (packageName.equals(getPackageName())) {
-            return;
-        }
-
-        long now = System.currentTimeMillis();
-        if (BLOCKED_PACKAGES.contains(packageName) && (now - lastInterventionTime > COOLDOWN_MS)) {
-            lastInterventionTime = now;
-            Intent pauseIntent = new Intent(this, PauseInterstitialActivity.class);
-            pauseIntent.putExtra(PauseInterstitialActivity.EXTRA_TARGET_PACKAGE, packageName);
-            pauseIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(pauseIntent);
-        }
+    protected void onServiceConnected() {
+        ProttashaApp app = (ProttashaApp) getApplication();
+        app.appGraph().executors().disk().execute(() -> {
+            try {
+                filter.replace(app.appGraph().userSessionDatabaseProvider().requireOpen()
+                                .guardRuleDao().list(),
+                        new EssentialTargetPolicy(getPackageName()));
+            } catch (IllegalStateException noSession) {
+                filter.replace(java.util.Collections.emptyList(),
+                        new EssentialTargetPolicy(getPackageName()));
+            }
+        });
     }
 
     @Override
-    public void onInterrupt() {}
+    public void onAccessibilityEvent(AccessibilityEvent event) {
+        if (event == null || event.getEventType() != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED
+                || event.getPackageName() == null) return;
+        lastEventAt = System.currentTimeMillis();
+        String packageName = event.getPackageName().toString();
+        String mode = filter.modeFor(packageName);
+        if (mode == null || System.currentTimeMillis() - lastInterventionAt < COOLDOWN_MS) return;
+        lastInterventionAt = System.currentTimeMillis();
+        Intent intent = new Intent(this, PauseInterstitialActivity.class)
+                .putExtra(PauseInterstitialActivity.EXTRA_TARGET_PACKAGE, packageName)
+                .putExtra("guard_mode", mode)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    public long lastEventAt() { return lastEventAt; }
+    @Override public void onInterrupt() { }
 }

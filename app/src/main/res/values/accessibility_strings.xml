@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accessibility_service_description">Prottasha Guard observes window changes only for apps you select.</string>
+    <string name="accessibility_disclosure_title">Enable Guard observation</string>
+    <string name="accessibility_disclosure_body">Android Accessibility lets Guard notice when a selected app opens and show your chosen Pause, Budget, or Block response. Prottasha does not store page text, forms, messages, or passwords. You can revoke access in Android Settings at any time.</string>
+    <string name="accessibility_consent">I understand what Guard observes and choose to continue.</string>
+    <string name="accessibility_open_settings">Open Accessibility settings</string>
+</resources>

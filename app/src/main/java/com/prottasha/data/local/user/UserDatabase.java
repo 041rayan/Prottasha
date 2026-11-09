@@ -22,6 +22,8 @@ import com.prottasha.habits.data.HabitDayImageEntity;
 import com.prottasha.guard.data.GuardRuleDao;
 import com.prottasha.guard.data.GuardRuleEntity;
 import com.prottasha.guard.data.GuardScheduleEntity;
+import com.prottasha.usage.data.UsageDao;
+import com.prottasha.usage.data.UsageDailyEntity;
 
 @Database(
         entities = {
@@ -38,9 +40,10 @@ import com.prottasha.guard.data.GuardScheduleEntity;
                 HabitDayNoteEntity.class,
                 HabitDayImageEntity.class,
                 GuardRuleEntity.class,
-                GuardScheduleEntity.class
+                GuardScheduleEntity.class,
+                UsageDailyEntity.class
         },
-        version = 5,
+        version = 6,
         exportSchema = true)
 public abstract class UserDatabase extends RoomDatabase {
     public abstract LocalAccountDao localAccountDao();
@@ -48,4 +51,5 @@ public abstract class UserDatabase extends RoomDatabase {
     public abstract IdentityDao identityDao();
     public abstract HabitDao habitDao();
     public abstract GuardRuleDao guardRuleDao();
+    public abstract UsageDao usageDao();
 }

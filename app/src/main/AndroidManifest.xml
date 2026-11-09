@@ -66,6 +66,10 @@
         <activity android:name=".guard.ui.AppPickerActivity" android:exported="false" />
         <activity android:name=".guard.ui.GuardRuleEditActivity" android:exported="false" />
 
+        <activity
+            android:name=".intervention.ui.AccessibilityDisclosureActivity"
+            android:exported="false" />
+
         <!-- Main Dashboard Activity -->
         <activity
             android:name=".ui.main.MainActivity"

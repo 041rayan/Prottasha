@@ -97,8 +97,17 @@ public final class UserDatabaseMigrations {
         }
     };
 
+    public static final Migration MIGRATION_5_6 = new Migration(5, 6) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS usage_daily ("
+                    + "target TEXT NOT NULL, epochDay INTEGER NOT NULL, totalMillis INTEGER NOT NULL, "
+                    + "quality TEXT NOT NULL, PRIMARY KEY(target, epochDay))");
+        }
+    };
+
     public static final Migration[] ALL = {
-            MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5
+            MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6
     };
     public static final RoomDatabase.Callback ENABLE_FOREIGN_KEYS =
             new RoomDatabase.Callback() {

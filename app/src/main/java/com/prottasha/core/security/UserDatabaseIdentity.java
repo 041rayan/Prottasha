@@ -19,6 +19,20 @@ public final class UserDatabaseIdentity {
         return new UserDatabaseIdentity(sha256(uid));
     }
 
+    public static UserDatabaseIdentity fromUidHash(String uidHash) {
+        if (uidHash == null || uidHash.length() != 64) {
+            throw new IllegalArgumentException("uidHash must be a lowercase SHA-256 value");
+        }
+        for (int index = 0; index < uidHash.length(); index++) {
+            char character = uidHash.charAt(index);
+            if (!((character >= '0' && character <= '9')
+                    || (character >= 'a' && character <= 'f'))) {
+                throw new IllegalArgumentException("uidHash must be a lowercase SHA-256 value");
+            }
+        }
+        return new UserDatabaseIdentity(uidHash);
+    }
+
     public String uidHash() {
         return uidHash;
     }

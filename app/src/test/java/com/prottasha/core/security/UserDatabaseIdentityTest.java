@@ -34,6 +34,21 @@ public final class UserDatabaseIdentityTest {
     }
 
     @Test
+    public void opaqueHashCanReconstructTheSameNamespaceForBackgroundWork() {
+        UserDatabaseIdentity foreground = UserDatabaseIdentity.fromUid("firebase-uid-alice");
+        UserDatabaseIdentity background = UserDatabaseIdentity.fromUidHash(foreground.uidHash());
+
+        assertEquals(foreground.uidHash(), background.uidHash());
+        assertEquals(foreground.databaseFileName(), background.databaseFileName());
+        assertEquals(foreground.databaseKeyAlias(), background.databaseKeyAlias());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void rejectsMalformedOpaqueHash() {
+        UserDatabaseIdentity.fromUidHash("not-a-sha256-hash");
+    }
+
+    @Test
     public void namesContainNeitherUidNorEmail() {
         String rawUid = "rayan@example.com-firebase-uid";
         UserDatabaseIdentity identity = UserDatabaseIdentity.fromUid(rawUid);

@@ -15,8 +15,8 @@
 | minSdk | 26 | Accepted |
 | Google Services plugin | 4.4.2 | Applied and processes debug config |
 | Firebase BOM | 34.18.0 | Accepted: Auth 24.2.0, RTDB 22.0.1, Firestore 26.6.0; no Kotlin metadata diagnostic |
-| Room | 2.8.5 | Accepted |
-| SQLCipher Android | 4.20.0 | Packages and installs on BG7; encrypted DB lifecycle proof belongs to Task 4 |
+| Room | 2.7.2 | Accepted with SQLCipher; Room 2.8.x is blocked by upstream `SupportOpenHelperFactory` transaction/connection incompatibility |
+| SQLCipher Android | 4.11.0 | Accepted on BG7; 4.20.0 loaded but hung in uninterruptible native state during direct Room-free open |
 
 ## Fresh baseline
 
@@ -52,3 +52,15 @@ The warning inventory remains visible and must decrease as prototype screens are
 | 2 | `NotifyDataSetChanged` | ListAdapter/DiffUtil replacements in feature slices |
 | 1 each | `CustomSplashScreen`, `Autofill`, `TextFields`, `SmallSp` | Auth and visual shell Tasks 3/6 |
 | remainder | SDK/version/typography/plural/data-extraction/default-locale | Task-specific replacement or Task 14 final quality pass |
+
+## Task 4 encrypted database gate
+
+| Gate | Result |
+|---|---|
+| Direct SQLCipher 4.11 open/write/read/close | PASS on TECNO BG7 |
+| SQLCipher + Room v1 combined instrumentation | PASS, 8/8 on TECNO BG7 |
+| Encrypted database contract | PASS: ciphertext header, CRUD/reopen, foreign keys, missing/corrupt/wrong key, A/B isolation, background owner, quarantine/restore |
+| Session lifecycle unit contract | PASS: A→B→A, close-before-switch/sign-out, failed switch, observer disposal, UI-lock policy |
+| `testDebugUnitTest assembleDebug lintDebug compileDebugAndroidTestJavaWithJavac` | PASS; lint 0 errors, 235 inventoried warnings |
+
+The `NewerVersionAvailable` warning for SQLCipher is intentionally retained: upgrading requires the same direct-native and Room lifecycle proof on the BG7.

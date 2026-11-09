@@ -9,18 +9,22 @@ import com.prottasha.auth.data.AuthRepository;
 import com.prottasha.auth.data.CloudUserProfileRepository;
 import com.prottasha.auth.domain.AuthState;
 import com.prottasha.auth.domain.SessionUser;
+import com.prottasha.auth.domain.UserSessionManager;
 
 public final class AuthViewModel extends ViewModel {
 
     private final AuthRepository authRepository;
     private final CloudUserProfileRepository profileRepository;
+    private final UserSessionManager userSessionManager;
     private String profileBootstrapUid;
 
     AuthViewModel(
             AuthRepository authRepository,
-            CloudUserProfileRepository profileRepository) {
+            CloudUserProfileRepository profileRepository,
+            UserSessionManager userSessionManager) {
         this.authRepository = authRepository;
         this.profileRepository = profileRepository;
+        this.userSessionManager = userSessionManager;
     }
 
     public LiveData<AuthState> state() {
@@ -53,7 +57,7 @@ public final class AuthViewModel extends ViewModel {
 
     public void signOut() {
         profileBootstrapUid = null;
-        authRepository.signOut();
+        userSessionManager.signOut();
     }
 
     public void ensureProfile(SessionUser user) {
@@ -71,12 +75,15 @@ public final class AuthViewModel extends ViewModel {
     public static final class Factory implements ViewModelProvider.Factory {
         private final AuthRepository authRepository;
         private final CloudUserProfileRepository profileRepository;
+        private final UserSessionManager userSessionManager;
 
         public Factory(
                 AuthRepository authRepository,
-                CloudUserProfileRepository profileRepository) {
+                CloudUserProfileRepository profileRepository,
+                UserSessionManager userSessionManager) {
             this.authRepository = authRepository;
             this.profileRepository = profileRepository;
+            this.userSessionManager = userSessionManager;
         }
 
         @NonNull
@@ -85,7 +92,8 @@ public final class AuthViewModel extends ViewModel {
             if (!modelClass.isAssignableFrom(AuthViewModel.class)) {
                 throw new IllegalArgumentException("Unsupported ViewModel " + modelClass.getName());
             }
-            return modelClass.cast(new AuthViewModel(authRepository, profileRepository));
+            return modelClass.cast(new AuthViewModel(
+                    authRepository, profileRepository, userSessionManager));
         }
     }
 }

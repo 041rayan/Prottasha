@@ -37,7 +37,8 @@ public final class AuthActivity extends AppCompatActivity {
         ProttashaApp application = (ProttashaApp) getApplication();
         viewModel = new ViewModelProvider(this, new AuthViewModel.Factory(
                 application.appGraph().authRepository(),
-                application.appGraph().cloudUserProfileRepository()))
+                application.appGraph().cloudUserProfileRepository(),
+                application.appGraph().userSessionManager()))
                 .get(AuthViewModel.class);
         viewModel.state().observe(this, this::renderState);
     }

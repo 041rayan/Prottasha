@@ -72,18 +72,21 @@
         <!-- Streak & Vote Count -->
         <TextView
             android:id="@+id/tvStreakAndVotes"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginEnd="@dimen/spacing_small"
             android:text="🔥 3 streak • 12 votes cast"
             android:textColor="@color/color_identity_glow"
             android:textSize="@dimen/text_caption"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/llVoteActions"
             app:layout_constraintTop_toBottomOf="@id/tvHabitResponse"
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <!-- Vote Action Buttons -->
         <LinearLayout
+            android:id="@+id/llVoteActions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

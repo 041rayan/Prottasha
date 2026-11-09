@@ -58,7 +58,7 @@
         <!-- Pause Interstitial Activity (Intervention Friction) -->
         <activity
             android:name=".ui.pause.PauseInterstitialActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.Prottasha.PauseOverlay"
             android:launchMode="singleTask"
             android:excludeFromRecents="true" />

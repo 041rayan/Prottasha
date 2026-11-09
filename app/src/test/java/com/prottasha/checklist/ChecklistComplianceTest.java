@@ -8,7 +8,8 @@ public class ChecklistComplianceTest {
     @Test
     public void verifyMultipleActivitiesExist() throws ClassNotFoundException {
         // Navigation and architecture: Multiple Activities
-        assertNotNull(Class.forName("com.prottasha.ui.splash.SplashActivity"));
+        assertNotNull(Class.forName("com.prottasha.auth.ui.LaunchActivity"));
+        assertNotNull(Class.forName("com.prottasha.auth.ui.AuthActivity"));
         assertNotNull(Class.forName("com.prottasha.ui.main.MainActivity"));
         assertNotNull(Class.forName("com.prottasha.ui.detail.HabitDetailActivity"));
         assertNotNull(Class.forName("com.prottasha.ui.detail.TriggerDetailActivity"));
@@ -44,9 +45,8 @@ public class ChecklistComplianceTest {
         // Networking & Firebase
         assertNotNull(Class.forName("com.prottasha.data.remote.QuoteApiClient"));
         assertNotNull(Class.forName("com.prottasha.data.remote.TherapistApiClient"));
-        assertNotNull(Class.forName("com.prottasha.data.firebase.FirebaseAuthManager"));
-        assertNotNull(Class.forName("com.prottasha.data.firebase.FirebaseRealtimeManager"));
-        assertNotNull(Class.forName("com.prottasha.data.firebase.FirebasePodManager"));
+        assertNotNull(Class.forName("com.prottasha.auth.data.FirebaseAuthGateway"));
+        assertNotNull(Class.forName("com.prottasha.auth.data.CloudUserProfileRepository"));
         assertNotNull(Class.forName("com.prottasha.util.ImageStorageHelper"));
         assertNotNull(Class.forName("com.prottasha.util.GrayscaleManager"));
     }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/auth_nav_graph"
+    app:startDestination="@id/signInFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.prottasha.auth.ui.SignInFragment"
+        android:label="@string/auth_sign_in_title" />
+
+    <fragment
+        android:id="@+id/createAccountFragment"
+        android:name="com.prottasha.auth.ui.CreateAccountFragment"
+        android:label="@string/auth_create_title" />
+
+    <fragment
+        android:id="@+id/verifyEmailFragment"
+        android:name="com.prottasha.auth.ui.VerifyEmailFragment"
+        android:label="@string/auth_verify_title" />
+
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="com.prottasha.auth.ui.ResetPasswordFragment"
+        android:label="@string/auth_reset_title" />
+
+</navigation>

@@ -15,7 +15,8 @@ Each row must link a rubric-visible capability to real implementation, automated
 | Foreground Service | Active focus session only | Service tests | Pause/resume/end notification | PENDING |
 | Content Provider | User-selected accountability contact | Permission/picker tests | Select or manually enter partner | PENDING |
 | HTTP and JSON | Sourced support/quote repository | Parser/fallback tests | Online then offline result | PENDING |
-| Firebase Authentication | Verified Email/Password lifecycle | Auth unit/UI tests | Register/verify/reset/switch/delete | PENDING |
+| Firebase Authentication | Password-policy-matched state machine + Sign In/Create/Verify/Reset account gate | Auth repository/profile unit suite; Auth instrumentation package 5/5; rules 12/12 | BG7 signed-out routing/validation/rotation/Back pass; disposable live lifecycle remains Tasks 4/15 | PARTIAL |
+| UID cloud profile | Minimal own profile with separate generated pseudonym | Profile contract tests + Firestore rules 12/12 | Live bootstrap with disposable account remains final Firebase flow | PARTIAL |
 | Firestore | Membership-scoped closed pod | Emulator attack tests | Two-user message/report/block flow | PENDING |
 | Realtime Database | Membership-scoped presence | Emulator rules tests | Connect/disconnect presence | PENDING |
 | Local encrypted image | Bounded metadata-scrubbed JPEG + UID AES-GCM store | `EncryptedPrivateFileStoreTest` 4/4 on API 33 | BG7 key-loss, tamper, A/B, reopen proof; feature UI integration remains | PARTIAL |

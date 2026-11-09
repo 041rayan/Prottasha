@@ -2,11 +2,11 @@ package com.prottasha.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.prottasha.R;
-import com.prottasha.data.firebase.FirebaseRealtimeManager;
 import com.prottasha.databinding.ActivityMainBinding;
 import com.prottasha.ui.crisis.CrisisHelpActivity;
 import com.prottasha.ui.settings.SettingsActivity;
@@ -14,7 +14,6 @@ import com.prottasha.ui.settings.SettingsActivity;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private FirebaseRealtimeManager realtimeManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +21,9 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        realtimeManager = new FirebaseRealtimeManager();
         setupBottomNavigation();
         setupHeaderActions();
-        observePresence();
+        binding.tvLivePresence.setVisibility(View.GONE);
 
         if (savedInstanceState == null) {
             loadFragment(new IdentityHabitsFragment());
@@ -61,16 +59,6 @@ public class MainActivity extends AppCompatActivity {
         binding.btnSettings.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(intent);
-        });
-    }
-
-    private void observePresence() {
-        realtimeManager.getActiveMemberCount(count -> {
-            runOnUiThread(() -> {
-                if (binding != null) {
-                    binding.tvLivePresence.setText("• " + count + " active");
-                }
-            });
         });
     }
 

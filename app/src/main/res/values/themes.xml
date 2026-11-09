@@ -20,8 +20,10 @@
     </style>
 
     <!-- Splash Screen Theme -->
-    <style name="Theme.Prottasha.Splash" parent="Theme.Prottasha">
-        <item name="android:windowBackground">@color/color_background</item>
+    <style name="Theme.Prottasha.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/color_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/Theme.Prottasha</item>
     </style>
 
     <!-- Pause Interstitial Overlay Theme (Over other apps) -->

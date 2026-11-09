@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.Material3.CardView.Filled"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_large">
+
+    <TextView
+        android:id="@+id/auth_verify_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/auth_verify_title"
+        android:textColor="@color/color_text_primary"
+        android:textSize="@dimen/text_display"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/auth_verification_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:textColor="@color/color_text_secondary"
+        android:textSize="@dimen/text_body" />
+
+    <TextView
+        android:id="@+id/auth_verification_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:accessibilityLiveRegion="polite"
+        android:text="@string/auth_verify_instructions"
+        android:textColor="@color/color_text_secondary"
+        android:textSize="@dimen/text_body" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/auth_refresh_verification_button"
+        style="@style/Widget.Prottasha.Button.Pill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:minHeight="@dimen/touch_target_min"
+        android:text="@string/auth_refresh_verification" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/auth_resend_verification_button"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:minHeight="@dimen/touch_target_min"
+        android:text="@string/auth_resend_verification" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/auth_sign_out_button"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:minHeight="@dimen/touch_target_min"
+        android:text="@string/auth_change_account" />
+
+</LinearLayout>

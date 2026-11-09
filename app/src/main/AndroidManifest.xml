@@ -25,9 +25,9 @@
         android:usesCleartextTraffic="false"
         android:theme="@style/Theme.Prottasha">
 
-        <!-- Splash / Launcher Activity -->
+        <!-- Account gate / launcher -->
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name=".auth.ui.LaunchActivity"
             android:exported="true"
             android:theme="@style/Theme.Prottasha.Splash">
             <intent-filter>
@@ -35,6 +35,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".auth.ui.AuthActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".auth.ui.LegalActivity"
+            android:exported="false"
+            android:parentActivityName=".auth.ui.AuthActivity" />
 
         <!-- Main Dashboard Activity -->
         <activity

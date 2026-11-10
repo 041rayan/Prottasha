@@ -20,6 +20,9 @@ public final class FakeAuthGateway implements AuthGateway {
     public AppResult<Boolean> verificationResult = AppResult.success(true);
     public AppResult<Boolean> resetResult = AppResult.success(true);
     public AppResult<Boolean> reauthenticationResult = AppResult.success(true);
+    public AppResult<Boolean> updatePasswordResult = AppResult.success(true);
+    public AppResult<Boolean> updateEmailResult = AppResult.success(true);
+    @Nullable public AppResult<SessionUser> updateDisplayNameResult;
     public AppResult<Boolean> deleteResult = AppResult.success(true);
     @Nullable public List<String> events;
     public boolean holdSignIn;
@@ -27,6 +30,9 @@ public final class FakeAuthGateway implements AuthGateway {
     public int verificationCalls;
     public int resetCalls;
     public int deleteCalls;
+    public int updatePasswordCalls;
+    public int updateEmailCalls;
+    public int updateDisplayNameCalls;
 
     private final Queue<Runnable> pending = new ArrayDeque<>();
 
@@ -86,6 +92,24 @@ public final class FakeAuthGateway implements AuthGateway {
             events.add("reauth");
         }
         callback.onResult(reauthenticationResult);
+    }
+
+    @Override
+    public void updatePassword(String newPassword, ResultCallback<Boolean> callback) {
+        updatePasswordCalls++;
+        callback.onResult(updatePasswordResult);
+    }
+
+    @Override
+    public void updateEmail(String newEmail, ResultCallback<Boolean> callback) {
+        updateEmailCalls++;
+        callback.onResult(updateEmailResult);
+    }
+
+    @Override
+    public void updateDisplayName(String displayName, ResultCallback<SessionUser> callback) {
+        updateDisplayNameCalls++;
+        callback.onResult(require(updateDisplayNameResult));
     }
 
     @Override

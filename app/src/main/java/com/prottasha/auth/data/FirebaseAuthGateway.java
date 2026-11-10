@@ -161,6 +161,63 @@ public final class FirebaseAuthGateway implements AuthGateway {
     }
 
     @Override
+    public void updatePassword(String newPassword, ResultCallback<Boolean> callback) {
+        if (auth == null) {
+            callback.onResult(configurationFailure());
+            return;
+        }
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) {
+            callback.onResult(unknownFailure());
+            return;
+        }
+        user.updatePassword(newPassword).addOnCompleteListener(task -> callback.onResult(
+                task.isSuccessful()
+                        ? AppResult.success(true)
+                        : failure(task.getException())));
+    }
+
+    @Override
+    public void updateEmail(String newEmail, ResultCallback<Boolean> callback) {
+        if (auth == null) {
+            callback.onResult(configurationFailure());
+            return;
+        }
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) {
+            callback.onResult(unknownFailure());
+            return;
+        }
+        user.verifyBeforeUpdateEmail(newEmail).addOnCompleteListener(task -> callback.onResult(
+                task.isSuccessful()
+                        ? AppResult.success(true)
+                        : failure(task.getException())));
+    }
+
+    @Override
+    public void updateDisplayName(String displayName, ResultCallback<SessionUser> callback) {
+        if (auth == null) {
+            callback.onResult(configurationFailure());
+            return;
+        }
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) {
+            callback.onResult(unknownFailure());
+            return;
+        }
+        UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                .setDisplayName(displayName)
+                .build();
+        user.updateProfile(profile).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                callback.onResult(userResult(auth.getCurrentUser()));
+            } else {
+                callback.onResult(failure(task.getException()));
+            }
+        });
+    }
+
+    @Override
     public void deleteCurrentUser(ResultCallback<Boolean> callback) {
         if (auth == null) {
             callback.onResult(configurationFailure());

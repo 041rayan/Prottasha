@@ -8,7 +8,8 @@
     <string name="privacy_export_complete">Encrypted export created.</string>
     <string name="privacy_export_failed">Export failed without writing plaintext temporary data.</string>
     <string name="settings_title">Settings</string>
-    <string name="settings_account">Account and deletion</string>
+    <string name="settings_profile">Profile &amp; avatar</string>
+    <string name="settings_account">Account and security</string>
     <string name="settings_privacy">Privacy and encrypted export</string>
     <string name="settings_guard_permission">Guard Accessibility disclosure</string>
     <string name="settings_focus">Focus session</string>

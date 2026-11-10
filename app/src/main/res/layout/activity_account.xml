@@ -18,69 +18,289 @@
             android:textSize="@dimen/text_headline"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:text="@string/account_delete_explanation"
-            android:textColor="@color/color_text_secondary"
-            android:textSize="@dimen/text_body" />
-
-        <TextView
-            android:id="@+id/account_status"
+        <!-- Account Info Card -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
-            android:accessibilityLiveRegion="polite"
-            android:text="@string/account_ready"
-            android:textColor="@color/color_text_primary"
-            android:textSize="@dimen/text_body" />
+            app:cardBackgroundColor="@color/color_surface_card"
+            app:cardCornerRadius="16dp"
+            app:strokeColor="@color/color_border_subtle"
+            app:strokeWidth="1dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/account_password_layout"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:hint="@string/account_current_password"
-            app:endIconMode="password_toggle">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/account_password_input"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="password"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:saveEnabled="false" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_large">
 
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/account_confirm_checkbox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:minHeight="@dimen/touch_target_min"
-            android:text="@string/account_delete_confirmation" />
+                <TextView
+                    android:id="@+id/account_email_display"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/account_delete_button"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/account_edit_profile_button"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:minHeight="@dimen/touch_target_min"
+                    android:text="@string/account_edit_profile_action" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Security: Change Password & Email -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
-            android:minHeight="@dimen/touch_target_min"
-            android:text="@string/account_delete_action"
-            app:backgroundTint="@color/color_crisis" />
+            app:cardBackgroundColor="@color/color_surface_card"
+            app:cardCornerRadius="16dp"
+            app:strokeColor="@color/color_border_subtle"
+            app:strokeWidth="1dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/account_retry_button"
-            style="@style/Widget.Material3.Button.OutlinedButton"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_large">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_change_password_title"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/account_reauth_password_layout"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:hint="@string/account_current_password"
+                    app:endIconMode="password_toggle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/account_reauth_password_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:saveEnabled="false" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/account_new_password_layout"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:hint="@string/account_new_password"
+                    app:endIconMode="password_toggle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/account_new_password_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:saveEnabled="false" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/account_change_password_button"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:minHeight="@dimen/touch_target_min"
+                    android:text="@string/account_change_password_action" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:background="@color/color_border_subtle" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_change_email_title"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/account_new_email_layout"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:hint="@string/account_new_email">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/account_new_email_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/account_change_email_button"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:minHeight="@dimen/touch_target_min"
+                    android:text="@string/account_change_email_action" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Session Management Card -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:minHeight="@dimen/touch_target_min"
-            android:text="@string/account_retry_cleanup"
-            android:visibility="gone" />
+            android:layout_marginTop="@dimen/spacing_medium"
+            app:cardBackgroundColor="@color/color_surface_card"
+            app:cardCornerRadius="16dp"
+            app:strokeColor="@color/color_border_subtle"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_large">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/account_sign_out_button"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/touch_target_min"
+                    android:text="@string/account_sign_out_action" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/account_switch_button"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:minHeight="@dimen/touch_target_min"
+                    android:text="@string/account_switch_action" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/account_remove_local_button"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:minHeight="@dimen/touch_target_min"
+                    android:text="@string/account_remove_local_data_action"
+                    android:textColor="@color/color_crisis" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Permanent Deletion Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            app:cardBackgroundColor="@color/color_surface_card"
+            app:cardCornerRadius="16dp"
+            app:strokeColor="@color/color_crisis"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_large">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_delete_action"
+                    android:textColor="@color/color_crisis"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:text="@string/account_delete_explanation"
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="@dimen/text_body" />
+
+                <TextView
+                    android:id="@+id/account_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:accessibilityLiveRegion="polite"
+                    android:text="@string/account_ready"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="@dimen/text_body" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/account_password_layout"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:hint="@string/account_current_password"
+                    app:endIconMode="password_toggle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/account_password_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:autofillHints="password"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:saveEnabled="false" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/account_confirm_checkbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:minHeight="@dimen/touch_target_min"
+                    android:text="@string/account_delete_confirmation" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/account_delete_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:minHeight="@dimen/touch_target_min"
+                    android:text="@string/account_delete_action"
+                    app:backgroundTint="@color/color_crisis" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/account_retry_button"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:minHeight="@dimen/touch_target_min"
+                    android:text="@string/account_retry_cleanup"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

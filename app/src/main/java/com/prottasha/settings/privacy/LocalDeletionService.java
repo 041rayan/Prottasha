@@ -4,7 +4,7 @@ import com.prottasha.core.security.EncryptedPrivateFileStore;
 import com.prottasha.core.security.UserDatabaseIdentity;
 import com.prottasha.data.local.user.UserSessionDatabaseProvider;
 
-public final class LocalDeletionService {
+public class LocalDeletionService {
     private final UserSessionDatabaseProvider databases;
     private final EncryptedPrivateFileStore files;
 

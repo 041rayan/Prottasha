@@ -16,6 +16,7 @@ import com.prottasha.habits.data.HabitRepository;
 import com.prottasha.guard.data.GuardRuleRepository;
 import com.prottasha.core.platform.NetworkPowerStateRepository;
 import com.prottasha.intervention.data.InterventionEventRepository;
+import com.prottasha.settings.privacy.LocalDeletionService;
 
 public final class AppGraph {
 
@@ -32,6 +33,7 @@ public final class AppGraph {
     private final GuardRuleRepository guardRuleRepository;
     private final NetworkPowerStateRepository networkPowerStateRepository;
     private final InterventionEventRepository interventionEventRepository;
+    private final LocalDeletionService localDeletionService;
 
     public AppGraph(Context context) {
         applicationContext = context.getApplicationContext();
@@ -49,6 +51,8 @@ public final class AppGraph {
         interventionEventRepository = new InterventionEventRepository(
                 userSessionDatabaseProvider, executors.disk());
         encryptedPrivateFileStore = new EncryptedPrivateFileStore(applicationContext);
+        localDeletionService = new LocalDeletionService(
+                userSessionDatabaseProvider, encryptedPrivateFileStore);
         accountDeletionCoordinator = new AccountDeletionCoordinator(
                 applicationContext,
                 new ReauthenticationCoordinator(firebaseAuthGateway),
@@ -90,6 +94,10 @@ public final class AppGraph {
 
     public AccountDeletionCoordinator accountDeletionCoordinator() {
         return accountDeletionCoordinator;
+    }
+
+    public LocalDeletionService localDeletionService() {
+        return localDeletionService;
     }
 
     public IdentityRepository identityRepository() {

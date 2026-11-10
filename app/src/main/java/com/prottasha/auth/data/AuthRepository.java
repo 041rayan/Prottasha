@@ -8,6 +8,7 @@ import com.prottasha.auth.domain.AuthState;
 import com.prottasha.auth.domain.PasswordPolicy;
 import com.prottasha.auth.domain.SessionUser;
 import com.prottasha.core.result.AppResult;
+import com.prottasha.core.result.ResultCallback;
 
 public final class AuthRepository {
 
@@ -112,6 +113,43 @@ public final class AuthRepository {
                 publishFailure(result, before.userOrNull());
             }
         });
+    }
+
+    public void updatePassword(String newPassword, ResultCallback<Boolean> callback) {
+        if (PasswordPolicy.validate(newPassword) != PasswordPolicy.Result.VALID) {
+            callback.onResult(AppResult.failure(
+                    new AuthGateway.AuthFailure(AuthGateway.FailureCode.WEAK_PASSWORD)));
+            return;
+        }
+        gateway.updatePassword(newPassword, callback);
+    }
+
+    public void updateEmail(String newEmail, ResultCallback<Boolean> callback) {
+        if (newEmail == null || !newEmail.contains("@") || newEmail.trim().isEmpty()) {
+            callback.onResult(AppResult.failure(
+                    new AuthGateway.AuthFailure(AuthGateway.FailureCode.INVALID_CREDENTIALS)));
+            return;
+        }
+        gateway.updateEmail(newEmail.trim(), callback);
+    }
+
+    public void updateDisplayName(String displayName, ResultCallback<SessionUser> callback) {
+        if (displayName == null || displayName.trim().isEmpty()) {
+            callback.onResult(AppResult.failure(
+                    new AuthGateway.AuthFailure(AuthGateway.FailureCode.INVALID_CREDENTIALS)));
+            return;
+        }
+        gateway.updateDisplayName(displayName.trim(), result -> {
+            if (result.isSuccess() && result.valueOrNull() != null) {
+                publish(AuthState.of(currentState.status(), result.valueOrNull(),
+                        currentState.messageOrNull()));
+            }
+            callback.onResult(result);
+        });
+    }
+
+    public void reauthenticate(String email, String password, ResultCallback<Boolean> callback) {
+        gateway.reauthenticate(email, password, callback);
     }
 
     public void signOut() {

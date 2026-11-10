@@ -11,7 +11,7 @@ import java.security.GeneralSecurityException;
 
 public final class UserSessionManager {
 
-    interface DatabaseLifecycle {
+    public interface DatabaseLifecycle {
         void open(SessionUser user) throws IOException, GeneralSecurityException;
         void close();
         void clearVerifiedBackgroundOwner();
@@ -43,7 +43,8 @@ public final class UserSessionManager {
         }, authRepository::signOut);
     }
 
-    UserSessionManager(DatabaseLifecycle database, Runnable firebaseSignOut) {
+    @androidx.annotation.VisibleForTesting
+    public UserSessionManager(DatabaseLifecycle database, Runnable firebaseSignOut) {
         this.database = database;
         this.firebaseSignOut = firebaseSignOut;
     }

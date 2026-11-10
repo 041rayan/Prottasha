@@ -11,6 +11,7 @@ import com.prottasha.focus.ui.FocusActivity;
 import com.prottasha.intervention.ui.AccessibilityDisclosureActivity;
 import com.prottasha.methodology.MethodologyActivity;
 import com.prottasha.settings.account.AccountActivity;
+import com.prottasha.settings.account.ProfileActivity;
 import com.prottasha.settings.privacy.PrivacyActivity;
 
 public final class SettingsActivity extends AppCompatActivity {
@@ -18,6 +19,7 @@ public final class SettingsActivity extends AppCompatActivity {
         super.onCreate(state);
         ActivitySettingsSecureBinding binding = ActivitySettingsSecureBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.settingsProfile.setOnClickListener(v -> open(ProfileActivity.class));
         binding.settingsAccount.setOnClickListener(v -> open(AccountActivity.class));
         binding.settingsPrivacy.setOnClickListener(v -> open(PrivacyActivity.class));
         binding.settingsGuardPermission.setOnClickListener(v -> open(AccessibilityDisclosureActivity.class));

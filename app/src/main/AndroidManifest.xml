@@ -60,6 +60,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".settings.account.ProfileActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".onboarding.OnboardingActivity"
             android:exported="false" />
 

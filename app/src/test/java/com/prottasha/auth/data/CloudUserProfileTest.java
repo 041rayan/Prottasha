@@ -50,4 +50,51 @@ public final class CloudUserProfileTest {
         assertEquals(first.podPseudonym(), again.podPseudonym());
         assertFalse(first.podPseudonym().equals(other.podPseudonym()));
     }
+
+    @Test
+    public void profileWithAvatarFieldsIncludesAvatarInSerializedFields() {
+        SessionUser user = new SessionUser("uid-c", "Charlie", "c@example.test", true);
+        CloudUserProfile profile = CloudUserProfile.bootstrap(user)
+                .withAvatar("seed-12345", "PALETTE_EMERALD", "STYLE_GEOMETRIC");
+
+        assertEquals("seed-12345", profile.avatarSeedOrNull());
+        assertEquals("PALETTE_EMERALD", profile.avatarPaletteOrNull());
+        assertEquals("STYLE_GEOMETRIC", profile.avatarStyleOrNull());
+
+        Object timestamp = new Object();
+        Map<String, Object> fields = profile.createFields(timestamp);
+        assertEquals("seed-12345", fields.get("avatarSeed"));
+        assertEquals("PALETTE_EMERALD", fields.get("avatarPalette"));
+        assertEquals("STYLE_GEOMETRIC", fields.get("avatarStyle"));
+    }
+
+    @Test
+    public void fromFieldsParsesAvatarFieldsWhenPresent() {
+        java.util.Map<String, Object> map = new java.util.HashMap<>();
+        map.put("displayName", "Dana");
+        map.put("podPseudonym", "Hope-123456");
+        map.put("schemaVersion", 1);
+        map.put("createdAt", new com.google.firebase.Timestamp(100, 0));
+        map.put("updatedAt", new com.google.firebase.Timestamp(200, 0));
+        map.put("avatarSeed", "seed-xyz");
+        map.put("avatarPalette", "OCEAN");
+        map.put("avatarStyle", "INITIALS");
+
+        CloudUserProfile parsed = CloudUserProfile.fromFields(map);
+        assertEquals("Dana", parsed.displayName());
+        assertEquals("Hope-123456", parsed.podPseudonym());
+        assertEquals("seed-xyz", parsed.avatarSeedOrNull());
+        assertEquals("OCEAN", parsed.avatarPaletteOrNull());
+        assertEquals("INITIALS", parsed.avatarStyleOrNull());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidAvatarLengthThrowsIllegalArgumentException() {
+        SessionUser user = new SessionUser("uid-d", "David", "d@example.test", true);
+        StringBuilder longSeed = new StringBuilder();
+        for (int i = 0; i < 70; i++) {
+            longSeed.append("x");
+        }
+        CloudUserProfile.bootstrap(user).withAvatar(longSeed.toString(), "PALETTE", "STYLE");
+    }
 }

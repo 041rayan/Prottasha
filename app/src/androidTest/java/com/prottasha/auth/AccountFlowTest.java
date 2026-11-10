@@ -26,6 +26,12 @@ public final class AccountFlowTest {
                      ActivityScenario.launch(AccountActivity.class)) {
             scenario.onActivity(activity -> {
                 assertFalse(activity.findViewById(R.id.account_delete_button).isEnabled());
+                assertFalse(activity.findViewById(R.id.account_edit_profile_button).isEnabled());
+                assertFalse(activity.findViewById(R.id.account_change_password_button).isEnabled());
+                assertFalse(activity.findViewById(R.id.account_change_email_button).isEnabled());
+                assertFalse(activity.findViewById(R.id.account_sign_out_button).isEnabled());
+                assertFalse(activity.findViewById(R.id.account_switch_button).isEnabled());
+                assertFalse(activity.findViewById(R.id.account_remove_local_button).isEnabled());
                 android.widget.TextView status = activity.findViewById(R.id.account_status);
                 assertEquals(activity.getString(R.string.account_no_verified_session),
                         status.getText().toString());
@@ -37,11 +43,25 @@ public final class AccountFlowTest {
     public void passwordIsNotRestoredAcrossRecreation() {
         try (ActivityScenario<AccountActivity> scenario =
                      ActivityScenario.launch(AccountActivity.class)) {
-            onView(withId(R.id.account_password_input)).perform(replaceText("DoNotPersist123"));
+            scenario.onActivity(activity -> {
+                android.widget.EditText pass = activity.findViewById(R.id.account_password_input);
+                pass.setText("DoNotPersist123");
+                android.widget.EditText reauth = activity.findViewById(R.id.account_reauth_password_input);
+                reauth.setText("Reauth123");
+                android.widget.EditText newPass = activity.findViewById(R.id.account_new_password_input);
+                newPass.setText("NewPass123");
+            });
 
             scenario.recreate();
 
-            onView(withId(R.id.account_password_input)).check(matches(withText("")));
+            scenario.onActivity(activity -> {
+                android.widget.EditText pass = activity.findViewById(R.id.account_password_input);
+                assertEquals("", pass.getText().toString());
+                android.widget.EditText reauth = activity.findViewById(R.id.account_reauth_password_input);
+                assertEquals("", reauth.getText().toString());
+                android.widget.EditText newPass = activity.findViewById(R.id.account_new_password_input);
+                assertEquals("", newPass.getText().toString());
+            });
         }
     }
 }

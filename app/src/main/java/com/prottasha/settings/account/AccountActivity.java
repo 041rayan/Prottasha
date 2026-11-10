@@ -1,15 +1,20 @@
 package com.prottasha.settings.account;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.prottasha.ProttashaApp;
 import com.prottasha.R;
 import com.prottasha.auth.domain.DeletionState;
+import com.prottasha.auth.domain.SessionUser;
+import com.prottasha.auth.ui.AuthActivity;
 import com.prottasha.databinding.ActivityAccountBinding;
 
 public final class AccountActivity extends AppCompatActivity {
@@ -27,20 +32,133 @@ public final class AccountActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this, new AccountViewModel.Factory(
                 application.appGraph().userSessionManager(),
                 application.appGraph().authRepository(),
-                application.appGraph().accountDeletionCoordinator()))
+                application.appGraph().accountDeletionCoordinator(),
+                application.appGraph().localDeletionService()))
                 .get(AccountViewModel.class);
 
         boolean hasSession = viewModel.hasAccountSession();
+        SessionUser user = viewModel.currentUserOrNull();
+        if (user != null) {
+            binding.accountEmailDisplay.setText(user.email());
+        } else {
+            binding.accountEmailDisplay.setText(R.string.account_no_verified_session);
+        }
+
+        binding.accountEditProfileButton.setEnabled(hasSession);
+        binding.accountEditProfileButton.setOnClickListener(v -> {
+            startActivity(new Intent(this, ProfileActivity.class));
+        });
+
+        binding.accountChangePasswordButton.setEnabled(hasSession);
+        binding.accountChangePasswordButton.setOnClickListener(v -> handleChangePassword());
+
+        binding.accountChangeEmailButton.setEnabled(hasSession);
+        binding.accountChangeEmailButton.setOnClickListener(v -> handleChangeEmail());
+
+        binding.accountSignOutButton.setEnabled(hasSession);
+        binding.accountSignOutButton.setOnClickListener(v -> handleSignOut());
+
+        binding.accountSwitchButton.setEnabled(hasSession);
+        binding.accountSwitchButton.setOnClickListener(v -> handleSignOut());
+
+        binding.accountRemoveLocalButton.setEnabled(hasSession);
+        binding.accountRemoveLocalButton.setOnClickListener(v -> handleRemoveLocalData());
+
         binding.accountDeleteButton.setEnabled(hasSession);
         binding.accountStatus.setText(hasSession
                 ? R.string.account_ready
                 : R.string.account_no_verified_session);
-        binding.accountDeleteButton.setOnClickListener(ignored -> submit());
+        binding.accountDeleteButton.setOnClickListener(ignored -> submitDelete());
         binding.accountRetryButton.setOnClickListener(ignored -> viewModel.retryPendingWork());
         viewModel.deletionState().observe(this, this::render);
     }
 
-    private void submit() {
+    private void handleChangePassword() {
+        String currentPassword = binding.accountReauthPasswordInput.getText() == null
+                ? "" : binding.accountReauthPasswordInput.getText().toString();
+        String newPassword = binding.accountNewPasswordInput.getText() == null
+                ? "" : binding.accountNewPasswordInput.getText().toString();
+
+        if (currentPassword.isEmpty()) {
+            binding.accountReauthPasswordLayout.setError(getString(R.string.account_password_required));
+            return;
+        }
+        binding.accountReauthPasswordLayout.setError(null);
+
+        if (newPassword.isEmpty()) {
+            binding.accountNewPasswordLayout.setError(getString(R.string.account_password_required));
+            return;
+        }
+        binding.accountNewPasswordLayout.setError(null);
+
+        viewModel.changePassword(currentPassword, newPassword, result -> runOnUiThread(() -> {
+            if (result.isSuccess()) {
+                binding.accountReauthPasswordInput.setText("");
+                binding.accountNewPasswordInput.setText("");
+                Toast.makeText(this, R.string.account_password_changed, Toast.LENGTH_SHORT).show();
+            } else {
+                String errorMsg = result.errorOrNull() != null
+                        ? result.errorOrNull().getMessage() : "Failed to update password";
+                binding.accountNewPasswordLayout.setError(errorMsg);
+            }
+        }));
+    }
+
+    private void handleChangeEmail() {
+        String currentPassword = binding.accountReauthPasswordInput.getText() == null
+                ? "" : binding.accountReauthPasswordInput.getText().toString();
+        String newEmail = binding.accountNewEmailInput.getText() == null
+                ? "" : binding.accountNewEmailInput.getText().toString();
+
+        if (currentPassword.isEmpty()) {
+            binding.accountReauthPasswordLayout.setError(getString(R.string.account_password_required));
+            return;
+        }
+        binding.accountReauthPasswordLayout.setError(null);
+
+        if (newEmail.isEmpty() || !newEmail.contains("@")) {
+            binding.accountNewEmailLayout.setError("Enter a valid email address");
+            return;
+        }
+        binding.accountNewEmailLayout.setError(null);
+
+        viewModel.changeEmail(currentPassword, newEmail, result -> runOnUiThread(() -> {
+            if (result.isSuccess()) {
+                binding.accountReauthPasswordInput.setText("");
+                binding.accountNewEmailInput.setText("");
+                Toast.makeText(this, R.string.account_email_sent, Toast.LENGTH_LONG).show();
+            } else {
+                String errorMsg = result.errorOrNull() != null
+                        ? result.errorOrNull().getMessage() : "Failed to update email";
+                binding.accountNewEmailLayout.setError(errorMsg);
+            }
+        }));
+    }
+
+    private void handleSignOut() {
+        viewModel.signOut();
+        navigateToAuth();
+    }
+
+    private void handleRemoveLocalData() {
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.account_remove_local_data_dialog_title)
+                .setMessage(R.string.account_remove_local_data_dialog_message)
+                .setPositiveButton(R.string.account_remove_local_data_action, (dialog, which) -> {
+                    viewModel.signOutAndRemoveLocalData(result -> runOnUiThread(this::navigateToAuth));
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
+    }
+
+    private void navigateToAuth() {
+        Intent intent = new Intent(this, AuthActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    private void submitDelete() {
         String password = binding.accountPasswordInput.getText() == null
                 ? ""
                 : binding.accountPasswordInput.getText().toString();

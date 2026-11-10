@@ -20,4 +20,32 @@
     <string name="account_status_cleanup_retry">The account is deleted, but local cleanup must be retried.</string>
     <string name="account_status_complete">Account and local encrypted data deleted.</string>
     <string name="account_status_failed">Deletion stopped safely. Review your connection or password and retry.</string>
+
+    <!-- Profile and switching strings -->
+    <string name="profile_title">Profile</string>
+    <string name="profile_display_name_hint">Display name</string>
+    <string name="profile_pseudonym_hint">Pod pseudonym</string>
+    <string name="profile_avatar_palette_hint">Avatar color palette</string>
+    <string name="profile_avatar_style_hint">Avatar style</string>
+    <string name="profile_photo_label">Private profile photo</string>
+    <string name="profile_photo_desc">Stored only in private encrypted local storage on this device. Never uploaded to Firebase.</string>
+    <string name="profile_choose_photo">Select private photo</string>
+    <string name="profile_remove_photo">Remove photo</string>
+    <string name="profile_save_action">Save changes</string>
+    <string name="profile_saved_toast">Profile updated</string>
+
+    <string name="account_edit_profile_action">Edit profile</string>
+    <string name="account_sign_out_action">Sign out</string>
+    <string name="account_switch_action">Switch account</string>
+    <string name="account_remove_local_data_action">Remove local data &amp; sign out</string>
+    <string name="account_remove_local_data_dialog_title">Remove this account\'s local data?</string>
+    <string name="account_remove_local_data_dialog_message">This will completely remove your encrypted local database and files from this device. Your online account is preserved.</string>
+    <string name="account_change_password_title">Change password</string>
+    <string name="account_new_password">New password</string>
+    <string name="account_change_password_action">Change password</string>
+    <string name="account_change_email_title">Change email address</string>
+    <string name="account_new_email">New email address</string>
+    <string name="account_change_email_action">Update email</string>
+    <string name="account_password_changed">Password changed successfully.</string>
+    <string name="account_email_sent">Verification email sent to the new address.</string>
 </resources>

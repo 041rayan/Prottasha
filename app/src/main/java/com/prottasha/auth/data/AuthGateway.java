@@ -52,6 +52,12 @@ public interface AuthGateway {
 
     void reauthenticate(String email, String password, ResultCallback<Boolean> callback);
 
+    void updatePassword(String newPassword, ResultCallback<Boolean> callback);
+
+    void updateEmail(String newEmail, ResultCallback<Boolean> callback);
+
+    void updateDisplayName(String displayName, ResultCallback<SessionUser> callback);
+
     void deleteCurrentUser(ResultCallback<Boolean> callback);
 
     void signOut();

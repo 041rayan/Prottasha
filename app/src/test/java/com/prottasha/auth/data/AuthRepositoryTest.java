@@ -1,7 +1,9 @@
 package com.prottasha.auth.data;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import com.prottasha.auth.domain.AuthState;
 import com.prottasha.auth.domain.PasswordPolicy;
@@ -153,6 +155,80 @@ public final class AuthRepositoryTest {
                 PasswordPolicy.validate("NoNumbers"));
         assertEquals(PasswordPolicy.Result.VALID,
                 PasswordPolicy.validate("Strong123"));
+    }
+
+    @Test
+    public void updatePasswordRejectsWeakPasswordLocally() {
+        FakeAuthGateway gateway = new FakeAuthGateway();
+        gateway.currentUser = VERIFIED;
+        gateway.reloadResult = AppResult.success(VERIFIED);
+        AuthRepository repository = new AuthRepository(gateway);
+
+        java.util.concurrent.atomic.AtomicReference<AppResult<Boolean>> resultRef =
+                new java.util.concurrent.atomic.AtomicReference<>();
+        repository.updatePassword("weak", resultRef::set);
+
+        assertEquals(0, gateway.updatePasswordCalls);
+        assertFalse(resultRef.get().isSuccess());
+        assertTrue(resultRef.get().errorOrNull() instanceof AuthGateway.AuthFailure);
+        assertEquals(AuthGateway.FailureCode.WEAK_PASSWORD,
+                ((AuthGateway.AuthFailure) resultRef.get().errorOrNull()).code());
+    }
+
+    @Test
+    public void updatePasswordPropagatesRequiresRecentLogin() {
+        FakeAuthGateway gateway = new FakeAuthGateway();
+        gateway.currentUser = VERIFIED;
+        gateway.reloadResult = AppResult.success(VERIFIED);
+        gateway.updatePasswordResult = failureBool(AuthGateway.FailureCode.REQUIRES_RECENT_LOGIN);
+        AuthRepository repository = new AuthRepository(gateway);
+
+        java.util.concurrent.atomic.AtomicReference<AppResult<Boolean>> resultRef =
+                new java.util.concurrent.atomic.AtomicReference<>();
+        repository.updatePassword("StrongPass123", resultRef::set);
+
+        assertEquals(1, gateway.updatePasswordCalls);
+        assertFalse(resultRef.get().isSuccess());
+        assertEquals(AuthGateway.FailureCode.REQUIRES_RECENT_LOGIN,
+                ((AuthGateway.AuthFailure) resultRef.get().errorOrNull()).code());
+    }
+
+    @Test
+    public void updateEmailPropagatesResult() {
+        FakeAuthGateway gateway = new FakeAuthGateway();
+        gateway.currentUser = VERIFIED;
+        gateway.reloadResult = AppResult.success(VERIFIED);
+        gateway.updateEmailResult = AppResult.success(true);
+        AuthRepository repository = new AuthRepository(gateway);
+
+        java.util.concurrent.atomic.AtomicReference<AppResult<Boolean>> resultRef =
+                new java.util.concurrent.atomic.AtomicReference<>();
+        repository.updateEmail("alice.new@example.test", resultRef::set);
+
+        assertEquals(1, gateway.updateEmailCalls);
+        assertTrue(resultRef.get().isSuccess());
+    }
+
+    @Test
+    public void updateDisplayNameUpdatesCurrentState() {
+        FakeAuthGateway gateway = new FakeAuthGateway();
+        gateway.currentUser = VERIFIED;
+        gateway.reloadResult = AppResult.success(VERIFIED);
+        SessionUser updated = new SessionUser("uid-a", "Alice Renamed", "alice@example.test", true);
+        gateway.updateDisplayNameResult = AppResult.success(updated);
+        AuthRepository repository = new AuthRepository(gateway);
+
+        java.util.concurrent.atomic.AtomicReference<AppResult<SessionUser>> resultRef =
+                new java.util.concurrent.atomic.AtomicReference<>();
+        repository.updateDisplayName("Alice Renamed", resultRef::set);
+
+        assertEquals(1, gateway.updateDisplayNameCalls);
+        assertTrue(resultRef.get().isSuccess());
+        assertEquals("Alice Renamed", repository.currentState().userOrNull().displayNameOrNull());
+    }
+
+    private static AppResult<Boolean> failureBool(AuthGateway.FailureCode code) {
+        return AppResult.failure(new AuthGateway.AuthFailure(code));
     }
 
     private static AppResult<SessionUser> failure(AuthGateway.FailureCode code) {

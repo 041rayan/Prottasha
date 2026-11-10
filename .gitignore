@@ -18,6 +18,8 @@ build/
 .externalNativeBuild
 .cxx
 *.png
+!prottasha.png
+*.pdf
 
 # Firebase rules test artifacts
 /node_modules/

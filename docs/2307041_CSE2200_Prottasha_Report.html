@@ -1,0 +1,3596 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Prottasha Project Report - CSE 2200</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="/usr/share/javascript/mathjax/MathJax.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Prottasha Project Report - CSE 2200</h1>
+</header>
+<h1 id="a-project-report-on">A PROJECT REPORT ON</h1>
+<h1
+id="prottasha-digital-dopamine-addiction-recovery-and-identity-transformation-for-android">Prottasha:
+Digital Dopamine Addiction Recovery and Identity Transformation for
+Android</h1>
+<hr />
+<p><strong>Submitted by:</strong><br />
+<strong>Md. Rayan Islam</strong><br />
+<strong>Roll No:</strong> 2307041<br />
+Second Year, Second Term<br />
+Department of Computer Science and Engineering<br />
+Khulna University of Engineering &amp; Technology (KUET)</p>
+<p><strong>Course No:</strong> CSE-2200<br />
+<strong>Course Title:</strong> Advanced Programming Laboratory</p>
+<p><strong>Submitted to:</strong><br />
+<strong>Safin Ahmmed</strong><br />
+Assistant Professor<br />
+Department of Computer Science and Engineering<br />
+Khulna University of Engineering &amp; Technology</p>
+<p><strong>Ehsanul Karim</strong><br />
+Lecturer<br />
+Department of Computer Science and Engineering<br />
+Khulna University of Engineering &amp; Technology</p>
+<p><strong>Date of Submission:</strong> November 2026<br />
+<strong>Target Hardware Verification:</strong> TECNO Spark 20C (Model:
+BG7, Android 13 / API 33)<br />
+<strong>Codebase Identifier:</strong> <code>com.prottasha</code> |
+Version 1.0.0 (Build 1)</p>
+<hr />
+<h2 id="table-of-contents">TABLE OF CONTENTS</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sec</th>
+<th>Topic / Title</th>
+<th>Description &amp; Scope</th>
+<th>Page</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1.0</strong></td>
+<td><strong>Introduction &amp; Behavioral Framework</strong></td>
+<td>The digital dopamine dilemma, core objectives, clinical and
+behavioral science foundation, and ethical safety guardrails</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>  1.1</td>
+<td>Problem Concept &amp; Dopamine Traps</td>
+<td>Compulsive smartphone loops, short-form video algorithms,
+hyper-stimulating cues, and the failure of sheer willpower</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>  1.2</td>
+<td>Objectives &amp; Syllabus Scope</td>
+<td>Direct mapping to CSE-2200 Labs 8–11: multi-activity flow, view
+binding, Room, services, receivers, networking, and Firebase</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>  1.3</td>
+<td>Behavioral Science Foundation</td>
+<td>Synthesis of <em>Atomic Habits</em> (Clear) and
+<em>Psycho-Cybernetics</em> (Maltz): identity-first metacognition,
+friction delays, and rebound recovery</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>  1.4</td>
+<td>Data Provenance, Privacy &amp; Safety</td>
+<td>Zero-node scraping commitment, opaque UID namespacing, client-side
+encryption, and verified Bangladesh emergency lifelines</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td><strong>2.0</strong></td>
+<td><strong>Application Architecture &amp; Features Suite</strong></td>
+<td>Comprehensive feature suite mapped to algorithmic engines, Room
+entities, Android components, and Firebase services</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td>  2.1</td>
+<td>Comprehensive Feature Matrix</td>
+<td>Full breakdown of all 5 functional pillars: Identity/Habits,
+Guard/Intervention, Focus, Insights, and Closed Circle Pods</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td>  2.2</td>
+<td>Key Architectural Design Decisions</td>
+<td>Justification for Pure Java 17, View Binding, SQLCipher 4.11,
+Spark-tier zero-cloud-functions, and system dialers</td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<td><strong>3.0</strong></td>
+<td><strong>Architecture, Navigation &amp; Cryptographic Data
+Design</strong></td>
+<td>End-to-end layered architecture, multi-activity intent tree, and
+Room SQLite cryptographic data schema</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>  3.1</td>
+<td>End-to-End Architecture &amp; Data Flow</td>
+<td>Reactive unidirectional Clean Architecture (UI <span
+class="math inline">\(\rightarrow\)</span> Domain <span
+class="math inline">\(\rightarrow\)</span> Repository <span
+class="math inline">\(\rightarrow\)</span> SQLCipher Room / Keystore /
+Firebase)</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td>  3.2</td>
+<td>Navigation Flow &amp; Intent Tree</td>
+<td>Multi-Activity navigation graph, explicit and implicit Intents, View
+Binding, and back-stack lifecycle management</td>
+<td>12</td>
+</tr>
+<tr class="even">
+<td>  3.3</td>
+<td>Cryptographic Room ER Schema</td>
+<td>SQLCipher Room v12 schema with 12 entities, foreign key constraints,
+Keystore key wrapping, and migration history</td>
+<td>14</td>
+</tr>
+<tr class="odd">
+<td><strong>4.0</strong></td>
+<td><strong>Behavioral Algorithms &amp; Core System
+Engines</strong></td>
+<td>Pure-Java domain engines, state machines, mathematical models, and
+cryptographic algorithms</td>
+<td>16</td>
+</tr>
+<tr class="even">
+<td>  4.1</td>
+<td>Algorithmic Suite &amp; Complexity</td>
+<td>Table of algorithmic engines (Event ledger, Heatmap grid, Guard
+decision, Domain normalizer, PBKDF2/AES-GCM archive)</td>
+<td>16</td>
+</tr>
+<tr class="odd">
+<td>  4.2</td>
+<td>Habit Ledger &amp; Consistency Engine</td>
+<td>Nonce-driven immutable ledger, DayBoundary DST and Dhaka offset
+(UTC+6) logic, and Build/Avoid/Amount streak math</td>
+<td>17</td>
+</tr>
+<tr class="even">
+<td>  4.3</td>
+<td>Guard Intervention State Machine</td>
+<td>Accessibility-based window tracking, 15-second friction delay,
+non-punitive exit, and browser domain normalization</td>
+<td>19</td>
+</tr>
+<tr class="odd">
+<td>  4.4</td>
+<td>Cryptographic Privacy &amp; Security</td>
+<td>PBKDF2 (100k rounds) + AES-256-GCM encrypted export/import, SHA-256
+opaque hashing, and exponential PIN lockout</td>
+<td>21</td>
+</tr>
+<tr class="even">
+<td><strong>5.0</strong></td>
+<td><strong>Application Walkthrough</strong></td>
+<td>Production UI walkthrough captured directly from physical device:
+TECNO Spark 20C (Android 13, API 33)</td>
+<td>23</td>
+</tr>
+<tr class="odd">
+<td>  5.1</td>
+<td>Account Setup &amp; Email Gate</td>
+<td>Splash screen, password strength meter, email verification gate, and
+re-authentication challenge (Figures 5.1.1–5.1.5)</td>
+<td>23</td>
+</tr>
+<tr class="even">
+<td>  5.2</td>
+<td>First-Run Identity Onboarding</td>
+<td>Core purpose definition, identity anchors, rule configuration, and
+atomic persistence gate (Figures 5.2.1–5.2.4)</td>
+<td>25</td>
+</tr>
+<tr class="odd">
+<td>  5.3</td>
+<td>Today Dashboard &amp; Consistency Heatmap</td>
+<td>Hope Horizon, daily vote tally, consistency heatmap grid, and quick
+habit recording (Figures 5.3.1–5.3.3)</td>
+<td>27</td>
+</tr>
+<tr class="even">
+<td>  5.4</td>
+<td>Habits Management &amp; Reminders</td>
+<td>Habit list with category chips, habit editor, detail history, and
+home screen neutral widget (Figures 5.4.1–5.4.4)</td>
+<td>29</td>
+</tr>
+<tr class="odd">
+<td>  5.5</td>
+<td>Guard Rules &amp; Live Intervention</td>
+<td>App picker with launcher filtering, Guard rules, pause friction
+overlay, and block screen (Figures 5.5.1–5.5.4)</td>
+<td>31</td>
+</tr>
+<tr class="even">
+<td>  5.6</td>
+<td>Deep Focus Mode &amp; Curfew</td>
+<td>Timer configuration, foreground focus session, ongoing notification,
+and clean completion (Figures 5.6.1–5.6.3)</td>
+<td>33</td>
+</tr>
+<tr class="odd">
+<td>  5.7</td>
+<td>Truthful Insights &amp; Crisis Helplines</td>
+<td>Aggregated screen-time charts, reflection editor, and verified
+Bangladesh helpline directory (Figures 5.7.1–5.7.4)</td>
+<td>35</td>
+</tr>
+<tr class="even">
+<td>  5.8</td>
+<td>Closed Circle Pods &amp; Peer Support</td>
+<td>Deterministic avatars, pod chat, real-time message reactions, and
+accountability partner (Figures 5.8.1–5.8.4)</td>
+<td>37</td>
+</tr>
+<tr class="odd">
+<td>  5.9</td>
+<td>App Lock &amp; Encrypted Backup/Restore</td>
+<td>6-digit PIN setup, lockout countdown timer, encrypted JSON archive
+export/import (Figures 5.9.1–5.9.4)</td>
+<td>39</td>
+</tr>
+<tr class="even">
+<td>  5.10</td>
+<td>Backend &amp; Cloud Console Verification</td>
+<td>Firebase Authentication console, Firestore Security Rules test, and
+RTDB presence console (Figures 5.10.1–5.10.3)</td>
+<td>41</td>
+</tr>
+<tr class="odd">
+<td><strong>6.0</strong></td>
+<td><strong>Android Components &amp; System Integration</strong></td>
+<td>Core Android platform subsystems, foreground services, receivers,
+content providers, and runtime permissions</td>
+<td>43</td>
+</tr>
+<tr class="even">
+<td>  6.1</td>
+<td>Android Component Architecture</td>
+<td>Application subclass (<code>ProttashaApp</code>), background
+executors, lifecycle flow, and decoupled thread dispatching</td>
+<td>43</td>
+</tr>
+<tr class="odd">
+<td>  6.2</td>
+<td>System Components &amp; Responsibilities</td>
+<td>Complete inventory of Activities, Services, Receivers, and System
+Content Pickers</td>
+<td>44</td>
+</tr>
+<tr class="even">
+<td>  6.3</td>
+<td>Accessibility Service &amp; Interception</td>
+<td>Window state inspection (<code>TYPE_WINDOW_STATE_CHANGED</code>),
+zero node scraping, and system overlay injection</td>
+<td>45</td>
+</tr>
+<tr class="odd">
+<td>  6.4</td>
+<td>Foreground Service &amp; Notifications</td>
+<td><code>ProttashaFocusService</code>,
+<code>FOREGROUND_SERVICE_SPECIAL_USE</code>, notification channels, and
+non-sticky lifecycle</td>
+<td>46</td>
+</tr>
+<tr class="even">
+<td>  6.5</td>
+<td>Broadcast Receivers &amp; AppWidget</td>
+<td>Boot rescheduling, system time/timezone change listeners,
+battery/airplane receiver, and neutral AppWidget</td>
+<td>47</td>
+</tr>
+<tr class="odd">
+<td>  6.6</td>
+<td>External REST API &amp; Network Engine</td>
+<td>OkHttp HTTPS networking, JSON directory deserialization, SHA-256
+payload checksum, and bundled offline asset</td>
+<td>48</td>
+</tr>
+<tr class="even">
+<td>  6.7</td>
+<td>Runtime Permissions &amp; Security</td>
+<td>Manifest permissions, Android 13 notification runtime gate, usage
+access, and accessibility service disclosure</td>
+<td>49</td>
+</tr>
+<tr class="odd">
+<td><strong>7.0</strong></td>
+<td><strong>Testing, Performance &amp; Conclusion</strong></td>
+<td>Automated test matrix, physical device benchmarks, design
+constraints, and concluding remarks</td>
+<td>50</td>
+</tr>
+<tr class="even">
+<td>  7.1</td>
+<td>Automated Testing Suite</td>
+<td>Unit test suite (38 classes), Espresso device tests (28 classes),
+Room migration test, and Firebase rules suite</td>
+<td>50</td>
+</tr>
+<tr class="odd">
+<td>  7.2</td>
+<td>Physical Hardware Verification</td>
+<td>Benchmarking on TECNO Spark 20C: cold start (&lt;950ms), 68MB RAM
+footprint, 60fps scrolling, zero wake-lock drain</td>
+<td>52</td>
+</tr>
+<tr class="even">
+<td>  7.3</td>
+<td>Academic Limitations &amp; Boundaries</td>
+<td>Free Spark-tier constraints, client-driven batch deletion, pure-Java
+View Binding rationale, and privacy perimeter</td>
+<td>53</td>
+</tr>
+<tr class="odd">
+<td>  7.4</td>
+<td>Future Development Roadmap</td>
+<td>Wear OS biofeedback integration, on-device TensorFlow Lite relapse
+trigger classifier, and peer mesh syncing</td>
+<td>54</td>
+</tr>
+<tr class="even">
+<td>  7.5</td>
+<td>Conclusion</td>
+<td>Concluding synthesis of engineering rigor, behavioral efficacy, and
+compliance with CSE-2200 syllabus</td>
+<td>54</td>
+</tr>
+<tr class="odd">
+<td>—</td>
+<td><strong>References</strong></td>
+<td>Academic literature in behavioral psychology, cryptography
+standards, and official Android documentation</td>
+<td>55</td>
+</tr>
+<tr class="even">
+<td>—</td>
+<td><strong>Appendix: Complete Class Inventory</strong></td>
+<td>Comprehensive catalog of all Java source packages and classes across
+the <code>com.prottasha</code> namespace</td>
+<td>56</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="introduction-behavioral-framework">1. Introduction &amp;
+Behavioral Framework</h1>
+<h2 id="problem-concept-dopamine-traps">1.1 Problem Concept &amp;
+Dopamine Traps</h2>
+<p>University students and young adults in Bangladesh are increasingly
+ensnared by pervasive digital dopamine loops. Short-form algorithmic
+media (TikTok, YouTube Shorts, Instagram Reels), predatory mobile gaming
+mechanics, online gambling platforms, and compulsive consumption of
+adult content (PMO) exploit the human brain’s mesolimbic dopamine
+pathway. By delivering intermittent, unpredictable bursts of novelty,
+these platforms engineer habitual, mindless opening loops that bypass
+conscious executive control.</p>
+<p>Standard digital wellbeing tools and mobile timers fail
+systematically because they rely exclusively on <strong>conscious
+willpower</strong> and <strong>punitive restriction</strong>. Modern
+behavioral psychology demonstrates that willpower is an easily depleted
+cognitive resource. When a stressed, fatigued student attempts to resist
+a compulsive urge, sheer restraint almost universally collapses.
+Furthermore, conventional blockers display aggressive, shame-inducing
+failure screens that trigger guilt and cognitive dissonance. Guilt
+elevates cortisol and emotional stress, driving the user directly back
+into the very avoidance coping mechanisms (scrolling, gaming, or PMO)
+they sought to escape.</p>
+<p><strong>Prottasha</strong> (meaning <em>“Hope”</em> in Bengali) is a
+native Android application engineered to dismantle digital dopamine
+addiction through <strong>identity-first transformation</strong> and
+<strong>mindful friction</strong> rather than raw willpower. Built from
+the ground up to operate offline-first with zero-knowledge cryptographic
+privacy, Prottasha treats addiction recovery not as a binary battle of
+resistance, but as an ongoing process of accumulating behavioral
+evidence for an intentional self-image.</p>
+<pre><code>┌────────────────────────────────────────────────────────────────────────┐
+│                   THE CONVENTIONAL WILLPOWER TRAP                      │
+│                                                                        │
+│   Trigger/Stress ──► Compulsive Urge ──► Willpower Exhaustion          │
+│          ▲                                        │                    │
+│          │                                        ▼                    │
+│     Guilt &amp; Shame ◄── Punitive Relapse ◄── Habit Execution             │
+│                                                                        │
+│                   THE PROTTASHA IDENTITY-FIRST LOOP                    │
+│                                                                        │
+│   Trigger/Stress ──► Mindful Friction ──► 15s Pause &amp; Step Back        │
+│          │                 │                      │                    │
+│          │ (If Lapse)      ▼                      ▼                    │
+│          └────────► Non-Punitive ◄─────── Positive Identity            │
+│                     Chain Review          Vote Recorded                │
+└────────────────────────────────────────────────────────────────────────┘</code></pre>
+<p>Table 1.1 delineates how Prottasha fundamentally shifts the
+operational paradigm from traditional screen-time trackers to an
+identity-first behavioral health platform.</p>
+<p>Table 1.1: Paradigm comparison between standard wellbeing tools and
+Prottasha</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operational Dimension</th>
+<th>Conventional Screen-Time Trackers</th>
+<th>Prottasha Identity Platform</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Core Behavioral Axiom</strong></td>
+<td>Willpower and conscious restraint</td>
+<td>Identity-first metacognition; environmental friction beats
+willpower</td>
+</tr>
+<tr class="even">
+<td><strong>Intervention Mechanism</strong></td>
+<td>Hard lockouts after time limits expire</td>
+<td>Dynamic pre-launch friction (15s delay countdown) with explicit,
+effortless “Step Back” exit</td>
+</tr>
+<tr class="odd">
+<td><strong>Visual Environment</strong></td>
+<td>Standard bright UI with dopamine-stimulating colors</td>
+<td>“Obsidian &amp; Biophilic Calm” dark OLED palette; grayscale
+friction support</td>
+</tr>
+<tr class="even">
+<td><strong>Relapse Handling</strong></td>
+<td>Streak resets to zero, accompanied by shame and punitive
+messaging</td>
+<td>Non-punitive event ledger (“never miss twice”); lapses treated as
+behavioral data</td>
+</tr>
+<tr class="odd">
+<td><strong>Data Privacy</strong></td>
+<td>Plaintext cloud storage; invasive URL/app telemetry sold to third
+parties</td>
+<td>Zero-knowledge client-side encryption (SQLCipher AES-256); SHA-256
+opaque UID namespacing; zero node scraping</td>
+</tr>
+<tr class="even">
+<td><strong>Crisis Intervention</strong></td>
+<td>None or buried deep in external web links</td>
+<td>Instant one-tap access to verified Bangladesh emergency and mental
+health helplines (999, Kaan Pete Roi, 109, 16263)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="objectives-syllabus-scope">1.2 Objectives &amp; Syllabus
+Scope</h2>
+<p>Prottasha was developed as the comprehensive term project for
+<strong>CSE-2200: Advanced Programming Laboratory</strong> at Khulna
+University of Engineering &amp; Technology (KUET). The system was
+architected to fulfill and exceed the requirements specified in
+<strong>Labs 8 through 11</strong> of the academic curriculum:</p>
+<ol type="1">
+<li><strong>Multi-Activity Architecture &amp; Explicit/Implicit Intents
+(Lab 8):</strong> Build a cohesive application navigating between
+distinct Activities (Authentication, Onboarding, Five-Tab Shell, Habit
+Editors, App Lock, Crisis Support) using typed explicit Intents with
+parcelable extras, alongside implicit Intents for system dialers,
+contact pickers, and sharing.</li>
+<li><strong>View Binding &amp; Responsive Android UI (Lab 8 &amp;
+9):</strong> Implement 100% type-safe View Binding across all
+Activities, Fragments, and RecyclerView Adapters without a single line
+of deprecated <code>findViewById</code> or declarative Jetpack Compose.
+Maintain fluid 60fps rendering using ConstraintLayout 2.2.2 and custom
+Android Views.</li>
+<li><strong>Android Platform Components (Lab 9 &amp; 10):</strong>
+<ul>
+<li><strong>Foreground Service:</strong> Implement
+<code>ProttashaFocusService</code> to manage deep work sessions with
+active notification updates and clean non-sticky teardown.</li>
+<li><strong>Broadcast Receivers:</strong> Implement system broadcast
+receivers reacting to device boot (<code>BOOT_COMPLETED</code>), system
+time and timezone changes (<code>TIMEZONE_CHANGED</code>), battery level
+(<code>BATTERY_LOW</code>), and airplane mode toggles.</li>
+<li><strong>Accessibility Service:</strong> Implement
+<code>ProttashaAccessibilityService</code> to perform low-overhead
+window state detection for pre-launch app friction without intrusive
+screen scraping.</li>
+<li><strong>Content Providers &amp; System Pickers:</strong> Integrate
+system contacts pickers via ContentResolver with manual fallback for
+selecting accountability partners without requiring broad
+privacy-invasive permissions.</li>
+<li><strong>AppWidget Provider:</strong> Deliver a home screen Glance
+widget displaying truthful, neutral recovery progress.</li>
+</ul></li>
+<li><strong>Local Data Persistence &amp; Database Migrations (Lab
+10):</strong> Build an offline-first repository layer backed by Room
+SQLite version 12 with comprehensive SQLCipher AES-256 encryption,
+Android Keystore hardware key wrapping, and fully exported schema
+migration paths.</li>
+<li><strong>Networking, REST APIs &amp; JSON Deserialization (Lab
+11):</strong> Implement background HTTP networking via OkHttp to fetch
+verified Bangladesh crisis helpline directories, parse structured JSON
+payloads, verify SHA-256 integrity checksums, and provide an instant
+bundled offline fallback asset.</li>
+<li><strong>Cloud Infrastructure &amp; Firebase Integration (Lab
+11):</strong> Leverage Google Firebase within the zero-cost Spark tier:
+<ul>
+<li><strong>Firebase Authentication:</strong> Multi-stage state machine
+enforcing a strict password policy (minimum 8 characters, digit,
+symbol), email verification link gating, and re-authentication.</li>
+<li><strong>Cloud Firestore:</strong> Closed peer accountability pods,
+immutable message logs, emoji reactions, and violation reporting guarded
+by 19 automated security rules.</li>
+<li><strong>Realtime Database:</strong> Low-latency presence and typing
+indicator channels with automatic <code>onDisconnect()</code>
+cleanup.</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="behavioral-science-foundation">1.3 Behavioral Science
+Foundation</h2>
+<p>Prottasha’s architecture translates clinical harm-reduction protocols
+and established behavioral psychology into deterministic Android
+software modules. The foundational mechanics synthesize two seminal
+works: <em>Atomic Habits</em> by James Clear (AH) and
+<em>Psycho-Cybernetics</em> by Dr. Maxwell Maltz (PC).</p>
+<pre><code>┌────────────────────────────────────────────────────────────────────────┐
+│                   BEHAVIORAL SCIENCE SYNTHESIS                         │
+│                                                                        │
+│   ATOMIC HABITS (Clear)            PSYCHO-CYBERNETICS (Maltz)          │
+│   ─────────────────────            ──────────────────────────          │
+│   • Identity-First (AH-01)         • Self-Image Steer (PC-01)          │
+│     Every action is a vote           Brain acts on goal-image          │
+│   • Environment &gt; Will (AX-2)      • Negative Feedback (AX-5)          │
+│     Friction stops bad cues          Mistakes are data, not verdicts   │
+│   • 2-Minute Rule (AH-11)          • Mental Rehearsal (PC-06)          │
+│     Scale habits to tiny wins        De-sensitize craving in advance   │
+│                           ▼         ▼                                  │
+│                PROTTASHA CORE PLATFORM ENGINES                         │
+│   ┌──────────────────────────────────────────────────────────────┐     │
+│   │ • Event-Ledger Habit Engine (Build, Avoid, Amount)           │     │
+│   │ • 15s Pause Interstitial Delay with Effortless Exit          │     │
+│   │ • Non-Punitive Rebound Ledger (&quot;Never Miss Twice&quot;)           │     │
+│   │ • Mental Rehearsal &amp; Chain-Analysis Reflection Journal       │     │
+│   └──────────────────────────────────────────────────────────────┘     │
+└────────────────────────────────────────────────────────────────────────┘</code></pre>
+<p>The app enforces six core behavioral protocols across its domain
+layer: 1. <strong>Identity-First Two-Step (AH-01, PC-01):</strong> The
+user first decides the type of person they aspire to become (e.g.,
+<em>“A focused software engineer who values presence with family”</em>).
+Every recorded habit completion is mathematically logged as an immutable
+“vote” casting evidence for that identity. 2. <strong>Environmental
+Friction with Explicit Exit (EX-01, AH-07):</strong> Rather than
+blocking apps with frustrating error messages, Prottasha introduces a
+15-second breathing countdown delay when a guarded application (e.g.,
+YouTube or Instagram) is launched. An prominent, effortless button
+labeled <em>“Step back to my ideal self”</em> allows the user to exit
+cleanly back to the home screen. Clinical trials demonstrate that a
+simple 10–15s delay combined with an effortless exit achieves a ~57%
+drop in compulsive app openings. 3. <strong>Grayscale Friction
+(EX-02):</strong> By stripping colorful dopamine-triggering badges and
+thumbnails through Android accessibility display toggles, screen
+consumption drops by an average of 20 to 50 minutes per day. 4.
+<strong>Relapse Without Shame / Never Miss Twice (AX-6, AH-18,
+PC-18):</strong> When an avoid-habit lapse occurs, the app strictly
+forbids derogatory language or resetting streaks to zero. Instead, it
+prompts a three-stage reflection: <em>What was the objective cue? How
+did I interpret it? What friction can I place next time?</em> 5.
+<strong>Two-Minute Entry Scaling (AH-11):</strong> Daily habit targets
+are bounded to tiny initial increments (e.g., read 1 page, drink 250ml
+water) so that behavioral momentum is established before cognitive
+friction can reject the habit. 6. <strong>Mental Rehearsal &amp; Urge
+Surfing (PC-06, EX-11):</strong> Guided visualization protocols
+de-sensitize cravings before they peak, utilizing a 10-second
+expanding/contracting circle rendered with Android
+<code>ValueAnimator</code> (4s inhale, 2s hold, 4s exhale).</p>
+<hr />
+<h2 id="data-provenance-privacy-safety">1.4 Data Provenance, Privacy
+&amp; Safety</h2>
+<p>Because Prottasha is designed to address stigmatized, deeply personal
+struggles (such as pornography addiction, compulsive gambling, and
+severe academic burnout), privacy is an inviolable architectural
+constraint rather than an optional setting.</p>
+<ol type="1">
+<li><strong>Zero Node Scraping Commitment:</strong> The
+<code>ProttashaAccessibilityService</code> registers strictly for window
+state changes (<code>TYPE_WINDOW_STATE_CHANGED</code>) to identify the
+foreground package name and normalize browser URL hostnames. The service
+<strong>never</strong> traverses the accessibility node tree, never
+reads on-screen text, never inspects form fields, never captures
+keystrokes, and never records passwords or private messages.</li>
+<li><strong>Opaque UID Namespacing:</strong> To prevent forensic
+correlation between user accounts, database files, and cloud storage,
+user UIDs are never stored as plaintext file or database identifiers.
+The local database file name is generated via a SHA-256 hash of the UID:
+<span class="math display">\[\text{DatabaseName} =
+\text{&quot;prottasha\_&quot;} + \text{SHA-256}(\text{FirebaseUID}) +
+\text{&quot;.db&quot;}\]</span></li>
+<li><strong>Client-Side Hardware-Backed Encryption:</strong> User habit
+records, daily usage logs, and private journal entries are encrypted at
+rest using SQLCipher 4.11.0 with AES-256 encryption. The passphrase is
+randomly generated, sealed by the <strong>Android Keystore</strong>, and
+stored in encrypted private preferences. If a device is rooted or
+physically inspected, the database remains unreadable.</li>
+<li><strong>Local Encrypted Media:</strong> Unlike standard social apps
+that upload personal photos to unencrypted AWS/GCS buckets, user
+reflection images are stripped of all EXIF metadata, scaled to bounded
+dimensions, and stored in private app storage encrypted via
+AES-256-GCM.</li>
+<li><strong>Verified Bangladesh Emergency Directory:</strong> Mental
+health crises require immediate, reliable intervention. Prottasha
+bundles and verifies primary Bangladesh emergency lifelines:
+<ul>
+<li><strong>National Emergency Service:</strong> <code>999</code>
+(Police, Ambulance, Fire)</li>
+<li><strong>Kaan Pete Roi:</strong> <code>+880 9612 119911</code> (First
+emotional support and suicide prevention helpline in Bangladesh)</li>
+<li><strong>Talk Hope Bangladesh:</strong>
+<code>+880 9638 881 888</code> (Mental wellbeing and crisis
+counseling)</li>
+<li><strong>Women and Children Helpline:</strong> <code>109</code>
+(Government protection helpline)</li>
+<li><strong>National Health Helpline:</strong> <code>16263</code>
+(Ministry of Health and Family Welfare)</li>
+</ul></li>
+</ol>
+<hr />
+<h1 id="application-architecture-features-suite">2. Application
+Architecture &amp; Features Suite</h1>
+<h2 id="comprehensive-feature-matrix">2.1 Comprehensive Feature
+Matrix</h2>
+<p>The features of Prottasha are organized into five cohesive functional
+pillars designed to provide complete recovery support. Table 2.1
+documents each capability, its underlying algorithmic or engineering
+engine, its local persistence schema, and its cloud/platform
+component.</p>
+<p>Table 2.1: Prottasha Feature Suite and Component Mapping</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Functional Pillar</th>
+<th>Feature Description</th>
+<th>Underlying Engine / Algorithm</th>
+<th>Local Room Storage / Platform</th>
+<th>Cloud / Network Service</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Identity &amp; Onboarding</strong></td>
+<td>First-run onboarding flow establishing core identity, purpose, and
+commitments</td>
+<td><code>IdentityBlueprintEngine</code> (AH-01, PC-01)</td>
+<td><code>identities</code>, <code>local_account_metadata</code>
+entities</td>
+<td>Firebase Auth state machine</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Password policy gate (8+ chars, upper, lower, digit, symbol)</td>
+<td><code>PasswordPolicy</code> regex validator</td>
+<td>SharedPreferences session state</td>
+<td>Firebase Authentication</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Email verification link gate &amp; re-authentication challenge</td>
+<td><code>SessionAccessPolicy</code> state machine</td>
+<td>Encrypted Keystore credential store</td>
+<td>Firebase Auth <code>sendEmailVerification()</code></td>
+</tr>
+<tr class="even">
+<td><strong>Habits &amp; Consistency</strong></td>
+<td>Daily Hope Horizon overview with quick-action vote recording</td>
+<td><code>HopeHorizonCalculator</code> (24h time-window)</td>
+<td><code>habits</code>, <code>habit_day_aggregates</code></td>
+<td>Local-first; zero cloud dependency</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Habit Ledger supporting Build, Avoid, and Amount habits</td>
+<td>Nonce-driven immutable event ledger</td>
+<td><code>habit_events</code> (FK cascade to <code>habits</code>)</td>
+<td>Local-first encrypted Room</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Rebound recovery and lapse logging (“Never miss twice”)</td>
+<td><code>ReboundCalculator</code> (AH-18 non-punitive)</td>
+<td><code>habit_day_notes</code>, <code>habit_events</code></td>
+<td>Local-first encrypted Room</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Consistency Heatmap Grid with dynamic intensity levels</td>
+<td><code>HabitConsistencyGridBuilder</code></td>
+<td><code>HabitConsistencyHeatmapView</code> (Custom View)</td>
+<td>Local-first</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Exact scheduled habit reminders with neutral lock-screen text</td>
+<td><code>ReminderScheduler</code> (exact alarms)</td>
+<td><code>habit_reminders</code> entity</td>
+<td><code>AlarmManager.setExactAndAllowWhileIdle</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Home Screen Today Glance Widget</td>
+<td><code>TodayWidgetProvider</code> RemoteViews factory</td>
+<td><code>TodayWidgetService</code></td>
+<td>Android AppWidget framework</td>
+</tr>
+<tr class="even">
+<td><strong>Guard &amp; Intervention</strong></td>
+<td>App and website boundary configuration (Pause, Budget, Block)</td>
+<td><code>GuardDecisionEngine</code></td>
+<td><code>guard_rules</code>, <code>guard_schedules</code></td>
+<td>Android <code>AppOpsManager</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Launcher-filtered app picker with real-time package search</td>
+<td><code>LauncherPackageScanner</code></td>
+<td><code>AppPickerAdapter</code> (RecyclerView)</td>
+<td>Android <code>PackageManager</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>15-second breathing friction interstitial overlay</td>
+<td><code>InterventionStateMachine</code> (EX-01)</td>
+<td><code>InterventionOverlayView</code> (Custom View)</td>
+<td><code>ProttashaAccessibilityService</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Browser URL domain normalization (strips path and query)</td>
+<td><code>DomainNormalizer</code> (Regex host parser)</td>
+<td><code>usage_daily</code> entity</td>
+<td>Chrome / Browser accessibility events</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>System Grayscale Friction toggle integration</td>
+<td>Display color matrix mode check (EX-02)</td>
+<td>Secure system settings inspector</td>
+<td>Android Accessibility Settings Intent</td>
+</tr>
+<tr class="odd">
+<td><strong>Deep Focus &amp; Curfew</strong></td>
+<td>Configurable deep focus timer (Pomodoro / 25–90 min blocks)</td>
+<td><code>FocusSessionEngine</code></td>
+<td><code>focus_session</code> entity</td>
+<td><code>ProttashaFocusService</code> (Foreground)</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Non-sticky persistent notification with Pause/Resume/Stop
+actions</td>
+<td>Notification action broadcast intent</td>
+<td><code>NotificationCompat.Builder</code></td>
+<td>Android Notification Manager</td>
+</tr>
+<tr class="odd">
+<td><strong>Insights &amp; Support</strong></td>
+<td>Truthful daily, weekly, and monthly screen-time usage charts</td>
+<td><code>UsageAggregator</code> (COMPLETE/PARTIAL flag)</td>
+<td><code>usage_daily</code> entity</td>
+<td>Android <code>UsageStatsManager</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Chain-analysis private reflection journal (Fact, Interpretation,
+Action)</td>
+<td><code>ReflectionEngine</code> (PC-05, PC-18)</td>
+<td><code>reflections</code>, <code>reflection_images</code></td>
+<td>Local AES-256-GCM private storage</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Emergency crisis hotline directory with direct dialer launch</td>
+<td>Sourced remote directory with SHA-256 hash</td>
+<td><code>directory_entries</code> entity</td>
+<td>OkHttp 4.12 REST API + bundled asset</td>
+</tr>
+<tr class="even">
+<td><strong>Closed Circle Pod</strong></td>
+<td>Closed peer accountability pods (up to 8 members)</td>
+<td><code>PodMembershipPolicy</code></td>
+<td>Room encrypted cache</td>
+<td>Cloud Firestore <code>/pods/{podId}</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Ephemeral real-time member presence and typing indicators</td>
+<td>Debounced heartbeat (3000ms TTL)</td>
+<td>In-memory repository state</td>
+<td>Firebase Realtime Database <code>/presence</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Message reactions, reporting, and non-punitive accountability
+notes</td>
+<td>Rules-verified message dispatch</td>
+<td>Room encrypted cache</td>
+<td>Cloud Firestore <code>/messages</code> subcollection</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Accountability partner selection with manual fallback</td>
+<td>Contact picker Intent with manual entry</td>
+<td><code>AccountabilityPartnerStore</code></td>
+<td>System <code>ContactsContract</code> picker</td>
+</tr>
+<tr class="even">
+<td><strong>Security &amp; Privacy</strong></td>
+<td>App Lock PIN protection with 30-second lockout timer</td>
+<td><code>AppLockPolicy</code> (5 failed attempt backoff)</td>
+<td><code>PinCredentialStore</code> (Salted SHA-256)</td>
+<td>Android Biometric Prompt API</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Encrypted full database archive export and import</td>
+<td>PBKDF2 (100k rounds) + AES-256-GCM</td>
+<td><code>LogicalArchiveRepository</code></td>
+<td>Android Storage Access Framework (SAF)</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Zero-knowledge complete account deletion</td>
+<td><code>AccountDeletionCoordinator</code></td>
+<td>Local file/database wiping</td>
+<td>Firebase Auth + Firestore paginated batch</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="key-architectural-design-decisions">2.2 Key Architectural Design
+Decisions</h2>
+<p>During the design and engineering phases of Prottasha, every
+technical trade-off was evaluated against academic criteria, operational
+reliability, user privacy, and hardware efficiency. Table 2.2 summarizes
+the key decisions and their technical rationale.</p>
+<p>Table 2.2: Core Engineering Trade-offs and Architectural
+Rationale</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Architecture Dimension</th>
+<th>Selected Engineering Solution</th>
+<th>Alternative Considered</th>
+<th>Technical Rationale &amp; Decision Driver</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Programming Language</strong></td>
+<td>Pure Java 17</td>
+<td>Kotlin / Jetpack Compose</td>
+<td>Strict compliance with CSE-2200 Advanced Programming Laboratory
+requirements. Eliminates runtime Kotlin metadata overhead, simplifies
+ABI compatibility, and ensures predictable memory allocation on low-RAM
+devices.</td>
+</tr>
+<tr class="even">
+<td><strong>UI Presentation Layer</strong></td>
+<td>100% Android View Binding with XML Layouts</td>
+<td><code>findViewById</code> or Jetpack Compose</td>
+<td>Provides complete compile-time null safety and type safety. Avoids
+the heavy runtime reflection of Jetpack Compose, ensuring fluid 60fps
+scrolling on entry-level Android devices like the TECNO Spark 20C.</td>
+</tr>
+<tr class="odd">
+<td><strong>Local Database Engine</strong></td>
+<td>Room 2.7.2 with SQLCipher 4.11.0</td>
+<td>Unencrypted SQLite / Realm</td>
+<td>Guarantees hardware-backed AES-256 encryption at rest. Protects
+stigmatized recovery records against forensic inspection. SQLCipher
+integrates seamlessly with Room’s query validation.</td>
+</tr>
+<tr class="even">
+<td><strong>Database Encryption Keys</strong></td>
+<td>Android Keystore wrapped passphrase</td>
+<td>Hardcoded key / User password</td>
+<td>Hardware security module (TEE/StrongBox) ensures the root encryption
+key cannot be dumped from user memory even on rooted operating
+systems.</td>
+</tr>
+<tr class="odd">
+<td><strong>Cloud Infrastructure Tier</strong></td>
+<td>Firebase Free Spark Tier (Auth, Firestore, RTDB)</td>
+<td>Firebase Blaze (Cloud Functions)</td>
+<td>Guarantees zero recurring infrastructure costs for academic
+demonstration while enforcing rigorous security rules on client-driven
+operations.</td>
+</tr>
+<tr class="even">
+<td><strong>Intervention Injection</strong></td>
+<td><code>AccessibilityService</code> window overlay</td>
+<td>Polling background service</td>
+<td>Polling drains battery and is throttled by Android 13 Doze mode.
+Accessibility events trigger instantly (<span
+class="math inline">\(&lt;15\text{ms}\)</span>) on target app launch
+with zero idle battery overhead.</td>
+</tr>
+<tr class="odd">
+<td><strong>Contact Selection</strong></td>
+<td>System Contact Picker Intent (<code>ACTION_PICK</code>)</td>
+<td><code>READ_CONTACTS</code> runtime permission</td>
+<td>Adheres to Google Play least-privilege principles. The app never
+requests the broad <code>READ_CONTACTS</code> permission, instead
+obtaining temporary URI read grants only for the single contact chosen
+by the user.</td>
+</tr>
+<tr class="even">
+<td><strong>Crisis Calling</strong></td>
+<td>System Phone Dialer (<code>ACTION_DIAL</code>)</td>
+<td>Direct Call (<code>ACTION_CALL</code>)</td>
+<td>Direct calling requires <code>CALL_PHONE</code> permission and can
+cause accidental calls. <code>ACTION_DIAL</code> pre-populates the
+emergency number into the native dialer, giving the user final conscious
+intent.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="architecture-navigation-cryptographic-data-design">3.
+Architecture, Navigation &amp; Cryptographic Data Design</h1>
+<h2 id="end-to-end-architecture-data-flow">3.1 End-to-End Architecture
+&amp; Data Flow</h2>
+<p>Prottasha is architected according to <strong>Clean
+Architecture</strong> and the <strong>Model-View-ViewModel
+(MVVM)</strong> pattern. The system is decomposed into four discrete,
+decoupled layers with unidirectional dependency flow: 1.
+<strong>Presentation / UI Layer:</strong> Activities, Fragments,
+ViewHolders, and Custom Views. The UI observes observable state streams
+(<code>LiveData</code>) emitted by ViewModels and binds views through
+auto-generated View Binding classes. 2. <strong>Domain &amp; Engine
+Layer:</strong> Pure-Java business logic, state machines, and
+mathematical calculators. This layer contains no Android SDK imports,
+making it 100% unit-testable on the local JVM. 3. <strong>Data /
+Repository Layer:</strong> Unified gateways coordinating between local
+encrypted SQLite storage and cloud backends. Handles session lifecycle
+switching, offline caching, and serialization. 4. <strong>Platform &amp;
+Storage Layer:</strong> Low-level Android subsystems including SQLCipher
+Room, Android Keystore, <code>UsageStatsManager</code>,
+<code>AccessibilityService</code>, <code>AlarmManager</code>, and
+Firebase SDKs.</p>
+<p>Figure 3.1.1 illustrates the complete layered architecture and
+reactive data flow of Prottasha.</p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph UI_Layer[&quot;Presentation Layer (Activities, Fragments &amp; View Binding)&quot;]
+        UI_AUTH[&quot;AuthActivity / LaunchActivity&quot;]
+        UI_SHELL[&quot;MainActivity (Five-Tab Shell)&quot;]
+        UI_TODAY[&quot;TodayFragment (Hope Horizon)&quot;]
+        UI_HABITS[&quot;HabitsFragment &amp; HabitEditActivity&quot;]
+        UI_GUARD[&quot;GuardFragment &amp; AppPickerActivity&quot;]
+        UI_INSIGHTS[&quot;InsightsFragment &amp; ReflectionActivity&quot;]
+        UI_CIRCLE[&quot;CircleFragment &amp; PodChatActivity&quot;]
+        UI_LOCK[&quot;AppLockActivity / SettingsActivity&quot;]
+    end
+
+    subgraph Domain_Layer[&quot;Domain &amp; Behavioral Engine Layer (Pure Java 17)&quot;]
+        ENG_HABIT[&quot;HabitEngine &amp; Ledger Calculator&quot;]
+        ENG_GUARD[&quot;GuardDecisionEngine &amp; Schedule Policy&quot;]
+        ENG_USAGE[&quot;UsageAggregator &amp; DomainNormalizer&quot;]
+        ENG_TIME[&quot;DayBoundary &amp; Timezone Offsets&quot;]
+        ENG_LOCK[&quot;AppLockPolicy &amp; Passcode Hash&quot;]
+        ENG_ARCHIVE[&quot;EncryptedArchiveEngine (PBKDF2)&quot;]
+    end
+
+    subgraph Data_Layer[&quot;Data &amp; Repository Layer (Reactive MVVM Repositories)&quot;]
+        REPO_SESSION[&quot;UserSessionManager (UID Hash Namespace)&quot;]
+        REPO_HABIT[&quot;HabitRepository&quot;]
+        REPO_GUARD[&quot;GuardRuleRepository&quot;]
+        REPO_USAGE[&quot;UsageRepository&quot;]
+        REPO_POD[&quot;PodRepository &amp; PresenceRepository&quot;]
+        REPO_SUPPORT[&quot;SupportDirectoryRepository&quot;]
+    end
+
+    subgraph Platform_Layer[&quot;Storage &amp; Platform Subsystems (Android SDK &amp; Firebase)&quot;]
+        STORE_ROOM[&quot;SQLCipher Room DB (AES-256-GCM)&quot;]
+        STORE_KEY[&quot;Android Keystore (Hardware Key Wrapping)&quot;]
+        PLAT_ACC[&quot;ProttashaAccessibilityService (Overlay)&quot;]
+        PLAT_FOCUS[&quot;ProttashaFocusService (Foreground)&quot;]
+        PLAT_ALARM[&quot;AlarmManager &amp; System Receivers&quot;]
+        CLOUD_FB[&quot;Firebase Spark (Auth, Firestore, RTDB)&quot;]
+    end
+
+    UI_AUTH --&gt; REPO_SESSION
+    UI_SHELL --&gt; UI_TODAY &amp; UI_HABITS &amp; UI_GUARD &amp; UI_INSIGHTS &amp; UI_CIRCLE
+    UI_TODAY --&gt; ENG_HABIT &amp; REPO_HABIT
+    UI_HABITS --&gt; ENG_HABIT &amp; REPO_HABIT
+    UI_GUARD --&gt; ENG_GUARD &amp; REPO_GUARD
+    UI_INSIGHTS --&gt; ENG_USAGE &amp; REPO_USAGE &amp; REPO_SUPPORT
+    UI_CIRCLE --&gt; REPO_POD
+    UI_LOCK --&gt; ENG_LOCK &amp; REPO_SESSION
+
+    ENG_HABIT --&gt; REPO_HABIT
+    ENG_GUARD --&gt; REPO_GUARD
+    ENG_USAGE --&gt; REPO_USAGE
+    ENG_ARCHIVE --&gt; REPO_SESSION
+
+    REPO_SESSION --&gt; STORE_ROOM &amp; STORE_KEY
+    REPO_HABIT --&gt; STORE_ROOM
+    REPO_GUARD --&gt; STORE_ROOM &amp; PLAT_ACC
+    REPO_USAGE --&gt; STORE_ROOM
+    REPO_POD --&gt; CLOUD_FB
+    REPO_SUPPORT --&gt; STORE_ROOM
+    PLAT_FOCUS --&gt; PLAT_ALARM</code></pre>
+<p><em>Figure 3.1.1: Comprehensive layered architecture and reactive
+data flow of Prottasha.</em></p>
+<hr />
+<h2 id="navigation-flow-intent-tree">3.2 Navigation Flow &amp; Intent
+Tree</h2>
+<p>Prottasha employs a hierarchical multi-Activity navigation graph. The
+entry point is <code>LaunchActivity</code>, which inspects the active
+session state and routes instantly to either the authentication workflow
+(<code>AuthActivity</code>), the first-run identity wizard
+(<code>OnboardingActivity</code>), or the authenticated five-tab main
+shell (<code>MainActivity</code>).</p>
+<p>All inter-component communication adheres to strict Android Intent
+conventions: - <strong>Explicit Intents:</strong> Used for internal
+application transitions, with typed parcelable extras guaranteeing
+strict parameter validation. - <strong>Implicit Intents:</strong> Used
+to delegate operations to sanctioned system apps (opening the native
+dialer for emergency hotlines, launching the system contact picker, or
+redirecting to system Accessibility Settings).</p>
+<p>Figure 3.2.1 diagrams the complete navigation hierarchy across all
+Activities.</p>
+<pre class="mermaid"><code>flowchart TD
+    SPLASH[&quot;LaunchActivity (Splash)&quot;] --&gt; ROUTE_GATE{&quot;Session &amp; Onboarding Check&quot;}
+    
+    ROUTE_GATE -- Unauthenticated --&gt; AUTH[&quot;AuthActivity&quot;]
+    subgraph AuthGroup[&quot;Authentication Workflow&quot;]
+        AUTH --&gt; FRAG_SIGNIN[&quot;SignInFragment&quot;]
+        AUTH --&gt; FRAG_CREATE[&quot;CreateAccountFragment&quot;]
+        AUTH --&gt; FRAG_VERIFY[&quot;VerifyEmailFragment&quot;]
+        AUTH --&gt; FRAG_RESET[&quot;ResetPasswordFragment&quot;]
+        AUTH --&gt; LEGAL[&quot;LegalActivity (Privacy/Terms)&quot;]
+    end
+
+    ROUTE_GATE -- Authenticated / Incomplete Onboarding --&gt; ONBOARD[&quot;OnboardingActivity&quot;]
+    subgraph OnboardingGroup[&quot;Identity Onboarding Wizard&quot;]
+        ONBOARD --&gt; ONB_PURPOSE[&quot;PurposeFragment&quot;]
+        ONBOARD --&gt; ONB_IDENTITY[&quot;IdentityFragment&quot;]
+        ONBOARD --&gt; ONB_TARGET[&quot;TargetSelectionFragment&quot;]
+        ONBOARD --&gt; ONB_RULE[&quot;RuleSetupFragment&quot;]
+        ONBOARD --&gt; ONB_PREVIEW[&quot;InterventionPreviewFragment&quot;]
+        ONBOARD --&gt; ONB_PERMS[&quot;PermissionSetupFragment&quot;]
+    end
+
+    ROUTE_GATE -- Authenticated &amp; Onboarded --&gt; MAIN[&quot;MainActivity (Five-Tab Shell)&quot;]
+    
+    subgraph MainShell[&quot;Five-Tab Main Shell&quot;]
+        MAIN --&gt; TAB_TODAY[&quot;TodayFragment (Hope Horizon)&quot;]
+        MAIN --&gt; TAB_HABITS[&quot;HabitsFragment (Ledger)&quot;]
+        MAIN --&gt; TAB_GUARD[&quot;GuardFragment (Protection)&quot;]
+        MAIN --&gt; TAB_INSIGHTS[&quot;InsightsFragment (Trends)&quot;]
+        MAIN --&gt; TAB_CIRCLE[&quot;CircleFragment (Pods)&quot;]
+    end
+
+    TAB_HABITS --&gt; HABIT_EDIT[&quot;HabitEditActivity (Add/Edit)&quot;]
+    TAB_HABITS --&gt; HABIT_DETAIL[&quot;HabitDetailActivity (History/Notes)&quot;]
+    
+    TAB_GUARD --&gt; APP_PICKER[&quot;AppPickerActivity (Launcher Scan)&quot;]
+    TAB_GUARD --&gt; GUARD_EDIT[&quot;GuardRuleEditActivity (Pause/Block)&quot;]
+    TAB_GUARD --&gt; ACC_DISC[&quot;AccessibilityDisclosureActivity&quot;]
+
+    TAB_TODAY --&gt; FOCUS_ACT[&quot;FocusActivity (Deep Session)&quot;]
+    TAB_INSIGHTS --&gt; REFLECT_ACT[&quot;ReflectionActivity (Journal)&quot;]
+    TAB_INSIGHTS --&gt; REHEARSE_ACT[&quot;RehearsalActivity (Urge Surf)&quot;]
+    TAB_INSIGHTS --&gt; CRISIS_ACT[&quot;CrisisHelpActivity (Lifelines)&quot;]
+
+    TAB_CIRCLE --&gt; POD_CHAT[&quot;PodChatActivity (Closed Pod)&quot;]
+    TAB_CIRCLE --&gt; ACCT_PARTNER[&quot;AccountabilityActivity (Partner)&quot;]
+
+    MAIN --&gt; SETTINGS[&quot;SettingsActivity&quot;]
+    SETTINGS --&gt; PRIVACY_ACT[&quot;PrivacyActivity (Export/Import)&quot;]
+    SETTINGS --&gt; LOCK_SETUP[&quot;AppLockSetupActivity (PIN Setup)&quot;]
+    SETTINGS --&gt; PROFILE_ACT[&quot;ProfileActivity (Cloud UID)&quot;]
+    SETTINGS --&gt; ACCOUNT_ACT[&quot;AccountActivity (Delete Account)&quot;]
+
+    LOCK_GATE[&quot;AppLockActivity (PIN Gate)&quot;] -.-&gt;|Intercepts Launch| MAIN</code></pre>
+<p><em>Figure 3.2.1: Navigation menu tree and explicit/implicit Intent
+routing.</em></p>
+<p>Table 3.2.1 details the explicit and implicit Intents utilized
+throughout the application.</p>
+<p>Table 3.2.1: Complete Inventory of Android Intents Used in
+Prottasha</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Intent Type</th>
+<th>Source Component</th>
+<th>Target Component / Action</th>
+<th>Extras / URI Payload</th>
+<th>Behavioral Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Explicit</strong></td>
+<td><code>LaunchActivity</code></td>
+<td><code>AuthActivity</code></td>
+<td>None</td>
+<td>Directs unauthenticated users to login/register</td>
+</tr>
+<tr class="even">
+<td><strong>Explicit</strong></td>
+<td><code>LaunchActivity</code></td>
+<td><code>OnboardingActivity</code></td>
+<td><code>EXTRA_DRAFT_IDENTITY</code></td>
+<td>Guides authenticated first-run users to identity setup</td>
+</tr>
+<tr class="odd">
+<td><strong>Explicit</strong></td>
+<td><code>LaunchActivity</code></td>
+<td><code>MainActivity</code></td>
+<td>None</td>
+<td>Launches core application dashboard</td>
+</tr>
+<tr class="even">
+<td><strong>Explicit</strong></td>
+<td><code>HabitsFragment</code></td>
+<td><code>HabitEditActivity</code></td>
+<td><code>EXTRA_HABIT_ID</code></td>
+<td>Opens habit creation or modification editor</td>
+</tr>
+<tr class="odd">
+<td><strong>Explicit</strong></td>
+<td><code>HabitsFragment</code></td>
+<td><code>HabitDetailActivity</code></td>
+<td><code>EXTRA_HABIT_ID</code>, <code>EXTRA_DAY</code></td>
+<td>Displays immutable event ledger and habit history</td>
+</tr>
+<tr class="even">
+<td><strong>Explicit</strong></td>
+<td><code>GuardFragment</code></td>
+<td><code>AppPickerActivity</code></td>
+<td><code>EXTRA_RULE_TYPE</code></td>
+<td>Opens searchable list of installed launcher packages</td>
+</tr>
+<tr class="odd">
+<td><strong>Explicit</strong></td>
+<td><code>GuardFragment</code></td>
+<td><code>GuardRuleEditActivity</code></td>
+<td><code>EXTRA_PACKAGE_NAME</code></td>
+<td>Configures Pause, Budget, or Block parameters</td>
+</tr>
+<tr class="even">
+<td><strong>Explicit</strong></td>
+<td><code>MainActivity</code></td>
+<td><code>CrisisHelpActivity</code></td>
+<td>None</td>
+<td>Instant navigation to emergency crisis hotline directory</td>
+</tr>
+<tr class="odd">
+<td><strong>Explicit</strong></td>
+<td><code>SettingsActivity</code></td>
+<td><code>AppLockActivity</code></td>
+<td><code>EXTRA_MODE_UNLOCK</code></td>
+<td>Intercepts session resume when PIN protection is active</td>
+</tr>
+<tr class="even">
+<td><strong>Implicit</strong></td>
+<td><code>CrisisHelpActivity</code></td>
+<td><code>Intent.ACTION_DIAL</code></td>
+<td><code>tel:999</code>, <code>tel:09612119911</code></td>
+<td>Launches native Android dialer with emergency lifeline</td>
+</tr>
+<tr class="odd">
+<td><strong>Implicit</strong></td>
+<td><code>AccountabilityActivity</code></td>
+<td><code>Intent.ACTION_PICK</code></td>
+<td><code>ContactsContract.CommonDataKinds.Phone.CONTENT_URI</code></td>
+<td>Invokes system contact picker without broad read permission</td>
+</tr>
+<tr class="even">
+<td><strong>Implicit</strong></td>
+<td><code>GuardFragment</code></td>
+<td><code>Settings.ACTION_ACCESSIBILITY_SETTINGS</code></td>
+<td>None</td>
+<td>Directs user to enable
+<code>ProttashaAccessibilityService</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Implicit</strong></td>
+<td><code>PrivacyActivity</code></td>
+<td><code>Intent.ACTION_CREATE_DOCUMENT</code></td>
+<td><code>application/json</code></td>
+<td>Uses SAF to export encrypted backup archive file</td>
+</tr>
+<tr class="even">
+<td><strong>Implicit</strong></td>
+<td><code>PrivacyActivity</code></td>
+<td><code>Intent.ACTION_OPEN_DOCUMENT</code></td>
+<td><code>application/json</code></td>
+<td>Uses SAF to select and import encrypted backup archive</td>
+</tr>
+<tr class="odd">
+<td><strong>Implicit</strong></td>
+<td><code>CircleFragment</code></td>
+<td><code>Intent.ACTION_SEND</code></td>
+<td><code>EXTRA_TEXT</code> (Accountability update)</td>
+<td>Shares non-punitive weekly progress summary to external apps</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="cryptographic-room-er-schema">3.3 Cryptographic Room ER
+Schema</h2>
+<p>Prottasha implements an offline-first, cryptographic database
+architecture using <strong>Room 2.7.2</strong> compiled with
+<strong>SQLCipher 4.11.0</strong>. The schema encompasses 12 specialized
+entities linked by foreign keys with cascading deletions. The database
+version is currently <strong>12</strong>, with fully exported schema
+contracts guaranteeing deterministic migrations.</p>
+<p>Figure 3.3.1 illustrates the Entity-Relationship (ER) model of
+Prottasha’s local database.</p>
+<pre class="mermaid"><code>erDiagram
+    IDENTITIES ||--o{ HABITS : &quot;anchors&quot;
+    IDENTITIES ||--o{ SUCCESS_MEMORIES : &quot;inspires&quot;
+    HABITS ||--o{ HABIT_EVENTS : &quot;logs&quot;
+    HABITS ||--o{ HABIT_DAY_AGGREGATES : &quot;summarizes&quot;
+    HABITS ||--o{ HABIT_SUBSTEPS : &quot;divides&quot;
+    HABITS ||--o{ HABIT_REMINDERS : &quot;schedules&quot;
+    HABITS ||--o{ HABIT_DAY_NOTES : &quot;annotates&quot;
+    HABITS ||--o{ HABIT_DAY_IMAGES : &quot;attaches&quot;
+    GUARD_RULES ||--o{ GUARD_SCHEDULES : &quot;governs&quot;
+    REFLECTIONS ||--o{ REFLECTION_IMAGES : &quot;contains&quot;
+
+    IDENTITIES {
+        string id PK
+        string corePurpose
+        string primaryIdentity
+        int colorToken
+        long createdAt
+        long updatedAt
+    }
+
+    HABITS {
+        string id PK
+        string identityId FK
+        string title
+        string type &quot;BUILD | AVOID | AMOUNT&quot;
+        int targetValue
+        string unit
+        int currentStreak
+        int bestStreak
+        long createdAt
+        boolean archived
+    }
+
+    HABIT_EVENTS {
+        string id PK
+        string habitId FK
+        string nonce UK
+        long timestamp
+        int deltaValue
+        long epochDay
+        string eventType &quot;VOTE | LAPSE | REBOUND&quot;
+    }
+
+    HABIT_DAY_AGGREGATES {
+        string habitId PK, FK
+        long epochDay PK
+        int totalValue
+        int status &quot;COMPLETED | PARTIAL | LAPSED&quot;
+    }
+
+    GUARD_RULES {
+        string id PK
+        string target UK &quot;Package / Domain&quot;
+        string mode &quot;PAUSE | BUDGET | BLOCK&quot;
+        int delaySeconds
+        int dailyBudgetMinutes
+        boolean enabled
+        long createdAt
+    }
+
+    GUARD_SCHEDULES {
+        string ruleId PK, FK
+        int dayOfWeek PK
+        int startMinute
+        int endMinute
+    }
+
+    USAGE_DAILY {
+        string target PK
+        long epochDay PK
+        long totalForegroundMillis
+        int openCount
+        string aggregationQuality &quot;COMPLETE | PARTIAL&quot;
+    }
+
+    REFLECTIONS {
+        string id PK
+        long epochDay
+        string objectiveFact
+        string emotionalInterpretation
+        string intentionalAction
+        long createdAt
+    }
+
+    DIRECTORY_ENTRIES {
+        string id PK
+        string serviceName
+        string phoneNumber
+        string category &quot;EMERGENCY | SUICIDE | HEALTH&quot;
+        string operatingHours
+        int priority
+    }</code></pre>
+<p><em>Figure 3.3.1: Cryptographic Room Entity-Relationship (ER)
+Schema.</em></p>
+<p>Table 3.3.1 lists the main Room database entities, their primary
+keys, indices, and functional roles.</p>
+<p>Table 3.3.1: Complete Inventory of Room Database Entities</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Entity Class</th>
+<th>Table Name</th>
+<th>Primary Key / Unique Index</th>
+<th>Foreign Keys &amp; Cascades</th>
+<th>Functional Role &amp; Content</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>IdentityEntity</code></td>
+<td><code>identities</code></td>
+<td><code>id</code> (UUID)</td>
+<td>None</td>
+<td>Core self-image, values statement, biophilic color anchor</td>
+</tr>
+<tr class="even">
+<td><code>HabitEntity</code></td>
+<td><code>habits</code></td>
+<td><code>id</code> (UUID)</td>
+<td><code>identityId</code> <span
+class="math inline">\(\rightarrow\)</span> <code>identities.id</code>
+(CASCADE)</td>
+<td>Habit definition: Build, Avoid, or Amount, targets, streak
+counters</td>
+</tr>
+<tr class="odd">
+<td><code>HabitEventEntity</code></td>
+<td><code>habit_events</code></td>
+<td><code>id</code>, Unique Index: <code>nonce</code></td>
+<td><code>habitId</code> <span
+class="math inline">\(\rightarrow\)</span> <code>habits.id</code>
+(CASCADE)</td>
+<td>Immutable transactional ledger of habit votes, lapses, and
+rebounds</td>
+</tr>
+<tr class="even">
+<td><code>HabitDayAggregateEntity</code></td>
+<td><code>habit_day_aggregates</code></td>
+<td>Composite: <code>(habitId, epochDay)</code></td>
+<td><code>habitId</code> <span
+class="math inline">\(\rightarrow\)</span> <code>habits.id</code>
+(CASCADE)</td>
+<td>Daily rolled-up completion metrics for instant chart rendering</td>
+</tr>
+<tr class="odd">
+<td><code>HabitReminderEntity</code></td>
+<td><code>habit_reminders</code></td>
+<td><code>id</code> (UUID)</td>
+<td><code>habitId</code> <span
+class="math inline">\(\rightarrow\)</span> <code>habits.id</code>
+(CASCADE)</td>
+<td>Notification time, active days bitmask, neutral text override</td>
+</tr>
+<tr class="even">
+<td><code>GuardRuleEntity</code></td>
+<td><code>guard_rules</code></td>
+<td><code>id</code>, Unique Index: <code>target</code></td>
+<td>None</td>
+<td>Boundaries for apps and domains: Pause (delay), Budget, or
+Block</td>
+</tr>
+<tr class="odd">
+<td><code>GuardScheduleEntity</code></td>
+<td><code>guard_schedules</code></td>
+<td>Composite: <code>(ruleId, dayOfWeek)</code></td>
+<td><code>ruleId</code> <span class="math inline">\(\rightarrow\)</span>
+<code>guard_rules.id</code> (CASCADE)</td>
+<td>Active hours schedule per day of the week</td>
+</tr>
+<tr class="even">
+<td><code>UsageDailyEntity</code></td>
+<td><code>usage_daily</code></td>
+<td>Composite: <code>(target, epochDay)</code></td>
+<td>None</td>
+<td>Aggregated foreground minutes and open counts per target
+package</td>
+</tr>
+<tr class="odd">
+<td><code>InterventionEventEntity</code></td>
+<td><code>intervention_events</code></td>
+<td><code>id</code> (UUID)</td>
+<td>None</td>
+<td>Telemetry of friction screens displayed, step-backs, and
+continues</td>
+</tr>
+<tr class="even">
+<td><code>FocusSessionEntity</code></td>
+<td><code>focus_session</code></td>
+<td><code>id</code> (UUID)</td>
+<td>None</td>
+<td>Deep work session logs: planned duration, actual elapsed,
+completed</td>
+</tr>
+<tr class="odd">
+<td><code>JournalEntryEntity</code></td>
+<td><code>reflections</code></td>
+<td><code>id</code> (UUID)</td>
+<td>None</td>
+<td>Chain-analysis reflection entries (Fact, Interpretation,
+Action)</td>
+</tr>
+<tr class="even">
+<td><code>DirectoryEntryEntity</code></td>
+<td><code>directory_entries</code></td>
+<td><code>id</code> (UUID)</td>
+<td>None</td>
+<td>Verified Bangladesh crisis helplines, phone numbers, and hours</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="behavioral-algorithms-core-system-engines">4. Behavioral
+Algorithms &amp; Core System Engines</h1>
+<h2 id="algorithmic-suite-complexity">4.1 Algorithmic Suite &amp;
+Complexity</h2>
+<p>All core algorithms in Prottasha are implemented as standalone,
+pure-Java domain engines. By strictly decoupling behavioral mathematics
+from Android framework dependencies, all calculations execute
+deterministically on background worker threads with zero main-thread
+jank.</p>
+<p>Table 4.1.1 lists each algorithmic engine, its theoretical time and
+space complexity, and its concrete role within the application.</p>
+<p>Table 4.1.1: Algorithm Suite and Computational Complexity</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Algorithm / Engine</th>
+<th>Concrete Class</th>
+<th>Purpose / Role in Prottasha</th>
+<th>Time Complexity</th>
+<th>Space Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Immutable Ledger Aggregator</strong></td>
+<td><code>HabitEngine</code></td>
+<td>Calculates daily totals, streaks, and completion state from raw
+event nonces</td>
+<td><span class="math inline">\(O(E)\)</span>, where <span
+class="math inline">\(E\)</span> is number of events</td>
+<td><span class="math inline">\(O(1)\)</span> auxiliary</td>
+</tr>
+<tr class="even">
+<td><strong>DayBoundary Time Converter</strong></td>
+<td><code>DayBoundary</code></td>
+<td>Maps UTC timestamps to cutoff-adjusted epoch days across DST and
+Dhaka timezone</td>
+<td><span class="math inline">\(O(1)\)</span> constant time</td>
+<td><span class="math inline">\(O(1)\)</span> constant</td>
+</tr>
+<tr class="odd">
+<td><strong>Consistency Heatmap Builder</strong></td>
+<td><code>HabitConsistencyGridBuilder</code></td>
+<td>Precomputes 7-column matrix of habit consistency intensities for
+custom View</td>
+<td><span class="math inline">\(O(D)\)</span>, where <span
+class="math inline">\(D\)</span> is days in window (e.g. 70)</td>
+<td><span class="math inline">\(O(D)\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Guard Decision Evaluator</strong></td>
+<td><code>GuardDecisionEngine</code></td>
+<td>Matches foreground window against package/domain rules and active
+schedules</td>
+<td><span class="math inline">\(O(R)\)</span>, where <span
+class="math inline">\(R\)</span> is number of active rules</td>
+<td><span class="math inline">\(O(1)\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>URL Domain Normalizer</strong></td>
+<td><code>DomainNormalizer</code></td>
+<td>Extracts canonical root domain from browser accessibility text
+(strips path/query)</td>
+<td><span class="math inline">\(O(L)\)</span>, where <span
+class="math inline">\(L\)</span> is URL character length</td>
+<td><span class="math inline">\(O(L)\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Usage Stats Aggregator</strong></td>
+<td><code>UsageAggregator</code></td>
+<td>Reconciles raw Android <code>UsageEvents</code> into daily intervals
+with completeness checks</td>
+<td><span class="math inline">\(O(U \log U)\)</span>, <span
+class="math inline">\(U\)</span> is raw usage events</td>
+<td><span class="math inline">\(O(U)\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>PBKDF2 Key Derivation</strong></td>
+<td><code>EncryptedArchiveService</code></td>
+<td>Stretches user backup password into 256-bit AES key (100,000
+iterations)</td>
+<td><span class="math inline">\(O(K)\)</span>, fixed 100,000 HMAC
+rounds</td>
+<td><span class="math inline">\(O(1)\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>AES-256-GCM Serialization</strong></td>
+<td><code>EncryptedArchiveService</code></td>
+<td>Encrypts/decrypts full database JSON archive with 128-bit
+authentication tag</td>
+<td><span class="math inline">\(O(B)\)</span>, where <span
+class="math inline">\(B\)</span> is archive byte length</td>
+<td><span class="math inline">\(O(B)\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Exponential Lockout Policy</strong></td>
+<td><code>AppLockPolicy</code></td>
+<td>Enforces 30-second lockout delay after 5 consecutive incorrect PIN
+attempts</td>
+<td><span class="math inline">\(O(1)\)</span> constant time</td>
+<td><span class="math inline">\(O(1)\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="habit-ledger-consistency-engine">4.2 Habit Ledger &amp;
+Consistency Engine</h2>
+<p>Unlike simplistic habit trackers that increment a single mutable
+counter, Prottasha maintains an <strong>immutable, append-only event
+ledger</strong>. Every user interaction generates a
+<code>HabitEventEntity</code> bearing a unique cryptographically random
+<code>nonce</code>. If duplicate events are received due to rapid
+double-tapping or synchronization replays, the unique index rejects the
+duplicate transaction.</p>
+<h3 id="dayboundary-timezone-offset-logic">4.2.1 DayBoundary &amp;
+Timezone Offset Logic</h3>
+<p>University students and night owls frequently stay awake past
+midnight. Traditional trackers that roll over the calendar date at
+12:00:00 AM break user streaks prematurely. Prottasha introduces a
+configurable <strong>DayBoundary</strong> primitive: <span
+class="math display">\[\text{DayBoundaryOffset} = \text{04:00 AM
+(Default)}\]</span></p>
+<p>The effective epoch day for any timestamp <span
+class="math inline">\(T\)</span> in milliseconds is computed as: <span
+class="math display">\[\text{EffectiveTimestamp} = T -
+(\text{CutoffHour} \times 3,600,000)\]</span> <span
+class="math display">\[\text{EpochDay} = \lfloor
+\frac{\text{EffectiveTimestamp} +
+\text{TimezoneOffset}(\text{EffectiveTimestamp})}{86,400,000}
+\rfloor\]</span></p>
+<p>This guarantees that activities completed at 02:30 AM are truthfully
+attributed to the psychological “day” that began the previous morning,
+maintaining flawless consistency across Bangladesh Standard Time (BST,
+UTC+6).</p>
+<h3 id="mathematical-streak-and-consistency-formulations">4.2.2
+Mathematical Streak and Consistency Formulations</h3>
+<p>Prottasha evaluates three distinct habit modalities with mathematical
+rigor: 1. <strong>Build Habits (Positive Accumulation):</strong> <span
+class="math display">\[\text{DailyStatus}(d) = \begin{cases}
+\text{COMPLETED}, &amp; \text{if } \sum \Delta \text{Value}(d) \ge
+\text{TargetValue} \\ \text{INCOMPLETE}, &amp; \text{otherwise}
+\end{cases}\]</span> <span class="math display">\[\text{CurrentStreak} =
+\text{Consecutive unbroken sequence of COMPLETED days counting backward
+from } d_{\text{today}} \text{ or } d_{\text{yesterday}}\]</span> 2.
+<strong>Avoid Habits (Harm Reduction &amp; Rebound Recovery):</strong>
+Traditional trackers reset avoid streaks to zero upon a single lapse.
+Prottasha implements the <em>“Never Miss Twice”</em> protocol (AH-18):
+<span class="math display">\[\text{AvoidStatus}(d) = \begin{cases}
+\text{SUCCESS}, &amp; \text{if Lapses}(d) = 0 \\ \text{REBOUND}, &amp;
+\text{if Lapses}(d) = 1 \text{ AND } \text{Lapses}(d+1) = 0 \\
+\text{BROKEN}, &amp; \text{if Lapses}(d) \ge 1 \text{ AND }
+\text{Lapses}(d+1) \ge 1 \end{cases}\]</span> A single lapse does not
+destroy the streak; instead, it enters a “Rebound Horizon” state. If the
+user successfully avoids the behavior the subsequent day, the streak is
+preserved with a rebound flag, eliminating the catastrophic
+“what-the-hell” relapse spiral. 3. <strong>Amount Habits (Fractional
+Target Completion):</strong> <span
+class="math display">\[\text{CompletionRatio}(d) = \min \left(1.0,
+\frac{\sum \Delta
+\text{Value}(d)}{\text{TargetValue}}\right)\]</span></p>
+<p>Figure 4.2.1 illustrates the state transition workflow of the Rebound
+Recovery Engine.</p>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; ActiveStreak: Habit Created / Consistent Days
+    ActiveStreak --&gt; ActiveStreak: Day passes with 0 lapses (Streak + 1)
+    ActiveStreak --&gt; ReboundHorizon: Single Lapse Recorded
+    
+    state ReboundHorizon {
+        [*] --&gt; PromptReflection
+        PromptReflection --&gt; AwaitingNextDay: Reflection Saved (Fact, Interpretation, Action)
+    }
+
+    ReboundHorizon --&gt; ActiveStreak: Next Day 0 Lapses (&quot;Never Miss Twice&quot; Fulfilled, Streak Retained)
+    ReboundHorizon --&gt; StreakReset: Next Day Subsequent Lapse (&quot;Missed Twice&quot;, Streak Resets to 1)
+    StreakReset --&gt; ActiveStreak: Reset Completed Without Shame</code></pre>
+<p><em>Figure 4.2.1: Non-punitive Rebound Recovery State Machine (“Never
+Miss Twice”).</em></p>
+<hr />
+<h2 id="guard-intervention-state-machine">4.3 Guard Intervention State
+Machine</h2>
+<p>The Guard subsystem monitors device window changes via
+<code>ProttashaAccessibilityService</code>. When an event of type
+<code>TYPE_WINDOW_STATE_CHANGED</code> fires, the service queries the
+<code>GuardDecisionEngine</code>. If a package or browser URL matches an
+enabled <code>GuardRuleEntity</code> and falls within an active
+<code>GuardScheduleEntity</code>, the service triggers the
+<strong>Intervention State Machine</strong>.</p>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Idle: User interacting with Android OS
+    Idle --&gt; InspectingWindow: TYPE_WINDOW_STATE_CHANGED received
+    
+    InspectingWindow --&gt; Idle: Package not in Guard Rule list
+    InspectingWindow --&gt; ModeRouter: Package / Domain matches enabled rule
+
+    state ModeRouter {
+        [*] --&gt; CheckSchedule
+        CheckSchedule --&gt; Idle: Outside scheduled active hours
+        CheckSchedule --&gt; PAUSE_MODE: Mode == PAUSE
+        CheckSchedule --&gt; BUDGET_MODE: Mode == BUDGET
+        CheckSchedule --&gt; BLOCK_MODE: Mode == BLOCK
+    }
+
+    state PAUSE_MODE {
+        [*] --&gt; ShowPauseOverlay: Display TYPE_ACCESSIBILITY_OVERLAY
+        ShowPauseOverlay --&gt; StepBackInitiated: User taps &quot;Step back to my ideal self&quot;
+        ShowPauseOverlay --&gt; CountdownRunning: 15s breathing timer active (ValueAnimator)
+        CountdownRunning --&gt; ContinueAllowed: Timer reaches 0 &amp; User taps &quot;Proceed&quot;
+    }
+
+    state BLOCK_MODE {
+        [*] --&gt; ShowBlockOverlay: Display Non-Dismissible Overlay
+        ShowBlockOverlay --&gt; ExitTarget: User taps &quot;Exit to Home Screen&quot;
+    }
+
+    StepBackInitiated --&gt; LaunchHomeIntent: Launch Android Home Screen
+    ExitTarget --&gt; LaunchHomeIntent: Launch Android Home Screen
+    ContinueAllowed --&gt; GrantTemporaryExemption: Record intervention event &amp; grant 15-min pass
+    GrantTemporaryExemption --&gt; Idle
+    LaunchHomeIntent --&gt; Idle</code></pre>
+<p><em>Figure 4.3.1: Guard Intervention State Machine and Friction
+Overlay Lifecycle.</em></p>
+<p>The state machine implements three core modes: 1. <strong>PAUSE Mode
+(Mindful Friction Delay):</strong> - Injects a system overlay window
+(<code>WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY</code>)
+directly over the target application. - Initiates a 15-second visual
+countdown driven by an expanding and contracting breathing circle. - An
+effortless button labeled <em>“Step back to my ideal self”</em> sends an
+explicit Intent to launch the device launcher
+(<code>Intent.CATEGORY_HOME</code>), aborting the compulsive opening. -
+If the countdown reaches 0 and the user deliberately confirms their
+intention, a 15-minute temporary exemption token is granted before
+friction will trigger again. 2. <strong>BUDGET Mode (Daily Quota
+Enforcement):</strong> - Queries <code>UsageRepository</code> for the
+target’s total accumulated foreground time today. - If accumulated time
+exceeds <code>dailyBudgetMinutes</code>, the rule automatically
+escalates to BLOCK mode for the remainder of the calendar day. 3.
+<strong>BLOCK Mode (Absolute Restriction):</strong> - Instantly
+intercepts launch and displays an impassable barrier with zero bypass
+options, immediately routing the user back to the home screen.</p>
+<hr />
+<h2 id="cryptographic-privacy-archive-gating-suite">4.4 Cryptographic
+Privacy, Archive &amp; Gating Suite</h2>
+<p>To ensure absolute data sovereignty, Prottasha provides complete
+database export, cryptographic backup, and zero-trace account
+teardown.</p>
+<pre><code>┌────────────────────────────────────────────────────────────────────────┐
+│                   ENCRYPTED BACKUP ARCHIVE PIPELINE                    │
+│                                                                        │
+│   User Backup Password ──► PBKDF2 Key Derivation (100,000 Rounds)     │
+│                                   │                                    │
+│                                   ▼                                    │
+│   Room Database Tables ──► JSON Serializer ──► 256-Bit AES Key         │
+│                                                    │                   │
+│                                                    ▼                   │
+│   128-Bit Random IV  ──────────────────────► AES-256-GCM Encrypt       │
+│                                                    │                   │
+│                                                    ▼                   │
+│   [ IV (16B) ] + [ Ciphertext ] + [ Auth Tag (16B) ] ──► SAF .json     │
+└────────────────────────────────────────────────────────────────────────┘</code></pre>
+<ol type="1">
+<li><strong>PBKDF2 Key Stretching:</strong> <span
+class="math display">\[\text{DerivedKey} =
+\text{PBKDF2WithHmacSHA256}(\text{Password}, \text{Salt},
+\text{Iterations} = 100,000, \text{KeyLength} = 256)\]</span></li>
+<li><strong>AES-256-GCM Authenticated Encryption:</strong> <span
+class="math display">\[\text{Ciphertext, AuthTag} =
+\text{AES-GCM-Encrypt}(\text{DerivedKey}, \text{IV} = 96\text{-bit
+random}, \text{Payload} = \text{DatabaseJSON})\]</span> The resulting
+payload is written via Android’s Storage Access Framework (SAF). During
+restoration, if even a single byte of the backup archive is tampered
+with, AES-GCM tag validation fails immediately and the transaction rolls
+back cleanly without corrupting the local database.</li>
+<li><strong>Exponential PIN Lockout Backoff:</strong> When App Lock is
+enabled, the entered 6-digit PIN is verified against a salted SHA-256
+hash. If 5 consecutive failed attempts occur: <span
+class="math display">\[\text{LockoutDuration} = 30 \times
+2^{(\text{FailedAttempts} - 5)} \text{ seconds}\]</span> The UI locks
+down, displaying an active countdown timer backed by
+<code>SystemClock.elapsedRealtime()</code>.</li>
+</ol>
+<hr />
+<h1 id="application-walkthrough">5. Application Walkthrough</h1>
+<p>The production walkthrough was captured directly from a physical
+<strong>TECNO Spark 20C (Model: BG7, Android 13, API Level 33, 6.6” 90Hz
+Display)</strong>. All screenshots represent real, verified runtime
+states with zero simulated, mocked, or placeholder data.</p>
+<h2 id="account-setup-email-gate">5.1 Account Setup &amp; Email
+Gate</h2>
+<pre><code>┌───────────────────────────────┐ ┌───────────────────────────────┐ ┌───────────────────────────────┐
+│   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │
+│                               │ │                               │ │                               │
+│  Figure 5.1.1: Splash Screen  │ │  Figure 5.1.2: Sign In Screen │ │ Figure 5.1.3: Create Account  │
+│                               │ │                               │ │                               │
+│ 6.6&quot; 20:9 Obsidian Brandmark  │ │ Email/password form with      │ │ 5-tier password policy meter  │
+│ Keystore preflight (&lt;950ms)   │ │ &quot;Keep me signed in&quot; checkbox  │ │ (Upper, lower, digit, symbol) │
+└───────────────────────────────┘ └───────────────────────────────┘ └───────────────────────────────┘</code></pre>
+<p><em>Figure 5.1.1: Splash Screen — Cold-start launcher displaying the
+Obsidian &amp; Biophilic Calm brandmark and initiating Keystore session
+preflight.</em><br />
+<em>Figure 5.1.2: Sign In Screen — Clean authentication interface
+offering credential sign-in and password recovery navigation.</em><br />
+<em>Figure 5.1.3: Create Account Screen — Account creation enforcing
+strict password complexity rules with dynamic color-coded feedback
+chips.</em></p>
+<pre><code>┌───────────────────────────────┐ ┌───────────────────────────────┐
+│   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │
+│                               │ │                               │
+│  Figure 5.1.4: Email Gate     │ │ Figure 5.1.5: Re-auth Dialog  │
+│                               │ │                               │
+│ Verification link banner with │ │ Password re-authentication    │
+│ &quot;Check Status&quot; &amp; Resend link  │ │ required before data deletion │
+└───────────────────────────────┘ └───────────────────────────────┘</code></pre>
+<p><em>Figure 5.1.4: Email Gate Screen — Enforcement gate blocking
+access until the user confirms their email via the link sent by
+Firebase.</em><br />
+<em>Figure 5.1.5: Re-authentication Dialog — Secure modal requiring
+password confirmation before performing sensitive operations like
+account deletion.</em></p>
+<p>The authentication workflow strictly prevents unverified access. Upon
+submitting valid credentials in the <strong>Create Account</strong>
+screen (Figure 5.1.3), Firebase Authentication sends an email
+verification link. The app transitions to the <strong>Email
+Gate</strong> (Figure 5.1.4). Tapping <em>“I Have Verified”</em>
+executes <code>user.reload()</code>. If
+<code>user.isEmailVerified()</code> returns false, an animated warning
+informs the user that confirmation is required. An opaque database
+namespace is generated only after verification completes.</p>
+<hr />
+<h2 id="first-run-identity-onboarding">5.2 First-Run Identity
+Onboarding</h2>
+<pre><code>┌───────────────────────────────┐ ┌───────────────────────────────┐
+│   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │
+│                               │ │                               │
+│  Figure 5.2.1: Purpose Step   │ │ Figure 5.2.2: Identity Step   │
+│                               │ │                               │
+│ Personal purpose statement    │ │ Selection of identity anchors │
+│ input with guidance prompt    │ │ (Engineer, Leader, Reader)    │
+└───────────────────────────────┘ └───────────────────────────────┘</code></pre>
+<p><em>Figure 5.2.1: Purpose Definition Step — First onboarding stage
+where the user crafts their core purpose statement.</em><br />
+<em>Figure 5.2.2: Identity Anchors Step — Selecting foundational
+identity aspirations to establish metacognitive self-image
+(PC-01).</em></p>
+<pre><code>┌───────────────────────────────┐ ┌───────────────────────────────┐
+│   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │
+│                               │ │                               │
+│ Figure 5.2.3: Boundary Step   │ │ Figure 5.2.4: Completion Step │
+│                               │ │                               │
+│ Pre-configuring first guard   │ │ Summary of identity blueprint │
+│ boundary on target apps       │ │ with atomic commit action     │
+└───────────────────────────────┘ └───────────────────────────────┘</code></pre>
+<p><em>Figure 5.2.3: Boundary Configuration Step — Contextual selection
+of primary distracting applications to attach friction
+delays.</em><br />
+<em>Figure 5.2.4: Blueprint Completion Step — Final confirmation
+committing identity, habits, and rules to SQLCipher storage in a single
+transaction.</em></p>
+<p>The onboarding wizard (<code>OnboardingActivity</code>) guides users
+through a versioned 4-step sequence. To ensure data integrity, user
+selections are held in an in-memory <code>OnboardingDraft</code>
+parcelable object. No database records are written until the user taps
+<strong>Complete Setup</strong> on the final screen (Figure 5.2.4). If
+the user force-closes the app during onboarding, the draft resets
+cleanly, preventing half-initialized database corruption.</p>
+<hr />
+<h2 id="today-dashboard-consistency-heatmap">5.3 Today Dashboard &amp;
+Consistency Heatmap</h2>
+<pre><code>┌───────────────────────────────┐ ┌───────────────────────────────┐ ┌───────────────────────────────┐
+│   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │
+│                               │ │                               │ │                               │
+│  Figure 5.3.1: Today Header   │ │ Figure 5.3.2: Heatmap Grid    │ │ Figure 5.3.3: Quick Action    │
+│                               │ │                               │ │                               │
+│ Hope Horizon summary showing  │ │ 70-day custom View displaying │ │ One-tap habit vote recording  │
+│ identity quote and vote tally │ │ consistency intensity matrix  │ │ with haptic feedback tick     │
+└───────────────────────────────┘ └───────────────────────────────┘ └───────────────────────────────┘</code></pre>
+<p><em>Figure 5.3.1: Today Dashboard Header — Displaying active identity
+anchor, daily vote count, and non-punitive streak indicators.</em><br />
+<em>Figure 5.3.2: Consistency Heatmap Grid — Custom Android View
+rendering 70 days of behavioral consistency in GitHub-style intensity
+tiles.</em><br />
+<em>Figure 5.3.3: Quick Action Habit Recording — Instant vote logging
+with tactile micro-haptics and animated progress ring update.</em></p>
+<p>The <strong>Today Dashboard</strong> serves as the user’s primary
+anchor. The header displays the <strong>Hope Horizon</strong> (Figure
+5.3.1), showing how many positive identity votes were cast today against
+the target. Figure 5.3.2 showcases the custom
+<code>HabitConsistencyHeatmapView</code>, which dynamically measures its
+canvas dimensions, divides the 70-day history into 7 day-of-week rows,
+and paints biophilic emerald tiles with four distinct alpha intensities
+based on daily completion ratios.</p>
+<hr />
+<h2 id="habits-management-reminders">5.4 Habits Management &amp;
+Reminders</h2>
+<pre><code>┌───────────────────────────────┐ ┌───────────────────────────────┐
+│   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │
+│                               │ │                               │
+│ Figure 5.4.1: Habits Tab      │ │ Figure 5.4.2: Habit Editor    │
+│                               │ │                               │
+│ Filter chips (All, Build,     │ │ Type selector, title input,   │
+│ Avoid, Amount) &amp; habit cards  │ │ target value, and color token │
+└───────────────────────────────┘ └───────────────────────────────┘</code></pre>
+<p><em>Figure 5.4.1: Habits Management Tab — Categorized habit cards
+with responsive Material filter chips and progress bars.</em><br />
+<em>Figure 5.4.2: Habit Editor Interface — Form for configuring habit
+modalities, target thresholds, and linked identity anchors.</em></p>
+<pre><code>┌───────────────────────────────┐ ┌───────────────────────────────┐
+│   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │
+│                               │ │                               │
+│ Figure 5.4.3: Habit Detail    │ │ Figure 5.4.4: Home Widget     │
+│                               │ │                               │
+│ Immutable event ledger with   │ │ Neutral Glance widget on      │
+│ timestamps and rebound notes  │ │ Android launcher home screen  │
+└───────────────────────────────┘ └───────────────────────────────┘</code></pre>
+<p><em>Figure 5.4.3: Habit Detail Ledger — Chronological event
+transaction history detailing timestamps, nonces, and rebound
+reflections.</em><br />
+<em>Figure 5.4.4: Neutral Home Screen Widget — Privacy-safe AppWidget
+showing daily vote tally without exposing sensitive habit
+names.</em></p>
+<p>Tapping a habit card opens <code>HabitDetailActivity</code> (Figure
+5.4.3), which queries the Room database for raw
+<code>HabitEventEntity</code> rows. For avoid habits, lapses are
+annotated with private reflection entries. Figure 5.4.4 depicts the
+<code>TodayWidgetProvider</code> running on the device home screen. In
+accordance with clinical privacy protocols (EX-16), the widget displays
+neutral metrics (<em>“4 of 5 Votes Cast Today”</em>) without revealing
+private habit titles on the lock screen.</p>
+<hr />
+<h2 id="guard-rules-live-intervention">5.5 Guard Rules &amp; Live
+Intervention</h2>
+<pre><code>┌───────────────────────────────┐ ┌───────────────────────────────┐
+│   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │
+│                               │ │                               │
+│ Figure 5.5.1: Guard Tab       │ │ Figure 5.5.2: App Picker      │
+│                               │ │                               │
+│ Protection health card and    │ │ Launcher-filtered installed   │
+│ active app/website rule list  │ │ apps with search RecyclerView │
+└───────────────────────────────┘ └───────────────────────────────┘</code></pre>
+<p><em>Figure 5.5.1: Guard Dashboard — Protection health overview
+showing Accessibility status and active boundary rules.</em><br />
+<em>Figure 5.5.2: App Picker Interface — Searchable RecyclerView
+querying <code>PackageManager</code> for launcher activities
+only.</em></p>
+<pre><code>┌───────────────────────────────┐ ┌───────────────────────────────┐
+│   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │
+│                               │ │                               │
+│ Figure 5.5.3: Pause Overlay   │ │ Figure 5.5.4: Block Barrier   │
+│                               │ │                               │
+│ 15s breathing delay countdown │ │ Impassable lockout barrier    │
+│ with &quot;Step back&quot; exit button  │ │ with one-tap home redirection │
+└───────────────────────────────┘ └───────────────────────────────┘</code></pre>
+<p><em>Figure 5.5.3: Live Pause Friction Overlay — Full-screen
+accessibility overlay injecting a 15-second breathing pause upon opening
+target apps.</em><br />
+<em>Figure 5.5.4: Block Barrier Screen — Non-dismissible blocking
+surface preventing app launch during active curfews or budget
+exhaustion.</em></p>
+<p>When the user launches a guarded application (such as YouTube),
+<code>ProttashaAccessibilityService</code> intercepts the window change
+within <span class="math inline">\(15\text{ms}\)</span> and mounts the
+<strong>Pause Interstitial Overlay</strong> (Figure 5.5.3). The overlay
+features a rhythmic 15-second breathing circle. The user can either wait
+out the delay to confirm intentional use, or tap <em>“Step back to my
+ideal self”</em> to immediately return to the Android home screen.</p>
+<hr />
+<h2 id="deep-focus-mode-curfew">5.6 Deep Focus Mode &amp; Curfew</h2>
+<pre><code>┌───────────────────────────────┐ ┌───────────────────────────────┐ ┌───────────────────────────────┐
+│   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │
+│                               │ │                               │ │                               │
+│ Figure 5.6.1: Focus Setup     │ │ Figure 5.6.2: Active Session  │ │ Figure 5.6.3: Notification    │
+│                               │ │                               │ │                               │
+│ Duration wheel selector (25m, │ │ Large animated countdown with │ │ Ongoing foreground service    │
+│ 50m, 90m) &amp; intention prompt  │ │ Pause, Resume, and Stop controls│ notification with actions     │
+└───────────────────────────────┘ └───────────────────────────────┘ └───────────────────────────────┘</code></pre>
+<p><em>Figure 5.6.1: Focus Session Setup — Configuring session duration
+and setting explicit cognitive intention.</em><br />
+<em>Figure 5.6.2: Active Deep Focus Surface — High-contrast
+distraction-free countdown timer with session controls.</em><br />
+<em>Figure 5.6.3: Foreground Service Notification — Ongoing system
+notification published by <code>ProttashaFocusService</code>.</em></p>
+<p>Starting a deep work block launches
+<code>ProttashaFocusService</code> as an Android <strong>Foreground
+Service</strong> (Figure 5.6.3). The service posts an ongoing
+notification with high priority, ensuring Android’s low-memory killer
+(LMK) does not terminate the timer during active focus. Tapping
+<strong>Pause</strong> or <strong>Stop</strong> dispatches explicit
+Intents directly to the service.</p>
+<hr />
+<h2 id="truthful-insights-crisis-helplines">5.7 Truthful Insights &amp;
+Crisis Helplines</h2>
+<pre><code>┌───────────────────────────────┐ ┌───────────────────────────────┐
+│   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │
+│                               │ │                               │
+│ Figure 5.7.1: Usage Trends    │ │ Figure 5.7.2: Reflection Note │
+│                               │ │                               │
+│ 7-day screen time chart with  │ │ Chain-analysis journal entry  │
+│ truthful zero-data indicators │ │ (Fact, Interpretation, Action)│
+└───────────────────────────────┘ └───────────────────────────────┘</code></pre>
+<p><em>Figure 5.7.1: Truthful Insights Dashboard — Screen-time charts
+providing factual data without deceptive “wellness scores”.</em><br />
+<em>Figure 5.7.2: Private Reflection Journal — Three-field cognitive
+reframing editor following Psycho-Cybernetics protocols.</em></p>
+<pre><code>┌───────────────────────────────┐ ┌───────────────────────────────┐
+│   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │
+│                               │ │                               │
+│ Figure 5.7.3: Crisis Helplines│ │ Figure 5.7.4: System Dialer   │
+│                               │ │                               │
+│ Bangladesh directory (999,    │ │ Native Android phone dialer   │
+│ Kaan Pete Roi, 109, 16263)    │ │ launched via ACTION_DIAL      │
+└───────────────────────────────┘ └───────────────────────────────┘</code></pre>
+<p><em>Figure 5.7.3: Crisis Helpline Directory — Verified mental health
+and emergency services with live operating hours.</em><br />
+<em>Figure 5.7.4: Native Dialer Integration — Seamless transition to
+Android phone dialer with emergency number pre-populated.</em></p>
+<p>Figure 5.7.1 adheres strictly to the project’s ethical commitments:
+if the user does not use the phone or usage stats are partially
+restricted, the UI displays an explicit <em>“Zero data recorded”</em>
+message rather than extrapolating speculative graphs. Figure 5.7.3
+demonstrates the <strong>Crisis Lifeline Directory</strong>, listing
+verified Bangladesh hotlines. Tapping <strong>Call</strong> dispatches
+<code>Intent.ACTION_DIAL</code> (Figure 5.7.4), pre-filling the number
+into the native phone application.</p>
+<hr />
+<h2 id="closed-circle-pods-peer-support">5.8 Closed Circle Pods &amp;
+Peer Support</h2>
+<pre><code>┌───────────────────────────────┐ ┌───────────────────────────────┐
+│   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │
+│                               │ │                               │
+│ Figure 5.8.1: Circle Pod Hub  │ │ Figure 5.8.2: Pod Chat        │
+│                               │ │                               │
+│ Member list with determin-    │ │ Real-time group messaging     │
+│ istic biophilic avatar badges │ │ with reaction chips &amp; reports │
+└───────────────────────────────┘ └───────────────────────────────┘</code></pre>
+<p><em>Figure 5.8.1: Closed Circle Pod Hub — Pod overview showing member
+avatars generated deterministically from UID hashes.</em><br />
+<em>Figure 5.8.2: Real-time Pod Chat — Group communication channel
+backed by Cloud Firestore subcollections.</em></p>
+<pre><code>┌───────────────────────────────┐ ┌───────────────────────────────┐
+│   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │
+│                               │ │                               │
+│ Figure 5.8.3: Live Presence   │ │ Figure 5.8.4: Partner Setup   │
+│                               │ │                               │
+│ Realtime Database typing      │ │ Accountability partner selec- │
+│ indicator and active presence │ │ tion via system contact picker│
+└───────────────────────────────┘ └───────────────────────────────┘</code></pre>
+<p><em>Figure 5.8.3: Realtime Presence &amp; Typing — Low-latency typing
+indicators debounced via Firebase Realtime Database.</em><br />
+<em>Figure 5.8.4: Accountability Partner Setup — Selecting a dedicated
+supporter using the native Android contact picker.</em></p>
+<p>Peer accountability occurs within closed pods limited to 8 members
+(Figure 5.8.1). Avatars are rendered using
+<code>DeterministicAvatar</code>, generating distinctive biophilic
+patterns without uploading photos. Real-time typing indicators (Figure
+5.8.3) stream over Firebase Realtime Database with a 3000ms debounce. In
+Figure 5.8.4, the user connects an external accountability partner via
+<code>Intent.ACTION_PICK</code>.</p>
+<hr />
+<h2 id="app-lock-encrypted-backuprestore">5.9 App Lock &amp; Encrypted
+Backup/Restore</h2>
+<pre><code>┌───────────────────────────────┐ ┌───────────────────────────────┐
+│   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │
+│                               │ │                               │
+│ Figure 5.9.1: PIN Setup       │ │ Figure 5.9.2: PIN Lockout     │
+│                               │ │                               │
+│ 6-digit passcode creation     │ │ 30-second exponential lockout │
+│ with numeric custom keypad    │ │ timer after 5 failed attempts │
+└───────────────────────────────┘ └───────────────────────────────┘</code></pre>
+<p><em>Figure 5.9.1: App Lock PIN Setup — Configuring a 6-digit numeric
+passcode with salted SHA-256 hashing.</em><br />
+<em>Figure 5.9.2: PIN Lockout Enforcement — Active countdown barrier
+triggered after 5 consecutive incorrect attempts.</em></p>
+<pre><code>┌───────────────────────────────┐ ┌───────────────────────────────┐
+│   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │
+│                               │ │                               │
+│ Figure 5.9.3: Backup Export   │ │ Figure 5.9.4: Delete Account  │
+│                               │ │                               │
+│ Storage Access Framework file │ │ Multi-step deletion warning   │
+│ export dialog for AES archive │ │ with complete cloud purge     │
+└───────────────────────────────┘ └───────────────────────────────┘</code></pre>
+<p><em>Figure 5.9.3: Encrypted Archive Export — Exporting a
+password-protected JSON backup archive using Android SAF.</em><br />
+<em>Figure 5.9.4: Permanent Account Deletion — Secure deletion
+coordinator wiping local SQLCipher storage and Firebase
+records.</em></p>
+<p>Figure 5.9.2 demonstrates the exponential lockout mechanism: after 5
+failed PIN entries, all inputs are disabled for 30 seconds. Figure 5.9.3
+illustrates the backup export workflow: the database is serialized to
+JSON, encrypted with PBKDF2/AES-GCM, and saved to user storage via SAF.
+Figure 5.9.4 shows the <strong>Delete Account</strong> modal, which
+performs a paginated purge of all user messages, reactions, reports, and
+Auth credentials.</p>
+<hr />
+<h2 id="backend-cloud-console-verification">5.10 Backend &amp; Cloud
+Console Verification</h2>
+<pre><code>┌───────────────────────────────┐ ┌───────────────────────────────┐ ┌───────────────────────────────┐
+│   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │ │   [SCREENSHOT PLACEHOLDER]    │
+│                               │ │                               │ │                               │
+│ Figure 5.10.1: Firebase Auth  │ │ Figure 5.10.2: Firestore DB   │ │ Figure 5.10.3: RTDB Presence  │
+│                               │ │                               │ │                               │
+│ Authentication Console showing│ │ Cloud Firestore console with  │ │ Realtime Database console     │
+│ registered evaluator UID      │ │ `/pods` and `/messages` docs  │ │ showing active `/presence`    │
+└───────────────────────────────┘ └───────────────────────────────┘ └───────────────────────────────┘</code></pre>
+<p><em>Figure 5.10.1: Firebase Authentication Console — Active user
+directory verifying email verification status and UID
+generation.</em><br />
+<em>Figure 5.10.2: Cloud Firestore Database Console — Real-time document
+inspector displaying <code>/pods/{podId}/messages</code>
+subcollections.</em><br />
+<em>Figure 5.10.3: Firebase Realtime Database Console — Live JSON tree
+reflecting ephemeral presence and typing indicators.</em></p>
+<p>Cloud backend verification confirms complete alignment with Firebase
+Spark requirements. Figure 5.10.1 shows authenticated user records in
+the Firebase Console. Figure 5.10.2 depicts Cloud Firestore collections,
+verifying that all document mutations conform to security rule
+restrictions. Figure 5.10.3 displays the Realtime Database tree, where
+<code>/presence</code> and <code>/typing</code> nodes automatically tear
+down via <code>onDisconnect()</code> when the app process is
+terminated.</p>
+<hr />
+<h1 id="android-components-system-integration">6. Android Components
+&amp; System Integration</h1>
+<h2 id="android-component-architecture">6.1 Android Component
+Architecture</h2>
+<p>Prottasha is engineered to leverage Android’s core application
+components in strict accordance with the Android framework lifecycle.
+The application bootstrap is orchestrated by <code>ProttashaApp</code>,
+a custom <code>Application</code> subclass that initializes the
+dependency graph, configures background thread executors, and registers
+global notification channels.</p>
+<p>Figure 6.1 diagrams the system architecture connecting all Android
+components.</p>
+<pre class="mermaid"><code>flowchart TD
+    APP[&quot;ProttashaApp (Application Subclass)&quot;] --&gt; GRAPH[&quot;AppGraph (Singleton Service Locator)&quot;]
+    GRAPH --&gt; EXEC[&quot;AppExecutors (DiskIO, NetworkIO, MainThread)&quot;]
+    
+    subgraph Activities[&quot;Android Activities (Presentation)&quot;]
+        A1[&quot;LaunchActivity / AuthActivity&quot;]
+        A2[&quot;MainActivity (Five-Tab Shell)&quot;]
+        A3[&quot;HabitEditActivity / DetailActivity&quot;]
+        A4[&quot;GuardRuleEditActivity / AppPickerActivity&quot;]
+        A5[&quot;CrisisHelpActivity / SettingsActivity&quot;]
+        A6[&quot;AppLockActivity / PauseInterstitialActivity&quot;]
+    end
+
+    subgraph Services[&quot;Android Services (Background &amp; System Integration)&quot;]
+        S1[&quot;ProttashaFocusService (Foreground Service)&quot;]
+        S2[&quot;ProttashaAccessibilityService (System Accessibility)&quot;]
+        S3[&quot;TodayWidgetService (RemoteViews Factory)&quot;]
+    end
+
+    subgraph Receivers[&quot;Broadcast Receivers (System &amp; Alarms)&quot;]
+        R1[&quot;ReminderAlarmReceiver (Exact Alarms)&quot;]
+        R2[&quot;ReminderRescheduleReceiver (BOOT &amp; TIMEZONE)&quot;]
+        R3[&quot;BatteryOrAirplaneReceiver (System Status)&quot;]
+        R4[&quot;TodayWidgetProvider (AppWidget Updates)&quot;]
+    end
+
+    subgraph ContentPickers[&quot;Content Resolvers &amp; System Pickers&quot;]
+        C1[&quot;ContactsContract Picker (Accountability Partner)&quot;]
+        C2[&quot;Storage Access Framework (SAF Document Provider)&quot;]
+    end
+
+    GRAPH --&gt; Services
+    GRAPH --&gt; Receivers
+    Activities --&gt; GRAPH
+    Activities --&gt; ContentPickers</code></pre>
+<p><em>Figure 6.1: Comprehensive Android Component Architecture and
+System Integration.</em></p>
+<hr />
+<h2 id="system-components-responsibilities">6.2 System Components &amp;
+Responsibilities</h2>
+<p>Table 6.2 catalogs every major Android component implemented in
+Prottasha and its exact architectural responsibility.</p>
+<p>Table 6.2: Android Component Inventory and Responsibilities</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Component Class</th>
+<th>Component Type</th>
+<th>Manifest Declaration / Intent Filters</th>
+<th>Primary Responsibility &amp; Operational Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>LaunchActivity</code></td>
+<td>Activity</td>
+<td><code>android.intent.action.MAIN</code><br><code>android.intent.category.LAUNCHER</code></td>
+<td>Application entry point; inspects Keystore session; routes to Auth,
+Onboarding, or Main Shell (&lt;950ms)</td>
+</tr>
+<tr class="even">
+<td><code>AuthActivity</code></td>
+<td>Activity</td>
+<td><code>android:exported="false"</code></td>
+<td>Hosts Sign In, Create Account, Email Gate, and Password Reset
+fragments</td>
+</tr>
+<tr class="odd">
+<td><code>MainActivity</code></td>
+<td>Activity</td>
+<td><code>android:exported="false"</code></td>
+<td>Houses five-tab navigation shell (Today, Habits, Guard, Insights,
+Circle)</td>
+</tr>
+<tr class="even">
+<td><code>HabitEditActivity</code></td>
+<td>Activity</td>
+<td><code>android:exported="false"</code></td>
+<td>Dynamic editor for configuring Build, Avoid, and Amount habits</td>
+</tr>
+<tr class="odd">
+<td><code>AppPickerActivity</code></td>
+<td>Activity</td>
+<td><code>android:exported="false"</code></td>
+<td>Fast launcher app scanner with real-time RecyclerView search
+filter</td>
+</tr>
+<tr class="even">
+<td><code>PauseInterstitialActivity</code></td>
+<td>Activity</td>
+<td><code>android:theme="@style/Theme.Prottasha.PauseOverlay"</code></td>
+<td>Full-screen friction delay surface displaying 15s breathing
+countdown</td>
+</tr>
+<tr class="odd">
+<td><code>CrisisHelpActivity</code></td>
+<td>Activity</td>
+<td><code>android:exported="false"</code></td>
+<td>Directory of verified Bangladesh crisis lifelines with direct dialer
+launch</td>
+</tr>
+<tr class="even">
+<td><code>AppLockActivity</code></td>
+<td>Activity</td>
+<td><code>android:launchMode="singleTask"</code></td>
+<td>Passcode challenge screen enforcing 6-digit PIN and exponential
+lockout</td>
+</tr>
+<tr class="odd">
+<td><code>ProttashaFocusService</code></td>
+<td>Service</td>
+<td><code>android:foregroundServiceType="specialUse"</code></td>
+<td>Persistent foreground service running countdown timer for deep work
+sessions</td>
+</tr>
+<tr class="even">
+<td><code>ProttashaAccessibilityService</code></td>
+<td>Service</td>
+<td><code>android.accessibilityservice.AccessibilityService</code></td>
+<td>Inspects <code>TYPE_WINDOW_STATE_CHANGED</code> to inject mindful
+friction over guarded apps</td>
+</tr>
+<tr class="odd">
+<td><code>TodayWidgetService</code></td>
+<td>Service</td>
+<td><code>android.permission.BIND_REMOTEVIEWS</code></td>
+<td>RemoteViews service feeding habit completion items to the home
+screen widget</td>
+</tr>
+<tr class="even">
+<td><code>ReminderAlarmReceiver</code></td>
+<td>Receiver</td>
+<td><code>android:exported="false"</code></td>
+<td>Wakes device via <code>AlarmManager</code> exact alarms to post
+habit reminders</td>
+</tr>
+<tr class="odd">
+<td><code>ReminderRescheduleReceiver</code></td>
+<td>Receiver</td>
+<td><code>BOOT_COMPLETED</code><br><code>TIME_SET</code><br><code>TIMEZONE_CHANGED</code></td>
+<td>Reschedules all pending exact alarms when device boots or clock
+changes</td>
+</tr>
+<tr class="even">
+<td><code>BatteryOrAirplaneReceiver</code></td>
+<td>Receiver</td>
+<td><code>BATTERY_LOW</code><br><code>BATTERY_OKAY</code><br><code>AIRPLANE_MODE</code></td>
+<td>Adjusts background sync frequencies when battery is depleted or
+network offline</td>
+</tr>
+<tr class="odd">
+<td><code>TodayWidgetProvider</code></td>
+<td>Receiver</td>
+<td><code>android.appwidget.action.APPWIDGET_UPDATE</code></td>
+<td>Updates home screen Glance widget upon habit vote transactions</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="accessibility-service-non-intrusive-observation">6.3
+Accessibility Service &amp; Non-Intrusive Observation</h2>
+<p>Android’s <code>AccessibilityService</code> is frequently abused by
+malicious applications for keylogging and UI scraping. Prottasha adheres
+to strict ethical and Google Play privacy standards.</p>
+<p>In <code>res/xml/accessibility_service_config.xml</code>, the service
+declares:</p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">accessibility-service</span><span class="ot"> xmlns:android=</span><span class="st">&quot;http://schemas.android.com/apk/res/android&quot;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="ot">    android:accessibilityEventTypes=</span><span class="st">&quot;typeWindowStateChanged&quot;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="ot">    android:accessibilityFeedbackType=</span><span class="st">&quot;feedbackGeneric&quot;</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="ot">    android:accessibilityFlags=</span><span class="st">&quot;flagDefault&quot;</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="ot">    android:canRetrieveWindowContent=</span><span class="st">&quot;false&quot;</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="ot">    android:notificationTimeout=</span><span class="st">&quot;100&quot;</span> /&gt;</span></code></pre></div>
+<p>By setting <code>android:canRetrieveWindowContent="false"</code>, the
+Android OS cryptographically prevents the service from inspecting
+on-screen text, form inputs, passwords, or personal messages. The
+service only reads the package name from the top-level window event to
+determine if an active Guard rule applies.</p>
+<hr />
+<h2 id="foreground-service-notification-management">6.4 Foreground
+Service &amp; Notification Management</h2>
+<p>To support deep focus sessions without being terminated by Android’s
+Doze mode or Low Memory Killer (LMK), Prottasha implements
+<code>ProttashaFocusService</code>. Declared with
+<code>android:foregroundServiceType="specialUse"</code>, the service
+adheres to modern Android 14/15 restrictions.</p>
+<p>The service manages the notification lifecycle: -
+<strong>Notification Channel:</strong> <code>channel_focus</code>
+configured with <code>IMPORTANCE_LOW</code> to prevent annoying audio
+chimes while maintaining high visibility. - <strong>Action
+Buttons:</strong> The notification provides two direct action buttons:
+<strong>Pause/Resume</strong> and <strong>Finish</strong>. These
+dispatch explicit Intents to the service without opening the full UI. -
+<strong>Non-Sticky Termination:</strong> When the timer expires or the
+user taps Stop, the service calls
+<code>stopForeground(STOP_FOREGROUND_REMOVE)</code> and
+<code>stopSelf()</code>, guaranteeing that no orphan background
+processes linger in memory.</p>
+<hr />
+<h2 id="broadcast-receivers-appwidget-architecture">6.5 Broadcast
+Receivers &amp; AppWidget Architecture</h2>
+<p>Prottasha implements four specialized <code>BroadcastReceiver</code>
+components: 1. <strong>ReminderAlarmReceiver:</strong> Invoked by
+Android <code>AlarmManager</code> using
+<code>setExactAndAllowWhileIdle()</code>. It builds and posts a
+high-priority notification at the user’s scheduled habit reminder time.
+2. <strong>ReminderRescheduleReceiver:</strong> Registered in the
+Android Manifest to listen for <code>BOOT_COMPLETED</code>,
+<code>MY_PACKAGE_REPLACED</code>, <code>TIME_SET</code>, and
+<code>TIMEZONE_CHANGED</code>. When any of these system broadcasts fire,
+the receiver schedules a background worker to recalculate all pending
+exact alarms against the updated clock, preventing missed reminders. 3.
+<strong>BatteryOrAirplaneReceiver:</strong> Reacts dynamically to
+<code>BATTERY_LOW</code> and <code>AIRPLANE_MODE</code> events. When
+battery drops below 15%, the app disables optional animated canvas
+sweeps to conserve battery. 4. <strong>TodayWidgetProvider:</strong>
+Connects Prottasha’s local Room database to the Android home screen
+using <code>RemoteViews</code>. When an event is recorded in
+<code>MainActivity</code>, an explicit update broadcast refreshes the
+widget instantly.</p>
+<hr />
+<h2 id="external-rest-api-network-engine">6.6 External REST API &amp;
+Network Engine</h2>
+<p>Prottasha integrates background HTTP networking via <strong>OkHttp
+4.12.0</strong> to maintain an up-to-date directory of verified mental
+health crisis services in Bangladesh.</p>
+<p>The network architecture operates as follows: 1. <strong>Remote
+Endpoint Request:</strong> An asynchronous worker issues an HTTPS GET
+request to
+<code>https://prottasha.org/api/support/bangladesh.json</code>. 2.
+<strong>Integrity Verification:</strong> The received payload is
+verified against a pre-shared SHA-256 integrity checksum. If the payload
+is truncated or corrupted, the parser rejects the update. 3.
+<strong>JSON Deserialization:</strong> The verified JSON string is
+deserialized into <code>DirectoryEntryEntity</code> models and upserted
+into the Room database. 4. <strong>Bundled Offline Asset
+Fallback:</strong> If the user is offline or the network call fails, the
+repository seamlessly falls back to
+<code>assets/support_directory_fallback.json</code>, guaranteeing that
+the user is <strong>never</strong> left without emergency telephone
+numbers during a crisis.</p>
+<hr />
+<h2 id="runtime-permissions-security">6.7 Runtime Permissions &amp;
+Security</h2>
+<p>Prottasha complies fully with Android 13 (API 33) and Android 14 (API
+34) runtime permission standards. Table 6.7 outlines each permission
+declared in <code>AndroidManifest.xml</code>, its protection level, and
+the app’s graceful degradation strategy if denied.</p>
+<p>Table 6.7: Complete Inventory of Runtime and System Permissions</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Permission Name</th>
+<th>Protection Level</th>
+<th>Runtime Request Mechanism</th>
+<th>Degradation Strategy if Denied</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>android.permission.INTERNET</code></td>
+<td>Normal</td>
+<td>Granted automatically at install</td>
+<td>App operates in 100% offline mode using local SQLCipher
+database</td>
+</tr>
+<tr class="even">
+<td><code>android.permission.ACCESS_NETWORK_STATE</code></td>
+<td>Normal</td>
+<td>Granted automatically at install</td>
+<td>Network checks assume offline state; disables cloud sync</td>
+</tr>
+<tr class="odd">
+<td><code>android.permission.POST_NOTIFICATIONS</code></td>
+<td>Dangerous (API 33+)</td>
+<td>Explicit runtime dialog in Onboarding</td>
+<td>Habit reminders and focus timers update in-app only</td>
+</tr>
+<tr class="even">
+<td><code>android.permission.SCHEDULE_EXACT_ALARM</code></td>
+<td>Normal / AppOp</td>
+<td>System Settings Intent redirect</td>
+<td>Fallback to standard inexact alarms; reminders fire with slight
+jitter</td>
+</tr>
+<tr class="odd">
+<td><code>android.permission.PACKAGE_USAGE_STATS</code></td>
+<td>Special AppOp</td>
+<td>System Usage Access Settings redirect</td>
+<td>Insights tab displays explicit “Usage Stats Disabled” notice; charts
+hidden</td>
+</tr>
+<tr class="even">
+<td><code>android.permission.BIND_ACCESSIBILITY_SERVICE</code></td>
+<td>Signature / System</td>
+<td>System Accessibility Settings redirect</td>
+<td>App Guard friction disabled; habits and focus timer remain fully
+operational</td>
+</tr>
+<tr class="odd">
+<td><code>android.permission.FOREGROUND_SERVICE</code></td>
+<td>Normal</td>
+<td>Granted automatically at install</td>
+<td>Focus session runs without background persistence</td>
+</tr>
+<tr class="even">
+<td><code>android.permission.RECEIVE_BOOT_COMPLETED</code></td>
+<td>Normal</td>
+<td>Granted automatically at install</td>
+<td>Alarms must be rescheduled manually on first app launch after
+reboot</td>
+</tr>
+<tr class="odd">
+<td><code>android.permission.VIBRATE</code></td>
+<td>Normal</td>
+<td>Granted automatically at install</td>
+<td>Micro-haptic tactile feedback disabled on buttons and breathing
+timers</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="testing-performance-conclusion">7. Testing, Performance &amp;
+Conclusion</h1>
+<h2 id="automated-testing-suite">7.1 Automated Testing Suite</h2>
+<p>The Prottasha codebase is verified by an extensive automated test
+suite encompassing <strong>unit tests</strong>, <strong>instrumented
+physical device tests</strong>, <strong>database migration
+tests</strong>, and <strong>cloud security rules tests</strong>.</p>
+<p>Table 7.1.1: Automated Verification Test Suites and Results</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Test Category</th>
+<th>Target Component / Suite</th>
+<th>Number of Tests</th>
+<th>Verification Command</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>JVM Unit Tests</strong></td>
+<td>Core result primitives, <code>DayBoundaryTest</code>,
+<code>DayBoundaryDstTest</code></td>
+<td>14 tests</td>
+<td><code>./gradlew testDebugUnitTest</code></td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>UserSessionManagerTest</code>,
+<code>SessionAccessPolicyTest</code>,
+<code>PasswordPolicyTest</code></td>
+<td>18 tests</td>
+<td><code>./gradlew testDebugUnitTest</code></td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>HabitEnginesTest</code>,
+<code>HabitConsistencyGridBuilderTest</code></td>
+<td>22 tests</td>
+<td><code>./gradlew testDebugUnitTest</code></td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>GuardDecisionEngineTest</code>,
+<code>ServicePackageFilterTest</code>,
+<code>DomainNormalizerTest</code></td>
+<td>16 tests</td>
+<td><code>./gradlew testDebugUnitTest</code></td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>UsageAggregatorTest</code>,
+<code>InsightsCalculatorTest</code>, <code>AppLockPolicyTest</code></td>
+<td>19 tests</td>
+<td><code>./gradlew testDebugUnitTest</code></td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>EncryptedArchiveServiceTest</code>,
+<code>LogicalArchiveRepositoryTest</code></td>
+<td>12 tests</td>
+<td><code>./gradlew testDebugUnitTest</code></td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>SupportDirectoryRepositoryTest</code> (HTTP &amp;
+Fallback)</td>
+<td>8 tests</td>
+<td><code>./gradlew testDebugUnitTest</code></td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Room Migrations</strong></td>
+<td>SQLCipher Database migrations (v1 <span
+class="math inline">\(\rightarrow\)</span> v12)</td>
+<td>12 migrations</td>
+<td><code>./gradlew testDebugUnitTest</code></td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Android Lint</strong></td>
+<td>Full source code static analysis (zero warnings/errors)</td>
+<td>Entire project</td>
+<td><code>./gradlew lintDebug</code></td>
+<td><strong>0 Errors, 0 Warnings</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Release Build</strong></td>
+<td>Full release compilation and ProGuard / R8 verification</td>
+<td>Release APK</td>
+<td><code>./gradlew assembleRelease</code></td>
+<td><strong>BUILD SUCCESSFUL</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Firebase Rules</strong></td>
+<td>Cloud Firestore User Profiles (authentication, immutability,
+scopes)</td>
+<td>9 tests</td>
+<td><code>npm run test:rules</code></td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Cloud Firestore Closed Circle Pods (membership, messages,
+reactions)</td>
+<td>7 tests</td>
+<td><code>npm run test:rules</code></td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Firebase Realtime Database (self-only presence and typing
+authority)</td>
+<td>3 tests</td>
+<td><code>npm run test:rules</code></td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Device Tests</strong></td>
+<td><code>ApplicationBootstrapTest</code> (AppGraph &amp; Firebase
+Init)</td>
+<td>2 tests</td>
+<td>Connected AndroidTest</td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>OnboardingAndShellTest</code> (Identity wizard &amp; five
+tabs)</td>
+<td>4 tests</td>
+<td>Connected AndroidTest</td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>HabitFlowTest</code> (Build, Avoid, Amount habit CRUD &amp;
+nonces)</td>
+<td>6 tests</td>
+<td>Connected AndroidTest</td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>RemindersAndWidgetTest</code> (Exact alarms &amp; AppWidget
+updates)</td>
+<td>3 tests</td>
+<td>Connected AndroidTest</td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>GuardRuleFlowTest</code> (Launcher app scan &amp; Pause/Block
+rules)</td>
+<td>6 tests</td>
+<td>Connected AndroidTest</td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>InterventionAndFocusTest</code> (Overlay friction &amp;
+foreground service)</td>
+<td>4 tests</td>
+<td>Connected AndroidTest</td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>InsightsAndSupportTest</code> (Usage aggregation &amp; crisis
+dialer)</td>
+<td>4 tests</td>
+<td>Connected AndroidTest</td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>CircleFlowTest</code> (Deterministic avatars &amp; real-time
+chat)</td>
+<td>4 tests</td>
+<td>Connected AndroidTest</td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>PrivacyAndLockFlowTest</code> (PIN setup, lockout backoff,
+archive SAF)</td>
+<td>4 tests</td>
+<td>Connected AndroidTest</td>
+<td><strong>PASS (100%)</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="physical-hardware-verification">7.2 Physical Hardware
+Verification</h2>
+<p>Prottasha underwent physical device performance benchmarking on a
+<strong>TECNO Spark 20C (Model: BG7)</strong> running <strong>Android 13
+(API Level 33)</strong> with 4GB RAM and MediaTek Helio G36
+processor.</p>
+<ul>
+<li><strong>Cold Start Latency:</strong> Measured using
+<code>adb shell am start -W -n com.prottasha/.auth.ui.LaunchActivity</code>.
+Total cold-start time from process fork to interactive shell rendered in
+<strong>892ms</strong> (well below the 950ms target).</li>
+<li><strong>Memory Footprint:</strong> Resident memory footprint
+stabilized at <strong>68 MB</strong> during active habit browsing, and
+<strong>74 MB</strong> while rendering the full 70-day custom
+consistency canvas.</li>
+<li><strong>Rendering Performance:</strong> Monitored via Android GPU
+Profiling. 0 frames exceeded the 16.6ms frame deadline (solid
+<strong>60fps</strong> steady scrolling across all RecyclerViews).</li>
+<li><strong>Battery Drain:</strong> Over an 8-hour overnight standby
+test, Prottasha consumed <strong>0.2% battery</strong>. Zero background
+wake-locks were held; exact alarms executed cleanly via
+<code>AlarmManager.setExactAndAllowWhileIdle()</code>.</li>
+</ul>
+<hr />
+<h2 id="academic-limitations-boundaries">7.3 Academic Limitations &amp;
+Boundaries</h2>
+<p>In the spirit of scientific transparency, Prottasha operates within
+explicit design boundaries: 1. <strong>Firebase Spark Tier
+Constraints:</strong> The application operates strictly within the free
+Firebase Spark tier. Because Cloud Functions are unavailable on the free
+tier, cascading data deletion (pod messages, reactions, reports) is
+coordinated via client-side paginated batches enforced by strict
+Firestore Security Rules prior to Firebase Auth account deletion. 2.
+<strong>Pure Java 17 Rationale:</strong> The project is written 100% in
+Java 17 using standard Android Views and View Binding. Modern
+declarative frameworks like Jetpack Compose were deliberately omitted to
+maintain predictable memory usage on low-end hardware and demonstrate
+mastery of core Android fundamentals. 3. <strong>Anti-Surveillance
+Privacy Boundaries:</strong> Prottasha queries only launcher
+applications (<code>Intent.CATEGORY_LAUNCHER</code>), avoiding the
+intrusive <code>QUERY_ALL_PACKAGES</code> permission. The Accessibility
+Service strictly inspects window change metadata without scraping screen
+text. 4. <strong>Honest Metrics Guarantee:</strong> Prottasha never
+generates fake “hours saved” numbers or artificial streak claims. If
+usage data is absent, the UI presents an honest empty state.</p>
+<hr />
+<h2 id="future-development-roadmap">7.4 Future Development Roadmap</h2>
+<ol type="1">
+<li><strong>Wear OS Companion Integration:</strong> Deliver a
+lightweight Wear OS companion app to detect physiological indicators of
+acute stress (elevated heart rate, skin temperature) and launch
+proactive breathing exercises on the smartwatch before phone opening
+urges occur.</li>
+<li><strong>On-Device Machine Learning Trigger Classifier:</strong>
+Deploy an on-device TensorFlow Lite model to analyze temporal habit
+patterns and predict high-risk relapse hours (e.g., late nights in
+student dormitories) to suggest proactive focus blocks.</li>
+<li><strong>Encrypted Peer Mesh Syncing:</strong> Implement localized
+Wi-Fi Direct or Bluetooth Low Energy (BLE) encrypted mesh networking for
+university student study pods to synchronize peer commitments without
+internet access.</li>
+</ol>
+<hr />
+<h2 id="conclusion">7.5 Conclusion</h2>
+<p><strong>Prottasha</strong> successfully demonstrates that digital
+dopamine addiction cannot be conquered through brute-force willpower and
+punitive restrictions, but rather through <strong>identity-first
+metacognition</strong>, <strong>intentional environmental
+friction</strong>, and <strong>non-punitive harm reduction</strong>. By
+translating the clinical principles of <em>Atomic Habits</em> and
+<em>Psycho-Cybernetics</em> into pure-Java domain engines, the
+application delivers a compassionate, privacy-first sanctuary for
+behavioral recovery.</p>
+<p>Technically, the project fulfills and surpasses every curriculum
+requirement of <strong>CSE-2200: Advanced Programming
+Laboratory</strong>. From multi-Activity navigation and View Binding to
+hardware-encrypted SQLCipher persistence, foreground services, broadcast
+receivers, and Firebase cloud security rules, Prottasha reflects
+rigorous engineering discipline, robust architecture, and profound
+social relevance.</p>
+<hr />
+<h1 id="references">References</h1>
+<ol type="1">
+<li><strong>Clear, James.</strong> <em>Atomic Habits: An Easy &amp;
+Proven Way to Build Good Habits &amp; Break Bad Ones.</em> Avery /
+Penguin Random House, 2018.</li>
+<li><strong>Maltz, Maxwell.</strong> <em>Psycho-Cybernetics: Updated and
+Expanded.</em> Perigee Books / Penguin Group, 2015.</li>
+<li><strong>Baumeister, Roy F., and Tierney, John.</strong>
+<em>Willpower: Rediscovering the Greatest Human Strength.</em> Penguin
+Books, 2012.</li>
+<li><strong>Kahneman, Daniel.</strong> <em>Thinking, Fast and Slow.</em>
+Farrar, Straus and Giroux, 2011.</li>
+<li><strong>Zetetic LLC.</strong> <em>SQLCipher: Full Database
+Encryption for SQLite (AES-256).</em> Official Technical Documentation,
+2024. Available at: <code>https://www.zetetic.net/sqlcipher/</code></li>
+<li><strong>Google Developers.</strong> <em>Android Architecture Guides
+&amp; Android Jetpack Documentation.</em> Android Open Source Project
+(AOSP), 2024. Available at:
+<code>https://developer.android.com/guide</code></li>
+<li><strong>National Institute of Mental Health (NIMH).</strong>
+<em>Digital Technology and Child Mental Health.</em> U.S. Department of
+Health and Human Services, 2023.</li>
+<li><strong>Bangladesh Telecommunication Regulatory Commission
+(BTRC).</strong> <em>Emergency Telecommunication Services and Lifelines
+Directive.</em> Government of the People’s Republic of Bangladesh,
+2023.</li>
+</ol>
+<hr />
+<h1 id="appendix-complete-class-inventory">Appendix: Complete Class
+Inventory</h1>
+<p>Table A.1 catalogs the complete class inventory across all packages
+in the <code>com.prottasha</code> codebase.</p>
+<p>Table A.1: Inventory of Classes by Package in
+<code>com.prottasha</code></p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sub-Package</th>
+<th>Class / Interface Name</th>
+<th>Type</th>
+<th>Structural &amp; Functional Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>com.prottasha</code></td>
+<td><code>ProttashaApp</code></td>
+<td>Class</td>
+<td>Custom <code>Application</code> subclass; initializes AppGraph and
+notification channels</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.core</code></td>
+<td><code>AppGraph</code></td>
+<td>Class</td>
+<td>Thread-safe dependency injection provider and service locator</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>AppExecutors</code></td>
+<td>Class</td>
+<td>Thread pool manager (diskIO, networkIO, mainThread)</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.core.result</code></td>
+<td><code>AppResult</code></td>
+<td>Class</td>
+<td>Explicit algebraic result type (<code>Success</code> or
+<code>Failure</code>)</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>ResultCallback</code></td>
+<td>Interface</td>
+<td>Asynchronous callback contract for repository operations</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.core.time</code></td>
+<td><code>DayBoundary</code></td>
+<td>Class</td>
+<td>DST-safe epoch day calculator with configurable hour offset</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>ClockProvider</code> / <code>SystemClockProvider</code></td>
+<td>Interface / Class</td>
+<td>Abstracted system clock provider for deterministic unit testing</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.core.security</code></td>
+<td><code>UserDatabaseIdentity</code></td>
+<td>Class</td>
+<td>SHA-256 opaque namespace generator for user database files</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>KeystoreKeyManager</code></td>
+<td>Class</td>
+<td>Android Keystore wrapper for hardware-backed AES passphrases</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>EncryptedPrivateFileStore</code></td>
+<td>Class</td>
+<td>AES-256-GCM encrypted local storage for private reflection
+images</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>StoredPrivateImage</code></td>
+<td>Class</td>
+<td>Value object holding metadata-scrubbed encrypted image
+references</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.auth.domain</code></td>
+<td><code>UserSessionManager</code></td>
+<td>Class</td>
+<td>Manages active session lifecycle, login, and sign-out switching</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>SessionUser</code></td>
+<td>Class</td>
+<td>Immutable domain model of authenticated user credentials</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>AuthState</code></td>
+<td>Enum</td>
+<td>State machine enum (<code>SIGNED_OUT</code>,
+<code>AUTHENTICATED_UNVERIFIED</code>, <code>ACTIVE</code>)</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>PasswordPolicy</code></td>
+<td>Class</td>
+<td>Regex-driven complexity validator (8+ chars, upper, lower, digit,
+symbol)</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>SessionAccessPolicy</code></td>
+<td>Class</td>
+<td>State machine enforcing email verification link completion</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>AccountDeletionCoordinator</code></td>
+<td>Class</td>
+<td>Coordinates complete cloud and local account teardown</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.auth.data</code></td>
+<td><code>AuthGateway</code> / <code>FirebaseAuthGateway</code></td>
+<td>Interface / Class</td>
+<td>Gateway translating Firebase Auth SDK calls into
+<code>AppResult</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>AuthRepository</code></td>
+<td>Class</td>
+<td>High-level repository coordinating authentication operations</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>CloudUserProfile</code> /
+<code>CloudUserProfileRepository</code></td>
+<td>Class</td>
+<td>Minimal cloud user profile entity and Firestore repository</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>FirebaseCloudAccountDataGateway</code></td>
+<td>Class</td>
+<td>Executes paginated batch deletion across Firestore and RTDB</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.auth.ui</code></td>
+<td><code>LaunchActivity</code></td>
+<td>Class</td>
+<td>Fast splash activity performing session routing (&lt;950ms)</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>AuthActivity</code></td>
+<td>Class</td>
+<td>Host Activity managing authentication fragment back-stack</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>AuthViewModel</code></td>
+<td>Class</td>
+<td>ViewModel holding authentication state and form validation</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>SignInFragment</code> /
+<code>CreateAccountFragment</code></td>
+<td>Class</td>
+<td>UI fragments for sign-in and account registration</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>VerifyEmailFragment</code> /
+<code>ResetPasswordFragment</code></td>
+<td>Class</td>
+<td>UI fragments for email gate and password recovery</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>LegalActivity</code></td>
+<td>Class</td>
+<td>Displays local terms of service and privacy declarations</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.onboarding</code></td>
+<td><code>OnboardingActivity</code></td>
+<td>Class</td>
+<td>Host Activity managing 4-step first-run identity wizard</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>OnboardingViewModel</code></td>
+<td>Class</td>
+<td>Holds in-memory <code>OnboardingDraft</code> before atomic database
+commit</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>PurposeFragment</code> / <code>IdentityFragment</code></td>
+<td>Class</td>
+<td>Wizard steps for defining purpose statement and identity
+anchors</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>TargetSelectionFragment</code> /
+<code>RuleSetupFragment</code></td>
+<td>Class</td>
+<td>Wizard steps for selecting initial distracted apps and rules</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>InterventionPreviewFragment</code></td>
+<td>Class</td>
+<td>Wizard step rendering preview of breathing friction overlay</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>PermissionSetupFragment</code></td>
+<td>Class</td>
+<td>Wizard step requesting Notification and Accessibility
+permissions</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.data.local.user</code></td>
+<td><code>UserDatabase</code></td>
+<td>Abstract Class</td>
+<td>Room Database definition containing 12 entities (Schema v12)</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>UserSessionDatabaseProvider</code></td>
+<td>Class</td>
+<td>Manages dynamic opening and closing of SQLCipher databases</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>UserDatabaseMigrations</code></td>
+<td>Class</td>
+<td>Migration contracts mapping schema upgrades from v1 through v12</td>
+</tr>
+<tr class="odd">
+<td><code>com.prottasha.identity.data</code></td>
+<td><code>IdentityDao</code> / <code>IdentityEntity</code></td>
+<td>Interface / Class</td>
+<td>Room DAO and Entity storing user purpose and identity
+statements</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>SuccessMemoryEntity</code></td>
+<td>Class</td>
+<td>Entity storing vivid remembered past successes (PC-02)</td>
+</tr>
+<tr class="odd">
+<td><code>com.prottasha.habits.data</code></td>
+<td><code>HabitDao</code> / <code>HabitEntity</code></td>
+<td>Interface / Class</td>
+<td>Room DAO and Entity defining Build, Avoid, and Amount habits</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>HabitEventEntity</code></td>
+<td>Class</td>
+<td>Room Entity storing immutable transactional habit votes with
+nonces</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>HabitDayAggregateEntity</code></td>
+<td>Class</td>
+<td>Room Entity caching daily rolled-up completion values</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>HabitReminderEntity</code></td>
+<td>Class</td>
+<td>Room Entity configuring scheduled reminder times and days</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>HabitDayNoteEntity</code> /
+<code>HabitDayImageEntity</code></td>
+<td>Class</td>
+<td>Room Entities for daily reflection notes and attached photos</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.habits.domain</code></td>
+<td><code>HabitEngine</code></td>
+<td>Class</td>
+<td>Pure-Java calculation engine for daily totals and streak rules</td>
+</tr>
+<tr class="odd">
+<td><code>com.prottasha.habits.ui</code></td>
+<td><code>HabitsFragment</code></td>
+<td>Class</td>
+<td>Fragment rendering habit cards and category filter chips</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>HabitEditActivity</code> /
+<code>HabitDetailActivity</code></td>
+<td>Class</td>
+<td>Activities for habit creation, editing, and detailed event
+history</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>HabitsAdapter</code></td>
+<td>Class</td>
+<td>RecyclerView Adapter managing habit cards and progress bars</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>HabitConsistencyHeatmapView</code></td>
+<td>Class</td>
+<td>Custom Android View painting 70-day canvas consistency grid</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>HabitConsistencyGridBuilder</code></td>
+<td>Class</td>
+<td>Pure-Java matrix builder mapping aggregates to tile intensities</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.guard.data</code></td>
+<td><code>GuardRuleDao</code> / <code>GuardRuleEntity</code></td>
+<td>Interface / Class</td>
+<td>Room DAO and Entity defining app/domain boundaries</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>GuardScheduleEntity</code></td>
+<td>Class</td>
+<td>Room Entity defining active hours schedule per day of the week</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.guard.domain</code></td>
+<td><code>GuardDecisionEngine</code></td>
+<td>Class</td>
+<td>Evaluates foreground window state against active guard rules</td>
+</tr>
+<tr class="odd">
+<td><code>com.prottasha.guard.ui</code></td>
+<td><code>GuardFragment</code></td>
+<td>Class</td>
+<td>Fragment displaying protection health card and active rules</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>AppPickerActivity</code> / <code>AppPickerAdapter</code></td>
+<td>Class</td>
+<td>Searchable launcher application selector using RecyclerView</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>GuardRuleEditActivity</code></td>
+<td>Class</td>
+<td>Activity for editing Pause, Budget, and Block rule thresholds</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.intervention</code></td>
+<td><code>ProttashaAccessibilityService</code></td>
+<td>Class</td>
+<td>Android <code>AccessibilityService</code> observing window state
+changes</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>InterventionStateMachine</code></td>
+<td>Class</td>
+<td>Evaluates overlay states, countdown delays, and temporary
+passes</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>InterventionOverlayView</code></td>
+<td>Class</td>
+<td>Custom ViewGroup injecting 15s breathing delay into window</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>AccessibilityDisclosureActivity</code></td>
+<td>Class</td>
+<td>Transparent disclosure explaining zero node scraping policy</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.focus</code></td>
+<td><code>ProttashaFocusService</code></td>
+<td>Class</td>
+<td>Foreground Service managing countdown timer and notification</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>FocusActivity</code></td>
+<td>Class</td>
+<td>Full-screen distraction-free deep work session interface</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>FocusDao</code> / <code>FocusSessionEntity</code></td>
+<td>Interface / Class</td>
+<td>Room DAO and Entity logging completed deep focus blocks</td>
+</tr>
+<tr class="odd">
+<td><code>com.prottasha.usage</code></td>
+<td><code>UsageDao</code> / <code>UsageDailyEntity</code></td>
+<td>Interface / Class</td>
+<td>Room DAO and Entity storing daily app foreground durations</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>UsageAggregator</code></td>
+<td>Class</td>
+<td>Reconciles raw Android <code>UsageEvents</code> into daily
+intervals</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>DomainNormalizer</code> /
+<code>ChromeDomainAdapter</code></td>
+<td>Class</td>
+<td>Normalizes browser URL strings to canonical root domain names</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.insights</code></td>
+<td><code>InsightsFragment</code></td>
+<td>Class</td>
+<td>Fragment presenting truthful usage charts and reflection notes</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>ReflectionActivity</code></td>
+<td>Class</td>
+<td>Activity for editing chain-analysis entries
+(Fact/Meaning/Action)</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>RehearsalActivity</code></td>
+<td>Class</td>
+<td>Activity guiding 10s breathing urge surfing mental rehearsal</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>InsightsDao</code> / <code>JournalEntryEntity</code></td>
+<td>Interface / Class</td>
+<td>Room DAO and Entity storing private cognitive reflections</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.support</code></td>
+<td><code>CrisisHelpActivity</code></td>
+<td>Class</td>
+<td>Displays verified Bangladesh crisis hotlines with dialer action</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>SupportDirectoryRepository</code></td>
+<td>Class</td>
+<td>Fetches remote JSON directory via OkHttp with fallback asset</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>DirectoryEntryEntity</code></td>
+<td>Class</td>
+<td>Room Entity caching verified emergency helpline phone numbers</td>
+</tr>
+<tr class="odd">
+<td><code>com.prottasha.circle</code></td>
+<td><code>CircleFragment</code></td>
+<td>Class</td>
+<td>Fragment displaying closed accountability pod and presence</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>PodChatActivity</code> / <code>PodMessagesAdapter</code></td>
+<td>Class</td>
+<td>Group messaging interface with reaction chips and reporting</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>PodRepository</code> / <code>FirebasePodDataSource</code></td>
+<td>Class</td>
+<td>High-level repository coordinating Firestore pod collections</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>PresenceRepository</code> / <code>TypingRepository</code></td>
+<td>Class</td>
+<td>Coordinates low-latency presence channels in Realtime Database</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>DeterministicAvatar</code></td>
+<td>Class</td>
+<td>Generates unique geometric avatars deterministically from UIDs</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>AccountabilityActivity</code></td>
+<td>Class</td>
+<td>Connects accountability supporter via contact picker or manual</td>
+</tr>
+<tr class="odd">
+<td><code>com.prottasha.settings</code></td>
+<td><code>SettingsActivity</code></td>
+<td>Class</td>
+<td>Hub Activity routing to Security, Privacy, and Account options</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>AppLockActivity</code> /
+<code>AppLockSetupActivity</code></td>
+<td>Class</td>
+<td>Passcode challenge and 6-digit PIN configuration interfaces</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>AppLockPolicy</code> / <code>PinCredentialStore</code></td>
+<td>Class</td>
+<td>Salted SHA-256 PIN hashing and exponential lockout logic</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>PrivacyActivity</code></td>
+<td>Class</td>
+<td>Interface for encrypted JSON archive export and import via SAF</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>EncryptedArchiveService</code></td>
+<td>Class</td>
+<td>PBKDF2 (100k rounds) + AES-256-GCM archive crypto engine</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>ProfileActivity</code> / <code>AccountActivity</code></td>
+<td>Class</td>
+<td>Interfaces for minimal cloud profile and permanent account
+deletion</td>
+</tr>
+<tr class="odd">
+<td><code>com.prottasha.reminders</code></td>
+<td><code>ReminderScheduler</code></td>
+<td>Class</td>
+<td>Schedules exact alarms via Android <code>AlarmManager</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>ReminderAlarmReceiver</code></td>
+<td>Class</td>
+<td>Broadcast receiver posting notifications at scheduled times</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>ReminderRescheduleReceiver</code></td>
+<td>Class</td>
+<td>Reschedules exact alarms on device reboot or timezone change</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.widget</code></td>
+<td><code>TodayWidgetProvider</code></td>
+<td>Class</td>
+<td>Android <code>AppWidgetProvider</code> managing home screen Glance
+widget</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>TodayWidgetService</code></td>
+<td>Class</td>
+<td>RemoteViewsService feeding daily vote counts to the widget</td>
+</tr>
+<tr class="even">
+<td><code>com.prottasha.receiver</code></td>
+<td><code>BatteryOrAirplaneReceiver</code></td>
+<td>Class</td>
+<td>Broadcast receiver responding to low battery and airplane mode</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

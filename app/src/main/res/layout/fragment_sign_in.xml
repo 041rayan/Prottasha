@@ -8,18 +8,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_large">
+        android:paddingStart="@dimen/screen_padding_horizontal"
+        android:paddingTop="@dimen/spacing_large"
+        android:paddingEnd="@dimen/screen_padding_horizontal"
+        android:paddingBottom="@dimen/spacing_large">
+
+        <ImageView
+            android:id="@+id/auth_brand_logo"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            android:src="@drawable/prottasha_logo" />
 
         <TextView
             android:id="@+id/auth_sign_in_title"
+            style="@style/TextAppearance.Prottasha.Display"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/auth_sign_in_title"
-            android:textColor="@color/color_text_primary"
-            android:textSize="@dimen/text_display"
-            android:textStyle="bold" />
+            android:layout_marginTop="@dimen/spacing_large"
+            android:text="@string/auth_sign_in_title" />
 
         <TextView
             android:layout_width="match_parent"
@@ -31,7 +40,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/auth_email_layout"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/Widget.Prottasha.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_large"
@@ -42,16 +51,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="emailAddress"
+                android:fontFamily="@font/ibm_plex_sans_regular"
                 android:inputType="textEmailAddress"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="@color/color_text_primary" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/auth_password_layout"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/Widget.Prottasha.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_compact"
             android:hint="@string/auth_password_label"
             app:endIconMode="password_toggle">
 
@@ -60,35 +71,48 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="password"
+                android:fontFamily="@font/ibm_plex_sans_regular"
                 android:inputType="textPassword"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="@color/color_text_primary" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/auth_sign_in_button"
-            style="@style/Widget.Prottasha.Button.Pill"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:minHeight="@dimen/touch_target_min"
-            android:text="@string/auth_sign_in_action" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/auth_reset_link"
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
             android:minHeight="@dimen/touch_target_min"
-            android:text="@string/auth_forgot_password" />
+            android:text="@string/auth_forgot_password"
+            android:textColor="@color/color_hope" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/auth_sign_in_button"
+            style="@style/Widget.Prottasha.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="@string/auth_sign_in_action" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/auth_create_link"
-            style="@style/Widget.Material3.Button.OutlinedButton"
+            style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_small"
             android:minHeight="@dimen/touch_target_min"
-            android:text="@string/auth_create_account_action" />
+            android:text="@string/auth_create_account_prompt"
+            android:textColor="@color/color_text_primary" />
 
+        <TextView
+            android:id="@+id/auth_privacy_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xlarge"
+            android:paddingTop="@dimen/spacing_medium"
+            android:text="@string/auth_privacy_note"
+            android:textColor="@color/color_text_muted"
+            android:textSize="@dimen/text_caption" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

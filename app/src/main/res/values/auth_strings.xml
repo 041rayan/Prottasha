@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="auth_loading">Checking account</string>
-    <string name="auth_sign_in_title">Welcome back</string>
-    <string name="auth_sign_in_subtitle">Sign in to open your private, device-local recovery space.</string>
+    <string name="auth_sign_in_title">Sign in</string>
+    <string name="auth_sign_in_subtitle">Use your verified Prottasha account.</string>
     <string name="auth_email_label">Email</string>
     <string name="auth_password_label">Password</string>
     <string name="auth_confirm_password_label">Confirm password</string>
     <string name="auth_display_name_label">Display name</string>
     <string name="auth_sign_in_action">Sign in</string>
     <string name="auth_create_account_action">Create account</string>
+    <string name="auth_create_account_prompt">No account? Create one</string>
     <string name="auth_forgot_password">Forgot password?</string>
     <string name="auth_create_title">Create your account</string>
+    <string name="auth_create_step">Create account · 1 of 2</string>
+    <string name="auth_create_explanation">You will verify your email before entering the app.</string>
+    <string name="auth_requirement_length">• 8+ characters</string>
+    <string name="auth_requirement_uppercase">• Uppercase</string>
+    <string name="auth_requirement_lowercase">• Lowercase</string>
+    <string name="auth_requirement_number">• Number</string>
+    <string name="auth_privacy_note">Private records stay encrypted on this device. Circle data is stored separately in Firebase.</string>
     <string name="auth_password_requirements">Use 8 or more characters with uppercase, lowercase, and a number.</string>
     <string name="auth_accept_terms">I accept the academic Terms and Privacy notice.</string>
     <string name="auth_read_terms_privacy">Read Terms and Privacy</string>

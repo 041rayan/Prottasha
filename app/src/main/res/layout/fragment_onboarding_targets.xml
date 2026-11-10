@@ -13,12 +13,10 @@
 
         <TextView
             android:id="@+id/onboarding_targets_title"
+            style="@style/TextAppearance.Prottasha.Display"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/onboarding_targets_title"
-            android:textColor="@color/color_text_primary"
-            android:textSize="@dimen/text_display"
-            android:textStyle="bold" />
+            android:text="@string/onboarding_targets_title" />
 
         <TextView
             android:layout_width="match_parent"

@@ -28,11 +28,13 @@
     <string name="profile_avatar_palette_hint">Avatar color palette</string>
     <string name="profile_avatar_style_hint">Avatar style</string>
     <string name="profile_photo_label">Private profile photo</string>
-    <string name="profile_photo_desc">Stored only in private encrypted local storage on this device. Never uploaded to Firebase.</string>
-    <string name="profile_choose_photo">Select private photo</string>
+    <string name="profile_photo_desc">Photo stored locally on this device. Circle members see only your generated avatar.</string>
+    <string name="profile_choose_photo">Change photo</string>
     <string name="profile_remove_photo">Remove photo</string>
     <string name="profile_save_action">Save changes</string>
     <string name="profile_saved_toast">Profile updated</string>
+    <string name="profile_private_section">Private profile</string>
+    <string name="profile_circle_section">Circle profile</string>
 
     <string name="account_edit_profile_action">Edit profile</string>
     <string name="account_sign_out_action">Sign out</string>

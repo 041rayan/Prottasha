@@ -60,4 +60,17 @@
         <item name="chipStrokeWidth">0dp</item>
         <item name="chipBackgroundColor">@color/color_surface</item>
     </style>
+
+    <style name="Widget.Prottasha.TextInput" parent="Widget.Material3.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">@color/color_surface</item>
+        <item name="boxStrokeColor">@color/color_border</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxCornerRadiusTopStart">@dimen/control_corner_radius</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/control_corner_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/control_corner_radius</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/control_corner_radius</item>
+        <item name="hintTextColor">@color/color_text_secondary</item>
+        <item name="android:textColorHint">@color/color_text_secondary</item>
+    </style>
 </resources>

@@ -71,6 +71,7 @@ public final class ProfileActivity extends AppCompatActivity {
 
         binding.profileSaveButton.setOnClickListener(v -> submitSave());
         binding.profileChoosePhotoButton.setOnClickListener(v -> photoPickerLauncher.launch("image/*"));
+        binding.profilePhotoEditButton.setOnClickListener(v -> photoPickerLauncher.launch("image/*"));
         binding.profileRemovePhotoButton.setOnClickListener(v -> viewModel.removeLocalPhoto());
 
         viewModel.loadProfile();

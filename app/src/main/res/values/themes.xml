@@ -46,11 +46,7 @@
     </style>
 
     <!-- Pill Button Styles -->
-    <style name="Widget.Prottasha.Button.Pill" parent="Widget.Material3.Button">
-        <item name="android:textColor">@color/color_on_hope</item>
-        <item name="cornerRadius">@dimen/pill_button_radius</item>
-        <item name="backgroundTint">@color/color_hope</item>
-    </style>
+    <style name="Widget.Prottasha.Button.Pill" parent="Widget.Prottasha.Button.Primary" />
 
     <style name="TextAppearance.Prottasha.Display" parent="TextAppearance.Material3.DisplaySmall">
         <item name="android:fontFamily">@font/newsreader_semibold</item>

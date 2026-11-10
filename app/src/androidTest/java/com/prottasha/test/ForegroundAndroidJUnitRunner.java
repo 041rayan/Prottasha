@@ -21,17 +21,7 @@ public final class ForegroundAndroidJUnitRunner extends AndroidJUnitRunner {
     public void onStart() {
         String requestedClass = arguments.getString("class", "");
         String requestedPackage = arguments.getString("package", "");
-        if (requestedClass.contains("com.prottasha.data.local.")
-                || requestedClass.contains("OnboardingAndShellTest")
-                || requestedClass.contains("com.prottasha.habits")
-                || requestedPackage.contains("com.prottasha.habits")
-                || requestedPackage.contains("com.prottasha.reminders")
-                || requestedPackage.contains("com.prottasha.guard")
-                || requestedPackage.contains("com.prottasha.intervention")
-                || requestedPackage.contains("com.prottasha.focus")
-                || requestedClass.contains("InsightsAndSupportTest")
-                || requestedPackage.contains("com.prottasha.circle")
-                || requestedPackage.contains("com.prottasha.quality")) {
+        if (!requestedClass.isEmpty() || !requestedPackage.isEmpty()) {
             Intent host = new Intent(getTargetContext(), AuthActivity.class)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivitySync(host);

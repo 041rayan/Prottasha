@@ -7,6 +7,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
 
@@ -79,6 +80,12 @@ public final class GuardRuleFlowTest {
                 ApplicationProvider.getApplicationContext()).listNonEssential()) {
             assertFalse(app.packageName.startsWith("com.prottasha"));
         }
+    }
+
+    @Test public void appPickerFindsInstalledChromeOnBg7() {
+        assertTrue(new LaunchableAppSource(ApplicationProvider.getApplicationContext())
+                .listNonEssential().stream()
+                .anyMatch(app -> "com.android.chrome".equals(app.packageName)));
     }
 
     private void waitForRule() throws Exception {

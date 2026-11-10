@@ -19,4 +19,19 @@ public interface IdentityDao {
 
     @Insert
     long insert(IdentityEntity identity);
+
+    @Insert
+    long insertSuccessMemory(SuccessMemoryEntity memory);
+
+    @Query("SELECT * FROM success_memories WHERE identityId = :identityId ORDER BY createdAt DESC")
+    java.util.List<SuccessMemoryEntity> findMemoriesForIdentity(long identityId);
+
+    @Query("SELECT * FROM success_memories WHERE identityId = :identityId ORDER BY createdAt DESC")
+    LiveData<java.util.List<SuccessMemoryEntity>> observeMemoriesForIdentity(long identityId);
+
+    @Query("SELECT * FROM success_memories ORDER BY createdAt DESC LIMIT 1")
+    LiveData<SuccessMemoryEntity> observeLatestSuccessMemory();
+
+    @Query("SELECT * FROM success_memories ORDER BY createdAt DESC LIMIT 1")
+    SuccessMemoryEntity findLatestSuccessMemory();
 }

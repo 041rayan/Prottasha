@@ -43,18 +43,45 @@
                 android:minLines="3" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/onboarding_success_memory_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:hint="@string/onboarding_success_memory_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/onboarding_success_memory_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="240"
+                android:minLines="2" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/onboarding_finish_button"
+            android:id="@+id/onboarding_continue_button"
             style="@style/Widget.Prottasha.Button.Pill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_large"
+            android:minHeight="@dimen/touch_target_min"
+            android:text="@string/action_continue" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/onboarding_finish_button"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
             android:minHeight="@dimen/touch_target_min"
             android:text="@string/onboarding_finish" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 

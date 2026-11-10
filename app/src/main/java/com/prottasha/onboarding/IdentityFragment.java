@@ -32,31 +32,56 @@ public final class IdentityFragment extends Fragment {
         OnboardingViewModel viewModel = ((OnboardingActivity) requireActivity())
                 .onboardingViewModel();
         binding.onboardingIdentityInput.setText(viewModel.draft().identityStatement);
+        binding.onboardingSuccessMemoryInput.setText(viewModel.draft().successMemory);
+
         binding.onboardingBackButton.setOnClickListener(ignored ->
                 NavHostFragment.findNavController(this).popBackStack());
+
+        binding.onboardingContinueButton.setOnClickListener(ignored -> {
+            String statement = identityText();
+            if (statement.trim().isEmpty()) {
+                binding.onboardingIdentityLayout.setError(
+                        getString(R.string.onboarding_identity_required));
+                return;
+            }
+            binding.onboardingIdentityLayout.setError(null);
+            viewModel.setIdentityStatement(statement);
+            viewModel.setSuccessMemory(successMemoryText());
+            NavHostFragment.findNavController(this)
+                    .navigate(R.id.action_identityFragment_to_targetSelectionFragment);
+        });
+
         binding.onboardingFinishButton.setOnClickListener(ignored -> {
-            String statement = text();
+            String statement = identityText();
             if (statement.trim().isEmpty()) {
                 binding.onboardingIdentityLayout.setError(
                         getString(R.string.onboarding_identity_required));
                 return;
             }
             viewModel.setIdentityStatement(statement);
+            viewModel.setSuccessMemory(successMemoryText());
             viewModel.complete(false);
         });
+
         binding.onboardingIdentitySkipButton.setOnClickListener(ignored ->
                 viewModel.complete(true));
     }
 
-    private String text() {
+    private String identityText() {
         return binding.onboardingIdentityInput.getText() == null
                 ? "" : binding.onboardingIdentityInput.getText().toString();
     }
 
+    private String successMemoryText() {
+        return binding.onboardingSuccessMemoryInput.getText() == null
+                ? "" : binding.onboardingSuccessMemoryInput.getText().toString();
+    }
+
     @Override
     public void onStop() {
-        ((OnboardingActivity) requireActivity()).onboardingViewModel()
-                .setIdentityStatement(text());
+        OnboardingViewModel vm = ((OnboardingActivity) requireActivity()).onboardingViewModel();
+        vm.setIdentityStatement(identityText());
+        vm.setSuccessMemory(successMemoryText());
         super.onStop();
     }
 

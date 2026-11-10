@@ -7,9 +7,60 @@
     <fragment
         android:id="@+id/purposeFragment"
         android:name="com.prottasha.onboarding.PurposeFragment"
-        android:label="@string/onboarding_purpose_title" />
+        android:label="@string/onboarding_purpose_title">
+        <action
+            android:id="@+id/action_purposeFragment_to_identityFragment"
+            app:destination="@id/identityFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/identityFragment"
         android:name="com.prottasha.onboarding.IdentityFragment"
-        android:label="@string/onboarding_identity_title" />
+        android:label="@string/onboarding_identity_title">
+        <action
+            android:id="@+id/action_identityFragment_to_targetSelectionFragment"
+            app:destination="@id/targetSelectionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/targetSelectionFragment"
+        android:name="com.prottasha.onboarding.TargetSelectionFragment"
+        android:label="@string/onboarding_targets_title">
+        <action
+            android:id="@+id/action_targetSelectionFragment_to_ruleSetupFragment"
+            app:destination="@id/ruleSetupFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ruleSetupFragment"
+        android:name="com.prottasha.onboarding.RuleSetupFragment"
+        android:label="@string/onboarding_rules_title">
+        <action
+            android:id="@+id/action_ruleSetupFragment_to_onboardingDisclosureFragment"
+            app:destination="@id/onboardingDisclosureFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/onboardingDisclosureFragment"
+        android:name="com.prottasha.onboarding.OnboardingDisclosureFragment"
+        android:label="@string/onboarding_disclosure_title">
+        <action
+            android:id="@+id/action_onboardingDisclosureFragment_to_permissionSetupFragment"
+            app:destination="@id/permissionSetupFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/permissionSetupFragment"
+        android:name="com.prottasha.onboarding.PermissionSetupFragment"
+        android:label="@string/onboarding_permissions_title">
+        <action
+            android:id="@+id/action_permissionSetupFragment_to_interventionPreviewFragment"
+            app:destination="@id/interventionPreviewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/interventionPreviewFragment"
+        android:name="com.prottasha.onboarding.InterventionPreviewFragment"
+        android:label="@string/onboarding_preview_title" />
+
 </navigation>

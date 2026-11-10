@@ -10,5 +10,15 @@
     <string name="today_title">Today</string>
     <string name="today_empty_title">Your day is clear</string>
     <string name="today_empty_body">No habits are due yet. Add your first real habit in the next setup step—Prottasha will not invent progress for you.</string>
+    <string name="today_health_title">Accessibility Protection Paused</string>
+    <string name="today_health_body">Intervention overlays cannot trigger without the accessibility service. Tap to restore.</string>
+    <string name="today_health_action">Restore</string>
+    <string name="today_hope_horizon_title">Hope Horizon</string>
+    <string name="today_hope_horizon_empty">No intervention prompts yet. When you encounter guarded apps, your mindful choices will appear here.</string>
+    <string name="today_habits_title">Today\'s Habits</string>
+    <string name="today_habits_empty">No habits scheduled for today.</string>
+    <string name="today_boundaries_title">Active Boundaries</string>
+    <string name="today_boundaries_empty">No app boundaries configured.</string>
+    <string name="today_rebound_prompt">Rebound: Take a 2-minute reset or start a focus session.</string>
     <string name="shell_placeholder_body">This destination is ready for its next vertical slice. No sample data is shown.</string>
 </resources>

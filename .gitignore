@@ -26,3 +26,10 @@ build/
 /database-debug.log
 /ui-debug.log
 
+# Agent & superpower local artifacts
+.agents/
+.claude/
+.superpowers/
+skills-lock.json
+
+

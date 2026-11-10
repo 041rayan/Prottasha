@@ -6,13 +6,13 @@ import android.provider.Settings;
 
 import com.prottasha.service.ProttashaAccessibilityService;
 
-public final class AccessibilityServiceHealth {
+public class AccessibilityServiceHealth {
     public enum State { HEALTHY, STALE, REVOKED, UNSUPPORTED, BATTERY_RISK }
 
     private final Context context;
 
     public AccessibilityServiceHealth(Context context) {
-        this.context = context.getApplicationContext();
+        this.context = context != null ? context.getApplicationContext() : null;
     }
 
     public State state(long lastEventAt, boolean batteryRisk) {

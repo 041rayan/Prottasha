@@ -49,22 +49,26 @@ public final class LaunchActivity extends AppCompatActivity {
                             .requireOpen().localAccountDao().requireAccount().onboardingVersion;
                     Class<?> destination = version < OnboardingViewModel.CURRENT_VERSION
                             ? OnboardingActivity.class : MainActivity.class;
-                    runOnUiThread(() -> finishRoute(destination));
+                    runOnUiThread(() -> finishRoute(destination, version));
                 } catch (Exception secureSessionFailure) {
-                    runOnUiThread(() -> finishRoute(AuthActivity.class));
+                    runOnUiThread(() -> finishRoute(AuthActivity.class, -1));
                 }
             });
             return;
         }
-        finishRoute(AuthActivity.class);
+        finishRoute(AuthActivity.class, -1);
     }
 
-    private void finishRoute(Class<?> destination) {
+    private void finishRoute(Class<?> destination, int version) {
         if (routed) {
             return;
         }
         routed = true;
-        startActivity(new Intent(this, destination));
+        Intent intent = new Intent(this, destination);
+        if (destination == OnboardingActivity.class && version >= 0) {
+            intent.putExtra(OnboardingViewModel.EXTRA_INITIAL_VERSION, version);
+        }
+        startActivity(intent);
         finish();
     }
 }

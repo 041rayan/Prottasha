@@ -7,6 +7,11 @@
     <string name="privacy_export">Create encrypted export</string>
     <string name="privacy_export_complete">Encrypted export created.</string>
     <string name="privacy_export_failed">Export failed without writing plaintext temporary data.</string>
+    <string name="privacy_import_password">Import archive password</string>
+    <string name="privacy_import">Restore from encrypted export</string>
+    <string name="privacy_import_complete">Encrypted export restored successfully.</string>
+    <string name="privacy_import_failed">Import failed. Transaction rolled back safely.</string>
+    <string name="privacy_lock_setup">Configure App Privacy Lock</string>
     <string name="settings_title">Settings</string>
     <string name="settings_profile">Profile &amp; avatar</string>
     <string name="settings_account">Account and security</string>

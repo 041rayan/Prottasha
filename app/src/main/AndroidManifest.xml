@@ -92,6 +92,8 @@
         <activity android:name=".circle.ui.PodChatActivity" android:exported="false" />
         <activity android:name=".circle.ui.AccountabilityActivity" android:exported="false" />
         <activity android:name=".settings.privacy.PrivacyActivity" android:exported="false" />
+        <activity android:name=".settings.security.AppLockActivity" android:exported="false" />
+        <activity android:name=".settings.security.AppLockSetupActivity" android:exported="false" />
 
         <!-- Main Dashboard Activity -->
         <activity

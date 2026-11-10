@@ -42,6 +42,7 @@ public final class AppGraph {
     private final InsightsRepository insightsRepository;
     private final UsageRepository usageRepository;
     private final TriggerRepository triggerRepository;
+    private final com.prottasha.settings.security.AppLockManager appLockManager;
 
     public AppGraph(Context context) {
         applicationContext = context.getApplicationContext();
@@ -74,6 +75,8 @@ public final class AppGraph {
                 encryptedPrivateFileStore,
                 userSessionManager,
                 executors.disk());
+        appLockManager = new com.prottasha.settings.security.AppLockManager(60_000L);
+        userSessionManager.setOnAccountSwitchedListener(appLockManager::onAccountChanged);
     }
 
     public Context applicationContext() {
@@ -126,6 +129,10 @@ public final class AppGraph {
 
     public com.prottasha.guard.data.GuardRuntimeRepository guardRuntime() {
         return guardRuntimeRepository;
+    }
+
+    public com.prottasha.settings.security.AppLockManager appLockManager() {
+        return appLockManager;
     }
 
     public NetworkPowerStateRepository networkPowerState() {

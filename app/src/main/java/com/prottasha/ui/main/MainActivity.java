@@ -47,4 +47,25 @@ public final class MainActivity extends AppCompatActivity {
         binding.mainSettingsButton.setOnClickListener(ignored ->
                 startActivity(new Intent(this, SettingsActivity.class)));
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkAppLock();
+    }
+
+    private void checkAppLock() {
+        ProttashaApp app = (ProttashaApp) getApplication();
+        try {
+            com.prottasha.auth.domain.SessionUser user = app.appGraph().userSessionManager().requireUser();
+            String uidHash = com.prottasha.core.security.UserDatabaseIdentity.fromUid(user.uid()).uidHash();
+            com.prottasha.settings.security.AppLockPolicy policy =
+                    com.prottasha.settings.security.AppLockPolicy.load(this, uidHash);
+            if (policy.isLockEnabled() && policy.hasPin()
+                    && app.appGraph().appLockManager().requiresUnlock(System.currentTimeMillis())) {
+                startActivity(new Intent(this, com.prottasha.settings.security.AppLockActivity.class));
+            }
+        } catch (Exception ignored) {
+        }
+    }
 }

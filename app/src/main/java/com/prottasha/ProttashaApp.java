@@ -17,6 +17,35 @@ public class ProttashaApp extends Application {
         super.onCreate();
         appGraph = new AppGraph(this);
         createNotificationChannels();
+        setupActivityLifecycleLockTracking();
+    }
+
+    private void setupActivityLifecycleLockTracking() {
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            private int runningActivities = 0;
+
+            @Override
+            public void onActivityStarted(android.app.Activity activity) {
+                runningActivities++;
+            }
+
+            @Override
+            public void onActivityStopped(android.app.Activity activity) {
+                runningActivities--;
+                if (runningActivities <= 0) {
+                    runningActivities = 0;
+                    if (appGraph != null && appGraph.appLockManager() != null) {
+                        appGraph.appLockManager().onBackground(System.currentTimeMillis());
+                    }
+                }
+            }
+
+            @Override public void onActivityCreated(android.app.Activity a, android.os.Bundle b) {}
+            @Override public void onActivityResumed(android.app.Activity a) {}
+            @Override public void onActivityPaused(android.app.Activity a) {}
+            @Override public void onActivitySaveInstanceState(android.app.Activity a, android.os.Bundle b) {}
+            @Override public void onActivityDestroyed(android.app.Activity a) {}
+        });
     }
 
     public AppGraph appGraph() {

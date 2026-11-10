@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="@dimen/spacing_large"
+    android:background="@color/color_background">
+
+    <!-- Shield Icon -->
+    <ImageView
+        android:id="@+id/app_lock_shield_icon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@android:drawable/ic_lock_lock"
+        android:contentDescription="Privacy Lock"
+        app:tint="@color/color_identity" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:text="Prottasha Locked"
+        android:textColor="@color/color_text_primary"
+        android:textSize="@dimen/text_display"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/app_lock_instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Enter your PIN to continue"
+        android:textColor="@color/color_text_secondary"
+        android:textSize="14sp" />
+
+    <!-- PIN Display Dots / Stars -->
+    <TextView
+        android:id="@+id/app_lock_pin_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:letterSpacing="0.4"
+        android:textColor="@color/color_identity"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        tools:text="••••" />
+
+    <!-- Cooldown / Error text -->
+    <TextView
+        android:id="@+id/app_lock_error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:textColor="@color/color_crisis"
+        android:textSize="13sp"
+        android:visibility="invisible"
+        tools:text="Wrong PIN. 4 attempts remaining."
+        tools:visibility="visible" />
+
+    <!-- Keypad Grid (3x4) -->
+    <GridLayout
+        android:id="@+id/app_lock_keypad"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:columnCount="3"
+        android:rowCount="4">
+
+        <!-- Row 1: 1, 2, 3 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_num_1"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="80dp"
+            android:layout_height="64dp"
+            android:layout_margin="4dp"
+            android:text="1"
+            android:textSize="20sp"
+            android:textColor="@color/color_text_primary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_num_2"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="80dp"
+            android:layout_height="64dp"
+            android:layout_margin="4dp"
+            android:text="2"
+            android:textSize="20sp"
+            android:textColor="@color/color_text_primary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_num_3"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="80dp"
+            android:layout_height="64dp"
+            android:layout_margin="4dp"
+            android:text="3"
+            android:textSize="20sp"
+            android:textColor="@color/color_text_primary" />
+
+        <!-- Row 2: 4, 5, 6 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_num_4"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="80dp"
+            android:layout_height="64dp"
+            android:layout_margin="4dp"
+            android:text="4"
+            android:textSize="20sp"
+            android:textColor="@color/color_text_primary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_num_5"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="80dp"
+            android:layout_height="64dp"
+            android:layout_margin="4dp"
+            android:text="5"
+            android:textSize="20sp"
+            android:textColor="@color/color_text_primary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_num_6"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="80dp"
+            android:layout_height="64dp"
+            android:layout_margin="4dp"
+            android:text="6"
+            android:textSize="20sp"
+            android:textColor="@color/color_text_primary" />
+
+        <!-- Row 3: 7, 8, 9 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_num_7"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="80dp"
+            android:layout_height="64dp"
+            android:layout_margin="4dp"
+            android:text="7"
+            android:textSize="20sp"
+            android:textColor="@color/color_text_primary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_num_8"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="80dp"
+            android:layout_height="64dp"
+            android:layout_margin="4dp"
+            android:text="8"
+            android:textSize="20sp"
+            android:textColor="@color/color_text_primary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_num_9"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="80dp"
+            android:layout_height="64dp"
+            android:layout_margin="4dp"
+            android:text="9"
+            android:textSize="20sp"
+            android:textColor="@color/color_text_primary" />
+
+        <!-- Row 4: Biometric / Clear, 0, Backspace -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_biometric"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="80dp"
+            android:layout_height="64dp"
+            android:layout_margin="4dp"
+            android:text="Bio"
+            android:textColor="@color/color_hope"
+            android:textSize="14sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_num_0"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="80dp"
+            android:layout_height="64dp"
+            android:layout_margin="4dp"
+            android:text="0"
+            android:textSize="20sp"
+            android:textColor="@color/color_text_primary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_backspace"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="80dp"
+            android:layout_height="64dp"
+            android:layout_margin="4dp"
+            android:text="⌫"
+            android:textSize="20sp"
+            android:textColor="@color/color_text_secondary" />
+
+    </GridLayout>
+
+    <!-- Forgot PIN / Reset Option -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/app_lock_forgot_pin"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:text="Forgot PIN? Reset with account password"
+        android:textColor="@color/color_identity"
+        android:textSize="13sp" />
+
+</LinearLayout>

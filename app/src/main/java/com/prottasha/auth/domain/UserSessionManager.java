@@ -21,6 +21,7 @@ public final class UserSessionManager {
     private final Runnable firebaseSignOut;
     private final MutableLiveData<SessionUser> userState = new MutableLiveData<>();
     private SessionUser currentUser;
+    private Runnable onAccountSwitched;
 
     public UserSessionManager(
             UserSessionDatabaseProvider databaseProvider,
@@ -68,7 +69,14 @@ public final class UserSessionManager {
         database.open(user);
         currentUser = user;
         userState.postValue(user);
+        if (onAccountSwitched != null) {
+            onAccountSwitched.run();
+        }
         return user;
+    }
+
+    public void setOnAccountSwitchedListener(Runnable r) {
+        this.onAccountSwitched = r;
     }
 
     public synchronized SessionUser requireUser() {

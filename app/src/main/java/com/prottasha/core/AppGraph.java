@@ -31,6 +31,7 @@ public final class AppGraph {
     private final IdentityRepository identityRepository;
     private final HabitRepository habitRepository;
     private final GuardRuleRepository guardRuleRepository;
+    private final com.prottasha.guard.data.GuardRuntimeRepository guardRuntimeRepository;
     private final NetworkPowerStateRepository networkPowerStateRepository;
     private final InterventionEventRepository interventionEventRepository;
     private final LocalDeletionService localDeletionService;
@@ -47,6 +48,7 @@ public final class AppGraph {
         habitRepository = new HabitRepository(userSessionDatabaseProvider, executors.disk());
         guardRuleRepository = new GuardRuleRepository(
                 userSessionDatabaseProvider, executors.disk());
+        guardRuntimeRepository = new com.prottasha.guard.data.GuardRuntimeRepository();
         networkPowerStateRepository = new NetworkPowerStateRepository();
         interventionEventRepository = new InterventionEventRepository(
                 userSessionDatabaseProvider, executors.disk());
@@ -110,6 +112,10 @@ public final class AppGraph {
 
     public GuardRuleRepository guardRuleRepository() {
         return guardRuleRepository;
+    }
+
+    public com.prottasha.guard.data.GuardRuntimeRepository guardRuntime() {
+        return guardRuntimeRepository;
     }
 
     public NetworkPowerStateRepository networkPowerState() {

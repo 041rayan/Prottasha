@@ -24,7 +24,8 @@ public class AccessibilityServiceHealth {
         return State.HEALTHY;
     }
 
-    private boolean isEnabled() {
+    public boolean isEnabled() {
+        if (context == null) return false;
         String enabled = Settings.Secure.getString(
                 context.getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
         String component = new ComponentName(context, ProttashaAccessibilityService.class)

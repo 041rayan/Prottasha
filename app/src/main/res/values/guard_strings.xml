@@ -16,4 +16,38 @@
     <string name="guard_budget_required">Enter a positive budget.</string>
     <string name="guard_save">Save Guard rule</string>
     <string name="guard_save_failed">The Guard rule could not be saved.</string>
+    <string name="guard_delete">Delete Rule</string>
+    <string name="guard_delete_confirm">Are you sure you want to remove this Guard rule?</string>
+
+    <string name="guard_cooldown_hint">Cooldown (minutes)</string>
+    <string name="guard_delay_hint">Pause breathing delay (seconds)</string>
+    <string name="guard_grace_hint">Grace warning (minutes)</string>
+    <string name="guard_schedule_title">Schedule Window</string>
+    <string name="guard_schedule_enable">Enforce during scheduled window</string>
+    <string name="guard_schedule_start">Start: %1$02d:%2$02d</string>
+    <string name="guard_schedule_end">End: %1$02d:%2$02d</string>
+    <string name="guard_replacement_hint">Healthy replacement action (e.g. Read 10 pages)</string>
+    <string name="guard_escalation_title">Friction Escalation</string>
+    <string name="guard_escalation_desc">Increase breathing delay on rapid reopening</string>
+    <string name="guard_protection_title">Strict Edit Protection</string>
+    <string name="guard_protection_desc">Disallow editing during active schedule</string>
+    <string name="guard_enabled_title">Rule Enabled</string>
+
+    <string name="guard_filter_all">All</string>
+    <string name="guard_filter_apps">Apps</string>
+    <string name="guard_filter_domains">Websites</string>
+    <string name="guard_filter_pause">Pause</string>
+    <string name="guard_filter_budget">Budget</string>
+    <string name="guard_filter_block">Block</string>
+
+    <string name="guard_health_title">Protection Health</string>
+    <string name="guard_health_accessibility_missing">Accessibility service is disabled. Tap to enable.</string>
+    <string name="guard_health_usage_missing">Usage access is required to compute daily budgets. Tap to grant.</string>
+    <string name="guard_health_battery_warning">Battery optimization may kill background protection.</string>
+    <string name="guard_protection_active_banner">Strict edit protection is active during this schedule window. Modifying or deleting this rule is locked.</string>
+    <string name="guard_add_website">Add website / domain</string>
+    <string name="guard_add_website_hint">Domain (e.g. youtube.com)</string>
+    <string name="guard_add_website_invalid">Please enter a valid web domain.</string>
+    <string name="guard_health_healthy">All protection systems active and healthy.</string>
+    <string name="guard_health_notifications_missing">Notification permission needed for reminders and alerts.</string>
 </resources>

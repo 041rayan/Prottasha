@@ -10,6 +10,9 @@ public final class DomainNormalizer {
     public static String normalize(String value) {
         if (value == null || value.indexOf(' ') >= 0) return null;
         try {
+            if (!value.contains("://")) {
+                value = "https://" + value;
+            }
             URI uri = URI.create(value);
             String scheme = uri.getScheme();
             if (!("http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme))) {

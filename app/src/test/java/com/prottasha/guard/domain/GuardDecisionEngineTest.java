@@ -52,6 +52,22 @@ public final class GuardDecisionEngineTest {
     }
 
     @Test
+    public void essentialTargetAlwaysAllowsRegardlessOfMode() {
+        GuardModels.GuardContext context = new GuardModels.GuardContext(12 * 60, true, true);
+        assertEquals(GuardDecision.ALLOW, GuardDecisionEngine.decide(
+                GuardRule.block("com.android.settings", 0, 0), context,
+                new GuardModels.GuardUsage(0, true, false)));
+    }
+
+    @Test
+    public void unhealthyServiceReturnsUnavailable() {
+        GuardModels.GuardContext context = new GuardModels.GuardContext(12 * 60, false, false);
+        assertEquals(GuardDecision.UNAVAILABLE, GuardDecisionEngine.decide(
+                GuardRule.pause("com.example.video", 0, 0), context,
+                new GuardModels.GuardUsage(0, true, false)));
+    }
+
+    @Test
     public void essentialPolicyProtectsEscapeAndSystemTargets() {
         EssentialTargetPolicy policy = new EssentialTargetPolicy("com.prottasha.debug");
         assertTrue(policy.isEssential("com.prottasha.debug"));

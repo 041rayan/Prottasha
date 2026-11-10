@@ -21,6 +21,10 @@ public final class GuardViewModel extends ViewModel {
         return repository.observeRules();
     }
 
+    public void setEnabled(long id, boolean enabled) {
+        repository.setEnabled(id, enabled, null);
+    }
+
     public void delete(long id) {
         repository.delete(id);
     }

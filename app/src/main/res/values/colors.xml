@@ -13,6 +13,10 @@
     <color name="color_on_friction">#090C11</color>
     <color name="color_crisis">#F87171</color>
     <color name="color_on_crisis">#090C11</color>
+    <color name="color_crisis_subtle">#33F87171</color>
+    <color name="color_hope_subtle">#3334D399</color>
+    <color name="color_friction_subtle">#33FBBF24</color>
+    <color name="color_identity_subtle">#337C8DFF</color>
     <color name="color_text_primary">#F4F7FA</color>
     <color name="color_text_secondary">#A9B3C0</color>
     <color name="color_text_muted">#8B96A4</color>

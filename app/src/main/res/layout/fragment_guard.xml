@@ -1,13 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/spacing_large">
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/guard_title" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_display" android:textStyle="bold" />
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_small" android:text="@string/guard_body" android:textColor="@color/color_text_secondary" android:textSize="@dimen/text_body" />
-        <TextView android:id="@+id/guard_grayscale_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_medium" android:textColor="@color/color_text_secondary" android:textSize="@dimen/text_label" />
-        <com.google.android.material.button.MaterialButton android:id="@+id/guard_add_button" style="@style/Widget.Prottasha.Button.Pill" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_medium" android:text="@string/guard_add" />
-        <com.google.android.material.button.MaterialButton android:id="@+id/guard_enable_service" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_small" android:text="@string/guard_enable_service" />
-        <TextView android:id="@+id/guard_empty" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_large" android:text="@string/guard_empty" android:textColor="@color/color_text_secondary" android:textSize="@dimen/text_body" />
-        <LinearLayout android:id="@+id/guard_rules" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_large">
+
+        <!-- Title & Header -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/guard_title"
+            android:textColor="@color/color_text_primary"
+            android:textSize="@dimen/text_display"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="@string/guard_body"
+            android:textColor="@color/color_text_secondary"
+            android:textSize="@dimen/text_body" />
+
+        <!-- Protection Health Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/guard_health_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            app:cardBackgroundColor="@color/color_surface_raised"
+            app:cardCornerRadius="16dp"
+            app:strokeColor="@color/color_border"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/guard_health_title"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="@dimen/text_headline"
+                    android:textStyle="bold" />
+
+                <!-- Healthy Banner -->
+                <TextView
+                    android:id="@+id/guard_health_status_all_good"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:text="@string/guard_health_healthy"
+                    android:textColor="@color/color_hope"
+                    android:textSize="@dimen/text_body"
+                    android:visibility="gone" />
+
+                <!-- Accessibility Missing Alert -->
+                <LinearLayout
+                    android:id="@+id/guard_health_accessibility_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/guard_health_accessibility_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/guard_health_accessibility_missing"
+                        android:textColor="@color/color_crisis"
+                        android:textSize="@dimen/text_body" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/guard_enable_service"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:minHeight="@dimen/touch_target_min"
+                        android:text="@string/guard_enable_service" />
+                </LinearLayout>
+
+                <!-- Usage Access Missing Alert -->
+                <LinearLayout
+                    android:id="@+id/guard_health_usage_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/guard_health_usage_missing"
+                        android:textColor="@color/color_friction"
+                        android:textSize="@dimen/text_body" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/guard_health_fix_usage"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:minHeight="@dimen/touch_target_min"
+                        android:text="Grant Usage Access" />
+                </LinearLayout>
+
+                <!-- Battery Alert -->
+                <LinearLayout
+                    android:id="@+id/guard_health_battery_alert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/guard_health_battery_warning"
+                        android:textColor="@color/color_text_secondary"
+                        android:textSize="@dimen/text_caption" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/guard_health_fix_battery"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/touch_target_min"
+                        android:text="Disable Battery Optimization" />
+                </LinearLayout>
+
+                <!-- Grayscale Guidance -->
+                <TextView
+                    android:id="@+id/guard_grayscale_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:textColor="@color/color_text_muted"
+                    android:textSize="@dimen/text_caption" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Action Buttons: Add App & Add Website -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/guard_add_button"
+                style="@style/Widget.Prottasha.Button.Pill"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/spacing_small"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="@string/guard_add" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/guard_add_website_button"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="@string/guard_add_website" />
+        </LinearLayout>
+
+        <!-- Search & Filter Section -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/guard_search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:hint="Search rules">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/guard_search_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Filter Chips Horizontal Scroll -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:scrollbars="none">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/guard_filter_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/guard_chip_all"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/guard_filter_all" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/guard_chip_apps"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/guard_filter_apps" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/guard_chip_websites"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/guard_filter_domains" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/guard_chip_pause"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/guard_filter_pause" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/guard_chip_budget"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/guard_filter_budget" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/guard_chip_block"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/guard_filter_block" />
+
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
+        <!-- Empty State -->
+        <TextView
+            android:id="@+id/guard_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:text="@string/guard_empty"
+            android:textColor="@color/color_text_secondary"
+            android:textSize="@dimen/text_body" />
+
+        <!-- Rules Container -->
+        <LinearLayout
+            android:id="@+id/guard_rules"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:orientation="vertical" />
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

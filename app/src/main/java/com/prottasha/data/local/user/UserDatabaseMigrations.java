@@ -153,9 +153,23 @@ public final class UserDatabaseMigrations {
         }
     };
 
+    public static final Migration MIGRATION_9_10 = new Migration(9, 10) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE guard_rules ADD COLUMN cooldownMinutes INTEGER NOT NULL DEFAULT 15");
+            database.execSQL("ALTER TABLE guard_rules ADD COLUMN delaySeconds INTEGER NOT NULL DEFAULT 5");
+            database.execSQL("ALTER TABLE guard_rules ADD COLUMN graceMinutes INTEGER NOT NULL DEFAULT 5");
+            database.execSQL("ALTER TABLE guard_rules ADD COLUMN escalation INTEGER NOT NULL DEFAULT 0");
+            database.execSQL("ALTER TABLE guard_rules ADD COLUMN replacementAction TEXT NOT NULL DEFAULT ''");
+            database.execSQL("ALTER TABLE guard_rules ADD COLUMN editProtection INTEGER NOT NULL DEFAULT 0");
+            database.execSQL("ALTER TABLE guard_rules ADD COLUMN isDomain INTEGER NOT NULL DEFAULT 0");
+        }
+    };
+
     public static final Migration[] ALL = {
             MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5,
-            MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9
+            MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9,
+            MIGRATION_9_10
     };
     public static final RoomDatabase.Callback ENABLE_FOREIGN_KEYS =
             new RoomDatabase.Callback() {

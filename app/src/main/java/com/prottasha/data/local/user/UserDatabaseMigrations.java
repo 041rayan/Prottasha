@@ -178,10 +178,24 @@ public final class UserDatabaseMigrations {
         }
     };
 
+    public static final Migration MIGRATION_11_12 = new Migration(11, 12) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE usage_daily ADD COLUMN opens INTEGER NOT NULL DEFAULT 0");
+            database.execSQL("ALTER TABLE usage_daily ADD COLUMN sessions INTEGER NOT NULL DEFAULT 0");
+            database.execSQL("CREATE TABLE IF NOT EXISTS rehearsal_sessions ("
+                    + "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                    + "scenario TEXT NOT NULL, "
+                    + "durationSeconds INTEGER NOT NULL, "
+                    + "feltIntensity INTEGER NOT NULL, "
+                    + "createdAt INTEGER NOT NULL)");
+        }
+    };
+
     public static final Migration[] ALL = {
             MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5,
             MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9,
-            MIGRATION_9_10, MIGRATION_10_11
+            MIGRATION_9_10, MIGRATION_10_11, MIGRATION_11_12
     };
     public static final RoomDatabase.Callback ENABLE_FOREIGN_KEYS =
             new RoomDatabase.Callback() {

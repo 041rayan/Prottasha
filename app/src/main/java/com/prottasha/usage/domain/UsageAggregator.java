@@ -24,7 +24,7 @@ public final class UsageAggregator {
         public final Quality quality;
         public final boolean hasMeasuredValue;
 
-        Summary(long totalMillis, Quality quality, boolean hasMeasuredValue) {
+        public Summary(long totalMillis, Quality quality, boolean hasMeasuredValue) {
             this.totalMillis = totalMillis;
             this.quality = quality;
             this.hasMeasuredValue = hasMeasuredValue;

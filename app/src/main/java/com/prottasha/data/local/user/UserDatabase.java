@@ -31,6 +31,8 @@ import com.prottasha.focus.data.FocusSessionEntity;
 import com.prottasha.insights.data.InsightsDao;
 import com.prottasha.insights.data.JournalEntryEntity;
 import com.prottasha.insights.data.JournalImageEntity;
+import com.prottasha.insights.data.RehearsalDao;
+import com.prottasha.insights.data.RehearsalSessionEntity;
 import com.prottasha.triggers.data.TriggerDao;
 import com.prottasha.triggers.data.TriggerPlanEntity;
 
@@ -55,9 +57,10 @@ import com.prottasha.triggers.data.TriggerPlanEntity;
                 FocusSessionEntity.class,
                 JournalEntryEntity.class,
                 JournalImageEntity.class,
-                TriggerPlanEntity.class
+                TriggerPlanEntity.class,
+                RehearsalSessionEntity.class
         },
-        version = 11,
+        version = 12,
         exportSchema = true)
 public abstract class UserDatabase extends RoomDatabase {
     public abstract LocalAccountDao localAccountDao();
@@ -70,4 +73,5 @@ public abstract class UserDatabase extends RoomDatabase {
     public abstract FocusDao focusDao();
     public abstract InsightsDao insightsDao();
     public abstract TriggerDao triggerPlanDao();
+    public abstract RehearsalDao rehearsalDao();
 }

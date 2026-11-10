@@ -1,9 +1,398 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="@dimen/spacing_large">
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/insights_title" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_display" android:textStyle="bold" />
-    <TextView android:id="@+id/insights_summary" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_medium" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_body" />
-    <com.prottasha.insights.ui.AccessibleTrendView android:id="@+id/insights_trend" android:layout_width="match_parent" android:layout_height="48dp" android:layout_marginTop="@dimen/spacing_medium" />
-    <TextView android:id="@+id/insights_sample" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_small" android:textColor="@color/color_text_secondary" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/insights_reflect" style="@style/Widget.Prottasha.Button.Pill" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_large" android:text="@string/insights_reflect" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/insights_methodology" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/insights_methodology" />
-</LinearLayout>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/insights_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_large">
+
+        <!-- Title & Range Selector -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/insights_title"
+            android:textColor="@color/color_text_primary"
+            android:textSize="@dimen/text_display"
+            android:textStyle="bold" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/insights_range_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_today"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Today" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_week"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7 Days" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_month"
+                style="@style/Widget.Material3.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="30 Days" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Summary & Trend Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:id="@+id/insights_summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold" />
+
+                <com.prottasha.insights.ui.AccessibleTrendView
+                    android:id="@+id/insights_trend"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="@dimen/spacing_medium" />
+
+                <TextView
+                    android:id="@+id/insights_sample"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="@dimen/text_caption" />
+
+                <!-- Text Breakdown -->
+                <TextView
+                    android:id="@+id/insights_text_breakdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="@dimen/text_caption" />
+
+                <!-- Usage overview -->
+                <TextView
+                    android:id="@+id/insights_usage_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="@dimen/text_body" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Patterns Observation Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/insights_patterns_card"
+            style="@style/Widget.Prottasha.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Observed Patterns"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/insights_pattern_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="@dimen/text_caption" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Target Drill-Down Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Monitored Target Usage"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/insights_targets_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:text="No monitored usage in this period."
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="@dimen/text_caption" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/insights_targets_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:nestedScrollingEnabled="false" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Reflections Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reflections (Fact, Interpretation, Lesson)"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/insights_reflections_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:text="No reflections written yet."
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="@dimen/text_caption" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/insights_reflections_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:nestedScrollingEnabled="false" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/insights_reflect"
+                    style="@style/Widget.Prottasha.Button.Pill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:text="@string/insights_reflect" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Trigger & Rebound Plans Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trigger &amp; Rebound Plans"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Implementation intentions: If [Cue] → Then [Plan]"
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="@dimen/text_caption" />
+
+                <TextView
+                    android:id="@+id/insights_triggers_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:text="No trigger plans configured yet."
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="@dimen/text_caption" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/insights_triggers_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:nestedScrollingEnabled="false" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/insights_add_trigger"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:text="Add Trigger Plan"
+                    android:textColor="@color/color_hope" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Success Memory Bank Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Success Memory Bank"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Psycho-Cybernetics: anchor real past moments of calm and self-control."
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="@dimen/text_caption" />
+
+                <TextView
+                    android:id="@+id/insights_memories_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:text="No success memories stored yet."
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="@dimen/text_caption" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/insights_memories_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:nestedScrollingEnabled="false" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/insights_add_memory"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:text="Add Success Memory"
+                    android:textColor="@color/color_identity" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Rehearsal Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Future-Self Mental Rehearsal"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/insights_rehearsal_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:text="Rehearse handling high-friction moments with calm course-correction."
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="@dimen/text_caption" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/insights_rehearsal"
+                    style="@style/Widget.Prottasha.Button.Pill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:text="Start Mental Rehearsal" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Methodology Link -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/insights_methodology"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="@string/insights_methodology" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

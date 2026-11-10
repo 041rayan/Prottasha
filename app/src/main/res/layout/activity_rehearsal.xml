@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_large">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mental Rehearsal"
+            android:textColor="@color/color_text_primary"
+            android:textSize="@dimen/text_headline"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="Psycho-Cybernetics: practice the difficult moment without pressure. See mistakes as course-correction data."
+            android:textColor="@color/color_text_secondary"
+            android:textSize="@dimen/text_caption" />
+
+        <!-- Grounding Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1. Relax and Ground"
+                    android:textColor="@color/color_identity"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/rehearsal_breath_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:text="Inhale deeply... exhale slowly. Notice the physical sensation of the urge. It is merely a signal, not a command."
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="@dimen/text_body" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Scenario Input Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2. The Challenge Scenario"
+                    android:textColor="@color/color_identity"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:hint="What scenario are you rehearsing?">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/rehearsal_scenario"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Urge to open distracting apps when tired at night"
+                        android:textColor="@color/color_text_primary" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Mental Steps Card -->
+        <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3. Visualize the Course-Correction"
+                    android:textColor="@color/color_hope"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:lineSpacingExtra="4dp"
+                    android:text="• Picture reaching for your phone\n• Feel the Intervention prompt appear\n• Take a conscious breath and tap 'Step Back'\n• Move toward your replacement habit or rest\n• Experience the calm of self-governance"
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="@dimen/text_body" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Intensity / Rating -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Felt Urge Intensity (1 to 5)"
+                android:textColor="@color/color_text_secondary"
+                android:textSize="@dimen/text_caption" />
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/rehearsal_intensity_slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stepSize="1.0"
+                android:value="3.0"
+                android:valueFrom="1.0"
+                android:valueTo="5.0" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/rehearsal_complete_button"
+            style="@style/Widget.Prottasha.Button.Pill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:text="Complete Rehearsal" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

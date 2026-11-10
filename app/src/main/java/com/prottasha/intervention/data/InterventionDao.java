@@ -26,4 +26,7 @@ public interface InterventionDao {
 
     @Query("UPDATE intervention_events SET outcome = :outcome, resolvedAt = :resolvedAt WHERE id = :id")
     void updateOutcome(long id, String outcome, long resolvedAt);
+
+    @Query("SELECT * FROM intervention_events WHERE timestamp BETWEEN :startTimestamp AND :endTimestamp ORDER BY timestamp DESC")
+    List<InterventionEventEntity> listBetween(long startTimestamp, long endTimestamp);
 }

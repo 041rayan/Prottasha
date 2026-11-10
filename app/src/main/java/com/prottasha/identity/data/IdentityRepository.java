@@ -47,4 +47,32 @@ public class IdentityRepository {
         });
         return id[0];
     }
+
+    public java.util.List<SuccessMemoryEntity> listSuccessMemories() {
+        return databaseProvider.requireOpen().identityDao().listAllMemories();
+    }
+
+    public long saveSuccessMemory(String text) {
+        if (text == null || text.trim().isEmpty()) return -1L;
+        UserDatabase database = databaseProvider.requireOpen();
+        final long[] memoryId = new long[1];
+        database.runInTransaction(() -> {
+            IdentityEntity active = database.identityDao().findActive();
+            long identityId;
+            if (active == null) {
+                identityId = database.identityDao().insert(new IdentityEntity(
+                        0L, "Mindful intentional user", "Build sustainable focus",
+                        System.currentTimeMillis(), true));
+            } else {
+                identityId = active.id;
+            }
+            memoryId[0] = database.identityDao().insertSuccessMemory(new SuccessMemoryEntity(
+                    0L, identityId, text.trim(), System.currentTimeMillis()));
+        });
+        return memoryId[0];
+    }
+
+    public void deleteSuccessMemory(long id) {
+        databaseProvider.requireOpen().identityDao().deleteMemoryById(id);
+    }
 }

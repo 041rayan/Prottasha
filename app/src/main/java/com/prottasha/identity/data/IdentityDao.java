@@ -34,4 +34,10 @@ public interface IdentityDao {
 
     @Query("SELECT * FROM success_memories ORDER BY createdAt DESC LIMIT 1")
     SuccessMemoryEntity findLatestSuccessMemory();
+
+    @Query("SELECT * FROM success_memories ORDER BY createdAt DESC")
+    java.util.List<SuccessMemoryEntity> listAllMemories();
+
+    @Query("DELETE FROM success_memories WHERE id = :id")
+    void deleteMemoryById(long id);
 }

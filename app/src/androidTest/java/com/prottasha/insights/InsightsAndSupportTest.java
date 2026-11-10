@@ -4,15 +4,22 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertEquals;
 
+import android.graphics.Rect;
+import android.view.View;
+import androidx.core.widget.NestedScrollView;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
+import androidx.test.espresso.UiController;
+import androidx.test.espresso.ViewAction;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
+import org.hamcrest.Matcher;
 
 import com.prottasha.ProttashaApp;
 import com.prottasha.R;
@@ -73,6 +80,29 @@ public final class InsightsAndSupportTest {
                 .requireOpen().insightsDao().recent(1).get(0).fact);
     }
 
+    @Test public void triggerPlanAndSuccessMemoryPersist() throws Exception {
+        onDisk(() -> {
+            app.appGraph().triggerRepository().save("Late night scrolling", "Put phone away and read a book");
+            app.appGraph().identityRepository().saveSuccessMemory("Took 3 deep breaths and stepped back");
+            return null;
+        });
+
+        assertEquals(1, onDisk(() -> app.appGraph().triggerRepository().list().size()).intValue());
+        assertEquals("Late night scrolling", onDisk(() -> app.appGraph().triggerRepository().list().get(0).cue));
+        assertEquals(1, onDisk(() -> app.appGraph().identityRepository().listSuccessMemories().size()).intValue());
+        assertEquals("Took 3 deep breaths and stepped back",
+                onDisk(() -> app.appGraph().identityRepository().listSuccessMemories().get(0).text));
+    }
+
+    @Test public void rehearsalSessionPersistsInRehearsalActivity() throws Exception {
+        try (ActivityScenario<com.prottasha.insights.ui.RehearsalActivity> ignored =
+                     ActivityScenario.launch(com.prottasha.insights.ui.RehearsalActivity.class)) {
+            onView(withId(R.id.rehearsal_complete_button)).perform(scrollToInNested(), click());
+        }
+        waitForRehearsal();
+        assertEquals(1, onDisk(() -> app.appGraph().insightsRepository().rehearsalCount()).intValue());
+    }
+
     @Test public void supportShowsSourcedDialableEntry() {
         try (ActivityScenario<CrisisHelpActivity> ignored =
                      ActivityScenario.launch(CrisisHelpActivity.class)) {
@@ -91,6 +121,49 @@ public final class InsightsAndSupportTest {
             Thread.sleep(25);
         }
         throw new AssertionError("Reflection was not saved");
+    }
+
+    private void waitForRehearsal() throws Exception {
+        long deadline = System.currentTimeMillis() + 3000;
+        while (System.currentTimeMillis() < deadline) {
+            if (app.appGraph().userSessionDatabaseProvider().requireOpen()
+                    .rehearsalDao().count() > 0) return;
+            Thread.sleep(25);
+        }
+        throw new AssertionError("Rehearsal was not saved");
+    }
+
+    private static ViewAction scrollToInNested() {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return isAssignableFrom(View.class);
+            }
+
+            @Override
+            public String getDescription() {
+                return "scroll to view in NestedScrollView";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                View parent = (View) view.getParent();
+                while (parent != null && !(parent instanceof NestedScrollView)) {
+                    Object p = parent.getParent();
+                    parent = p instanceof View ? (View) p : null;
+                }
+                if (parent instanceof NestedScrollView) {
+                    int[] viewLocation = new int[2];
+                    int[] parentLocation = new int[2];
+                    view.getLocationOnScreen(viewLocation);
+                    parent.getLocationOnScreen(parentLocation);
+                    int dy = viewLocation[1] - parentLocation[1];
+                    ((NestedScrollView) parent).scrollBy(0, dy);
+                }
+                view.requestRectangleOnScreen(new Rect(0, 0, view.getWidth(), view.getHeight()), true);
+                uiController.loopMainThreadUntilIdle();
+            }
+        };
     }
 
     private <T> T onDisk(java.util.concurrent.Callable<T> callable) throws Exception {

@@ -1,10 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/spacing_large">
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/reflection_title" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_headline" android:textStyle="bold" />
-        <EditText android:id="@+id/reflection_fact" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/reflection_fact" android:inputType="textCapSentences|textMultiLine" />
-        <EditText android:id="@+id/reflection_interpretation" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/reflection_interpretation" android:inputType="textCapSentences|textMultiLine" />
-        <EditText android:id="@+id/reflection_lesson" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/reflection_lesson" android:inputType="textCapSentences|textMultiLine" />
-        <com.google.android.material.button.MaterialButton android:id="@+id/reflection_save" style="@style/Widget.Prottasha.Button.Pill" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/reflection_save" />
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_large">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reflection_title"
+            android:textColor="@color/color_text_primary"
+            android:textSize="@dimen/text_headline"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="Separate facts from interpretations, then identify the constructive lesson."
+            android:textColor="@color/color_text_secondary"
+            android:textSize="@dimen/text_caption" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:hint="@string/reflection_fact">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/reflection_fact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences|textMultiLine"
+                android:minLines="2"
+                android:textColor="@color/color_text_primary" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:hint="@string/reflection_interpretation">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/reflection_interpretation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences|textMultiLine"
+                android:minLines="2"
+                android:textColor="@color/color_text_primary" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:hint="@string/reflection_lesson">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/reflection_lesson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences|textMultiLine"
+                android:minLines="2"
+                android:textColor="@color/color_text_primary" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Private Image Attachment -->
+        <LinearLayout
+            android:id="@+id/reflection_image_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/reflection_image_preview"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:contentDescription="Attached private reflection image"
+                android:scaleType="centerCrop" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/reflection_remove_image"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remove Image"
+                android:textColor="@color/color_crisis" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/reflection_attach_image"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:text="Attach Private Image"
+            android:textColor="@color/color_text_secondary" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/reflection_save"
+            style="@style/Widget.Prottasha.Button.Pill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:text="@string/reflection_save" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/reflection_delete"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="Delete Reflection"
+            android:textColor="@color/color_crisis"
+            android:visibility="gone" />
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

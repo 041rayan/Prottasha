@@ -18,6 +18,10 @@ import com.prottasha.core.platform.NetworkPowerStateRepository;
 import com.prottasha.intervention.data.InterventionEventRepository;
 import com.prottasha.settings.privacy.LocalDeletionService;
 
+import com.prottasha.insights.data.InsightsRepository;
+import com.prottasha.triggers.data.TriggerRepository;
+import com.prottasha.usage.data.UsageRepository;
+
 public final class AppGraph {
 
     private final Context applicationContext;
@@ -35,6 +39,9 @@ public final class AppGraph {
     private final NetworkPowerStateRepository networkPowerStateRepository;
     private final InterventionEventRepository interventionEventRepository;
     private final LocalDeletionService localDeletionService;
+    private final InsightsRepository insightsRepository;
+    private final UsageRepository usageRepository;
+    private final TriggerRepository triggerRepository;
 
     public AppGraph(Context context) {
         applicationContext = context.getApplicationContext();
@@ -52,6 +59,9 @@ public final class AppGraph {
         networkPowerStateRepository = new NetworkPowerStateRepository();
         interventionEventRepository = new InterventionEventRepository(
                 userSessionDatabaseProvider, executors.disk());
+        insightsRepository = new InsightsRepository(userSessionDatabaseProvider);
+        usageRepository = new UsageRepository(userSessionDatabaseProvider, executors.disk());
+        triggerRepository = new TriggerRepository(userSessionDatabaseProvider);
         encryptedPrivateFileStore = new EncryptedPrivateFileStore(applicationContext);
         localDeletionService = new LocalDeletionService(
                 userSessionDatabaseProvider, encryptedPrivateFileStore);
@@ -124,5 +134,17 @@ public final class AppGraph {
 
     public InterventionEventRepository interventionEvents() {
         return interventionEventRepository;
+    }
+
+    public InsightsRepository insightsRepository() {
+        return insightsRepository;
+    }
+
+    public UsageRepository usageRepository() {
+        return usageRepository;
+    }
+
+    public TriggerRepository triggerRepository() {
+        return triggerRepository;
     }
 }

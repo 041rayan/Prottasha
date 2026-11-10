@@ -61,6 +61,9 @@ public interface HabitDao {
     @Query("SELECT * FROM habit_day_aggregates WHERE habitId = :habitId AND epochDay BETWEEN :fromDay AND :toDay ORDER BY epochDay ASC")
     List<HabitDayAggregateEntity> listAggregatesBetween(long habitId, long fromDay, long toDay);
 
+    @Query("SELECT * FROM habit_day_aggregates WHERE epochDay BETWEEN :fromDay AND :toDay")
+    List<HabitDayAggregateEntity> listAllAggregatesBetween(long fromDay, long toDay);
+
     @Query("SELECT COUNT(*) FROM habit_day_aggregates WHERE habitId = :habitId AND completed = 1")
     int countCompletedDays(long habitId);
 

@@ -42,6 +42,13 @@ public final class MainActivity extends AppCompatActivity {
         }
         NavController controller = host.getNavController();
         NavigationUI.setupWithNavController(binding.mainBottomNavigation, controller);
+        controller.addOnDestinationChangedListener((ignoredController, destination, arguments) -> {
+            CharSequence label = destination.getLabel();
+            if (label != null) {
+                binding.mainSectionTitle.setText(label);
+                binding.mainSectionTitle.setContentDescription(label);
+            }
+        });
         binding.mainLifelineButton.setOnClickListener(ignored ->
                 startActivity(new Intent(this, CrisisHelpActivity.class)));
         binding.mainSettingsButton.setOnClickListener(ignored ->

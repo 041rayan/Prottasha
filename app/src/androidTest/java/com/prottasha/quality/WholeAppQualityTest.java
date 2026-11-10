@@ -5,6 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import android.content.pm.ApplicationInfo;
+import android.text.TextUtils;
+
+import com.google.android.material.button.MaterialButton;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
@@ -55,8 +58,18 @@ public final class WholeAppQualityTest {
                 BottomNavigationView navigation = activity.findViewById(R.id.main_bottom_navigation);
                 assertEquals(5, navigation.getMenu().size());
                 float density = activity.getResources().getDisplayMetrics().density;
-                assertTrue(activity.findViewById(R.id.main_lifeline_button).getHeight() >= 48 * density);
-                assertTrue(activity.findViewById(R.id.main_settings_button).getHeight() >= 48 * density);
+                MaterialButton lifeline = activity.findViewById(R.id.main_lifeline_button);
+                MaterialButton settings = activity.findViewById(R.id.main_settings_button);
+                assertTrue(lifeline.getHeight() >= 48 * density);
+                assertTrue(settings.getHeight() >= 48 * density);
+                assertTrue(TextUtils.isEmpty(lifeline.getText()));
+                assertTrue(TextUtils.isEmpty(settings.getText()));
+                assertTrue(lifeline.getIcon() != null);
+                assertTrue(settings.getIcon() != null);
+                assertFalse(TextUtils.isEmpty(lifeline.getContentDescription()));
+                assertFalse(TextUtils.isEmpty(settings.getContentDescription()));
+                assertFalse(TextUtils.isEmpty(activity.findViewById(
+                        R.id.main_section_title).getContentDescription()));
             });
         }
     }

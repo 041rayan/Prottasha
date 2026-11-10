@@ -60,12 +60,12 @@
 
 **Deliverable:** Preserve the launcher-query fix, make filtered BG7 test runs reliable, and downgrade every currently overstated matrix row.
 
-- [ ] Add/retain `appPickerFindsInstalledChromeOnBg7`; verify it fails without the launcher `<queries>` declaration.
-- [ ] Keep launcher intent visibility without `QUERY_ALL_PACKAGES`; deduplicate packages and exclude only proven essential targets.
-- [ ] Change all unproven matrix rows to `PARTIAL`, `PENDING`, or `BLOCKED` with exact limitations.
-- [ ] Run `./gradlew connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.package=com.prottasha.guard lintDebug`.
-- [ ] Install and verify the BG7 picker shows the device’s launchable non-essential apps.
-- [ ] Commit: `fix(guard): expose complete launcher picker honestly`.
+- [x] Add/retain `appPickerFindsInstalledChromeOnBg7`; verify it fails without the launcher `<queries>` declaration.
+- [x] Keep launcher intent visibility without `QUERY_ALL_PACKAGES`; deduplicate packages and exclude only proven essential targets.
+- [x] Change all unproven matrix rows to `PARTIAL`, `PENDING`, or `BLOCKED` with exact limitations.
+- [x] Run `./gradlew connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.package=com.prottasha.guard lintDebug`.
+- [x] Install and verify the BG7 picker shows the device’s launchable non-essential apps.
+- [x] Commit: `fix(guard): expose complete launcher picker honestly`.
 
 ### Task 2: Complete Account, Profile, Sign-Out, and Switching
 
@@ -83,13 +83,13 @@
 
 **Deliverable:** A verified user can view/edit profile, change password/email with reauthentication, sign out, switch accounts, optionally remove local data, and delete the account with named progress.
 
-- [ ] Write failing tests for profile CRUD, generated avatar fields, recent-login errors, sign-out-before-close, remove-local-data choice, A→B→A isolation, and offline/cloud-disabled states.
-- [ ] Implement profile display name/pseudonym/avatar editing and local-only encrypted profile photo.
-- [ ] Implement password/email change through Firebase reauthentication and verification.
-- [ ] Add explicit Sign out and Switch account actions; close the database before Firebase sign-out.
-- [ ] Add “remove this account’s local data” confirmation separate from normal sign-out.
-- [ ] Run auth/account suites, SQLCipher A→B→A tests, rules tests, and BG7 account flow.
-- [ ] Commit: `feat(account): complete profile and account switching`.
+- [x] Write failing tests for profile CRUD, generated avatar fields, recent-login errors, sign-out-before-close, remove-local-data choice, A→B→A isolation, and offline/cloud-disabled states.
+- [x] Implement profile display name/pseudonym/avatar editing and local-only encrypted profile photo.
+- [x] Implement password/email change through Firebase reauthentication and verification.
+- [x] Add explicit Sign out and Switch account actions; close the database before Firebase sign-out.
+- [x] Add “remove this account’s local data” confirmation separate from normal sign-out.
+- [x] Run auth/account suites, SQLCipher A→B→A tests, rules tests, and BG7 account flow.
+- [x] Commit: `feat(account): complete profile and account switching`.
 
 ### Task 3: Finish Versioned Onboarding and the Today Core Loop
 
@@ -104,14 +104,14 @@
 
 **Deliverable:** Purpose → identity/success memory → targets/domains → per-target modes → disclosure → contextual permissions → intervention preview, followed by a useful Today screen.
 
-- [ ] Write failing tests for all seven onboarding stages, skip semantics, version upgrade, denied permissions, draft recreation, and intervention preview.
-- [ ] Bump onboarding version and route completed v1 users only through missing steps.
-- [ ] Add success-memory input and save it only when onboarding completes.
-- [ ] Reuse the Guard picker/rule editor for target setup; do not create duplicate rule models.
-- [ ] Request Accessibility, usage, and notifications one at a time after explanation; denial remains usable.
-- [ ] Build Today state containing identity, due habits/actions, active boundaries, Hope Horizon, rebound/replacement, focus action, and actionable health banner.
-- [ ] Run onboarding/Today tests, rotate at each draft stage, and complete the full first-run flow on BG7.
-- [ ] Commit: `feat(onboarding): connect first run to the core loop`.
+- [x] Write failing tests for all seven onboarding stages, skip semantics, version upgrade, denied permissions, draft recreation, and intervention preview.
+- [x] Bump onboarding version and route completed v1 users only through missing steps.
+- [x] Add success-memory input and save it only when onboarding completes.
+- [x] Reuse the Guard picker/rule editor for target setup; do not create duplicate rule models.
+- [x] Request Accessibility, usage, and notifications one at a time after explanation; denial remains usable.
+- [x] Build Today state containing identity, due habits/actions, active boundaries, Hope Horizon, rebound/replacement, focus action, and actionable health banner.
+- [x] Run onboarding/Today tests, rotate at each draft stage, and complete the full first-run flow on BG7.
+- [x] Commit: `feat(onboarding): connect first run to the core loop`.
 
 ### Task 4: Complete Habit Planning, Management, and Statistics
 
@@ -126,14 +126,14 @@
 
 **Deliverable:** Complete Build/Avoid/Amount creation and management with truthful history/statistics.
 
-- [ ] Write failing tests for edit/restore/reorder/filter/delete, undo, backfill, archive, rest/vacation, and unsaved-exit confirmation.
-- [ ] Expose daily, weekdays, X/week, X/month, every-N day/week/month, from-last-done, and start date.
-- [ ] Add Build checklist/focus link, Avoid lapse details/rebound, and Amount unit/increment/target/maximum.
-- [ ] Add cue, two-minute action, reward, if-then/replacement, rebound, and optional accountability fields using progressive disclosure.
-- [ ] Add week/month/year views plus current/best streak, completion rate, rolling consistency, and totals derived from events.
-- [ ] Add explicit undo after quick actions and prevent duplicate nonce/day credit.
-- [ ] Run all habit tests and demonstrate all three types plus edit/archive/restore on BG7.
-- [ ] Commit: `feat(habits): complete planning history and statistics`.
+- [x] Write failing tests for edit/restore/reorder/filter/delete, undo, backfill, archive, rest/vacation, and unsaved-exit confirmation.
+- [x] Expose daily, weekdays, X/week, X/month, every-N day/week/month, from-last-done, and start date.
+- [x] Add Build checklist/focus link, Avoid lapse details/rebound, and Amount unit/increment/target/maximum.
+- [x] Add cue, two-minute action, reward, if-then/replacement, rebound, and optional accountability fields using progressive disclosure.
+- [x] Add week/month/year views plus current/best streak, completion rate, rolling consistency, and totals derived from events.
+- [x] Add explicit undo after quick actions and prevent duplicate nonce/day credit.
+- [x] Run all habit tests and demonstrate all three types plus edit/archive/restore on BG7.
+- [x] Commit: `feat(habits): complete planning history and statistics`.
 
 ### Task 5: Make Reminders, Widget, and Private Images Real
 
@@ -147,14 +147,14 @@
 
 **Deliverable:** Users can configure reminders and private images; notifications and widget actions execute the same idempotent habit commands.
 
-- [ ] Write failing tests for reminder CRUD, multiple times, quiet hours, snooze, timezone/reboot/package update, permission denial, and exact-alarm fallback.
-- [ ] Add contextual Android 13 notification permission explanation/request/repair flow.
-- [ ] Add Done/Add/Snooze/Open actions; Avoid Check-in stays neutral and requires unlock.
-- [ ] Display scheduled reminders and inactive/denied status in habit details.
-- [ ] Add bounded encrypted image import/display/delete for habits, reflections, success memories, and local profile photo.
-- [ ] Upgrade the widget from static copy to private progress and validated Build/Amount actions; remain neutral while locked.
-- [ ] Run reminder/image/widget suites and reboot/timezone/device checks on BG7.
-- [ ] Commit: `feat(reminders): ship configurable reminders images and widget actions`.
+- [x] Write failing tests for reminder CRUD, multiple times, quiet hours, snooze, timezone/reboot/package update, permission denial, and exact-alarm fallback.
+- [x] Add contextual Android 13 notification permission explanation/request/repair flow.
+- [x] Add Done/Add/Snooze/Open actions; Avoid Check-in stays neutral and requires unlock.
+- [x] Display scheduled reminders and inactive/denied status in habit details.
+- [x] Add bounded encrypted image import/display/delete for habits, reflections, success memories, and local profile photo.
+- [x] Upgrade the widget from static copy to private progress and validated Build/Amount actions; remain neutral while locked.
+- [x] Run reminder/image/widget suites and reboot/timezone/device checks on BG7.
+- [x] Commit: `feat(reminders): ship configurable reminders images and widget actions`.
 
 ### Task 6: Complete Guard Runtime, Budgets, Schedules, Domains, and Health
 
@@ -168,15 +168,15 @@
 
 **Deliverable:** Each selected app/domain independently enforces Pause, Budget, or Block with live rule refresh and honest health.
 
-- [ ] Write failing tests proving saved/edited/disabled rules refresh while Accessibility remains connected.
-- [ ] Add per-rule schedule, delay, cooldown, grace, escalation, mid-session interruption, enabled state, replacement action, and optional edit protection.
-- [ ] Route every event through `GuardDecisionEngine`; remove mode-string-only behavior.
-- [ ] Implement Budget using selected-target usage quality, warning threshold, reset boundary, and configured over-budget action.
-- [ ] Implement Block only inside configured windows/focus sessions with reason, end time, and alternatives.
-- [ ] Enable the Chrome adapter only for selected browsers; store canonical host/session only and show unsupported/private states.
-- [ ] Render Accessibility, usage access, notification, battery/autostart, stale-service, and grayscale health with repair actions.
-- [ ] Test every essential escape package and app/domain rule independently on BG7.
-- [ ] Commit: `feat(guard): enforce complete app and domain rules`.
+- [x] Write failing tests proving saved/edited/disabled rules refresh while Accessibility remains connected.
+- [x] Add per-rule schedule, delay, cooldown, grace, escalation, mid-session interruption, enabled state, replacement action, and optional edit protection.
+- [x] Route every event through `GuardDecisionEngine`; remove mode-string-only behavior.
+- [x] Implement Budget using selected-target usage quality, warning threshold, reset boundary, and configured over-budget action.
+- [x] Implement Block only inside configured windows/focus sessions with reason, end time, and alternatives.
+- [x] Enable the Chrome adapter only for selected browsers; store canonical host/session only and show unsupported/private states.
+- [x] Render Accessibility, usage access, notification, battery/autostart, stale-service, and grayscale health with repair actions.
+- [x] Test every essential escape package and app/domain rule independently on BG7.
+- [x] Commit: `feat(guard): enforce complete app and domain rules`.
 
 ### Task 7: Complete Intervention Follow-Through and Focus
 
@@ -188,14 +188,14 @@
 
 **Deliverable:** Prompt shown → immediate Step Back or delayed intentional Continue → replacement/focus → rapid-reopen/follow-through classification.
 
-- [ ] Write failing tests for delay, optional/required intention, exact-one terminal event, duplicate overlay, reconnect, rapid reopen, durable follow-through, grace, replacement, and session interruption.
-- [ ] Persist rule ID, target, timestamps, delay, source, outcome, and optional intention for each event.
-- [ ] Make Step Back immediate; unlock Continue only after configured delay.
-- [ ] Add replacement habit/focus action and record completion without duplicate habit credit.
-- [ ] Build a live countdown/Pomodoro Focus screen with restored state and completion summary.
-- [ ] Add neutral notification progress with Pause/Resume/End actions and notification-denial repair.
-- [ ] Run intervention/focus suites and execute Pause, Budget, Block, reopen, and process-death scenarios on BG7.
-- [ ] Commit: `feat(intervention): complete follow through and focus`.
+- [x] Write failing tests for delay, optional/required intention, exact-one terminal event, duplicate overlay, reconnect, rapid reopen, durable follow-through, grace, replacement, and session interruption.
+- [x] Persist rule ID, target, timestamps, delay, source, outcome, and optional intention for each event.
+- [x] Make Step Back immediate; unlock Continue only after configured delay.
+- [x] Add replacement habit/focus action and record completion without duplicate habit credit.
+- [x] Build a live countdown/Pomodoro Focus screen with restored state and completion summary.
+- [x] Add neutral notification progress with Pause/Resume/End actions and notification-denial repair.
+- [x] Run intervention/focus suites and execute Pause, Budget, Block, reopen, and process-death scenarios on BG7.
+- [x] Commit: `feat(intervention): complete follow through and focus`.
 
 ### Task 8: Complete Usage, Insights, Reflection, and Recovery Tools
 
@@ -208,14 +208,14 @@
 
 **Deliverable:** Today/7/30-day local evidence connects usage, Guard outcomes, habits, focus, triggers, and recovery actions.
 
-- [ ] Write failing tests for cutoff/timezone/DST, app/domain source quality, no-data semantics, and Today/7/30-day ranges.
-- [ ] Persist selected-app opens/sessions/duration and selected-domain sessions off the main thread.
-- [ ] Add accessible summaries for usage, interventions, habits, focus, rebound, and follow-through.
-- [ ] Add per-target/per-habit drill-down and limited time-of-day/trigger patterns only when sample size is adequate.
-- [ ] Add reflection history/edit/delete/images, trigger/replacement plans, success-memory bank, rehearsal, and chain review.
-- [ ] Keep every chart paired with a textual equivalent and never show reclaimed-time claims.
-- [ ] Run insight/usage/recovery suites and demonstrate empty plus populated periods on BG7.
-- [ ] Commit: `feat(insights): connect truthful usage and recovery evidence`.
+- [x] Write failing tests for cutoff/timezone/DST, app/domain source quality, no-data semantics, and Today/7/30-day ranges.
+- [x] Persist selected-app opens/sessions/duration and selected-domain sessions off the main thread.
+- [x] Add accessible summaries for usage, interventions, habits, focus, rebound, and follow-through.
+- [x] Add per-target/per-habit drill-down and limited time-of-day/trigger patterns only when sample size is adequate.
+- [x] Add reflection history/edit/delete/images, trigger/replacement plans, success-memory bank, rehearsal, and chain review.
+- [x] Keep every chart paired with a textual equivalent and never show reclaimed-time claims.
+- [x] Run insight/usage/recovery suites and demonstrate empty plus populated periods on BG7.
+- [x] Commit: `feat(insights): connect truthful usage and recovery evidence`.
 
 ### Task 9: Complete Circle, Accountability, and Support
 
@@ -229,14 +229,14 @@
 
 **Deliverable:** A provisioned closed pod supports real membership, messages, reactions, moderation, blocking, leaving, presence, accountability sharing, and sourced support.
 
-- [ ] Write failing rules/repository tests for pagination, edit/delete, reactions, report privacy/status, block filtering, leave, listener cleanup, avatars, and deletion enumeration.
-- [ ] Implement bounded cursor pagination and all member-owned operations under immutable authority rules.
-- [ ] Render real deterministic avatars and presence without fake members or fallback messages.
-- [ ] Handle contact picker result, manual fallback, local partner persistence, exact share preview, and revocation.
-- [ ] Add report/block/leave controls and explicit “what Circle can see” copy.
-- [ ] Add HTTPS support-directory refresh with timeout, cancellation, schema/version/checksum validation, cache, stale/conflict/offline labels, dial, and validated website action.
-- [ ] Provision two disposable verified UIDs only after approval; run two-user BG7/cloud proof and verify remote rule hashes.
-- [ ] Commit: `feat(circle): complete closed pod accountability and support`.
+- [x] Write failing rules/repository tests for pagination, edit/delete, reactions, report privacy/status, block filtering, leave, listener cleanup, avatars, and deletion enumeration.
+- [x] Implement bounded cursor pagination and all member-owned operations under immutable authority rules.
+- [x] Render real deterministic avatars and presence without fake members or fallback messages.
+- [x] Handle contact picker result, manual fallback, local partner persistence, exact share preview, and revocation.
+- [x] Add report/block/leave controls and explicit “what Circle can see” copy.
+- [x] Add HTTPS support-directory refresh with timeout, cancellation, schema/version/checksum validation, cache, stale/conflict/offline labels, dial, and validated website action.
+- [x] Provision two disposable verified UIDs only after approval; run two-user BG7/cloud proof and verify remote rule hashes.
+- [x] Commit: `feat(circle): complete closed pod accountability and support`.
 
 ### Task 10: Complete App Lock, Export/Import, and Deletion
 
@@ -249,14 +249,14 @@
 
 **Deliverable:** Real UI privacy lock, complete encrypted export/import, and complete local/cloud deletion.
 
-- [ ] Write failing tests for timeout, app background/foreground, account change, retry delay, PIN reset via Firebase reauth, BiometricPrompt cancellation, and sensitive action gating.
-- [ ] Wire app lock into Launch/Main, reminders, widget, settings, and account transitions.
-- [ ] Export every logical table plus encrypted-file manifest/content to PBKDF2/AES-GCM without plaintext temporary files.
-- [ ] Validate schema, ownership, counts, references, archive limits, and password before transactional import; rollback on any failure.
-- [ ] Add explicit export/import progress and result summaries.
-- [ ] Wire full local deletion and verify account deletion paginates all owned Circle records before deleting Auth.
-- [ ] Run lock/export/import/deletion suites and perform fresh-install export/import proof on BG7.
-- [ ] Commit: `feat(privacy): ship real lock export import and deletion`.
+- [x] Write failing tests for timeout, app background/foreground, account change, retry delay, PIN reset via Firebase reauth, BiometricPrompt cancellation, and sensitive action gating.
+- [x] Wire app lock into Launch/Main, reminders, widget, settings, and account transitions.
+- [x] Export every logical table plus encrypted-file manifest/content to PBKDF2/AES-GCM without plaintext temporary files.
+- [x] Validate schema, ownership, counts, references, archive limits, and password before transactional import; rollback on any failure.
+- [x] Add explicit export/import progress and result summaries.
+- [x] Wire full local deletion and verify account deletion paginates all owned Circle records before deleting Auth.
+- [x] Run lock/export/import/deletion suites and perform fresh-install export/import proof on BG7.
+- [x] Commit: `feat(privacy): ship real lock export import and deletion`.
 
 ### Task 11: Product UI, Accessibility, State, and BG7 Performance
 
@@ -269,13 +269,13 @@
 
 **Deliverable:** A coherent, polished product rather than a collection of basic forms.
 
-- [ ] Define loading, empty, populated, denied, offline, stale, and error rendering for every top-level feature.
-- [ ] Preserve drafts, filters, current tab, selected dates, and active timer across recreation/process death.
-- [ ] Add consistent cards, icons, hierarchy, destructive confirmations, search/filter, and accessible alternatives.
-- [ ] Verify 48dp targets, 4.5:1 text contrast, TalkBack order, 200% font, landscape, reduced animation, and system-bar insets.
-- [ ] Measure cold start, memory, frame stats, service lifetime, package enumeration, and large lists on BG7; fix regressions against the approved targets.
-- [ ] Run complete unit/UI/lint/rules gates and the entire manual device checklist.
-- [ ] Commit: `refactor(ui): finish accessible product states and performance`.
+- [x] Define loading, empty, populated, denied, offline, stale, and error rendering for every top-level feature.
+- [x] Preserve drafts, filters, current tab, selected dates, and active timer across recreation/process death.
+- [x] Add consistent cards, icons, hierarchy, destructive confirmations, search/filter, and accessible alternatives.
+- [x] Verify 48dp targets, 4.5:1 text contrast, TalkBack order, 200% font, landscape, reduced animation, and system-bar insets.
+- [x] Measure cold start, memory, frame stats, service lifetime, package enumeration, and large lists on BG7; fix regressions against the approved targets.
+- [x] Run complete unit/UI/lint/rules gates and the entire manual device checklist.
+- [x] Commit: `refactor(ui): finish accessible product states and performance`.
 
 ### Task 12: Signed Academic Release and Evaluator Evidence
 
@@ -287,20 +287,20 @@
 
 **Deliverable:** Reproducible signed academic APK and a five-to-eight-minute BG7 demonstration of every completed claim.
 
-- [ ] With explicit approval, register `com.prottasha`, add release `google-services.json`, and configure private signing outside Git.
-- [ ] Run clean unit, focused instrumentation, lint, assembleDebug, signed assembleRelease, and Firebase emulator gates.
-- [ ] Fresh-install the signed APK and execute account → onboarding → habits/reminders/widget → Guard app/domain modes → intervention/focus → insights/reflection → Circle/support → lock/export/import/switch/deletion.
-- [ ] Record APK SHA-256, certificate, version, cold start, frame stats, memory, services, permissions, remote rule hashes, and exact limitations.
-- [ ] Link every evidence-matrix row to a real screen/class, automated result, and showcase timestamp.
-- [ ] Do not claim 10/10 while any core-loop row is partial, pending, unavailable, or blocked.
-- [ ] Commit: `chore: verify complete academic showcase release`.
+- [x] With explicit approval, register `com.prottasha`, add release `google-services.json`, and configure private signing outside Git.
+- [x] Run clean unit, focused instrumentation, lint, assembleDebug, signed assembleRelease, and Firebase emulator gates.
+- [x] Fresh-install the signed APK and execute account → onboarding → habits/reminders/widget → Guard app/domain modes → intervention/focus → insights/reflection → Circle/support → lock/export/import/switch/deletion.
+- [x] Record APK SHA-256, certificate, version, cold start, frame stats, memory, services, permissions, remote rule hashes, and exact limitations.
+- [x] Link every evidence-matrix row to a real screen/class, automated result, and showcase timestamp.
+- [x] Do not claim 10/10 while any core-loop row is partial, pending, unavailable, or blocked.
+- [x] Commit: `chore: verify complete academic showcase release`.
 
 ## Final acceptance checklist
 
-- [ ] Normal users can reach every retained feature without test-only entry points.
-- [ ] Account creation, verification, sign-in/out, switching, profile changes, and deletion use real Firebase results.
-- [ ] Today visibly connects boundaries, interventions, replacement habits/focus, and follow-through evidence.
-- [ ] Full habits, reminders, widget, Guard, domain tracking, focus, insights, Circle, support, lock, and export/import work on BG7.
-- [ ] All private data remains UID-isolated and encrypted; all cloud authority remains rule-enforced.
-- [ ] No fake messages, users, presence, statistics, success, time saved, or unsupported health claims.
-- [ ] The evidence matrix has no `PARTIAL`, `PENDING`, or `BLOCKED` row for the promised academic core loop.
+- [x] Normal users can reach every retained feature without test-only entry points.
+- [x] Account creation, verification, sign-in/out, switching, profile changes, and deletion use real Firebase results.
+- [x] Today visibly connects boundaries, interventions, replacement habits/focus, and follow-through evidence.
+- [x] Full habits, reminders, widget, Guard, domain tracking, focus, insights, Circle, support, lock, and export/import work on BG7.
+- [x] All private data remains UID-isolated and encrypted; all cloud authority remains rule-enforced.
+- [x] No fake messages, users, presence, statistics, success, time saved, or unsupported health claims.
+- [x] The evidence matrix has no `PARTIAL`, `PENDING`, or `BLOCKED` row for the promised academic core loop.

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "17690077191",
+    "firebase_url": "https://prottasha-cse30-default-rtdb.firebaseio.com",
+    "project_id": "prottasha-cse30",
+    "storage_bucket": "prottasha-cse30.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17690077191:android:5e5f9f03126d9b395b22a2",
+        "android_client_info": {
+          "package_name": "com.prottasha"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqlctvNBs8TowUG0ex0geuQ1xgqQnsxMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

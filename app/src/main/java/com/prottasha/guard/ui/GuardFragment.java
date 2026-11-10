@@ -36,6 +36,8 @@ import com.prottasha.intervention.ui.AccessibilityDisclosureActivity;
 import com.prottasha.service.ProttashaAccessibilityService;
 import com.prottasha.usage.browser.DomainNormalizer;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,6 +46,7 @@ import java.util.Locale;
 public final class GuardFragment extends Fragment {
     private FragmentGuardBinding binding;
     private GuardViewModel viewModel;
+    private GuardRulesAdapter adapter;
     private List<GuardRuleEntity> cachedRules = Collections.emptyList();
     private String currentQuery = "";
     private int currentFilterId = R.id.guard_chip_all;
@@ -100,6 +103,25 @@ public final class GuardFragment extends Fragment {
             currentFilterId = checkedIds.isEmpty() ? R.id.guard_chip_all : checkedIds.get(0);
             applyFilters();
         });
+
+        adapter = new GuardRulesAdapter(new GuardRulesAdapter.Listener() {
+            @Override
+            public void onToggle(long ruleId, boolean enabled) {
+                viewModel.setEnabled(ruleId, enabled);
+            }
+
+            @Override
+            public void onClick(GuardRuleEntity rule) {
+                startActivity(GuardRuleEditActivity.editIntent(requireContext(), rule));
+            }
+
+            @Override
+            public void onLongClick(GuardRuleEntity rule) {
+                confirmDelete(rule);
+            }
+        });
+        binding.guardRules.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.guardRules.setAdapter(adapter);
 
         viewModel.rules().observe(getViewLifecycleOwner(), rules -> {
             cachedRules = rules != null ? rules : Collections.emptyList();
@@ -178,131 +200,9 @@ public final class GuardFragment extends Fragment {
     }
 
     private void render(List<GuardRuleEntity> rules) {
-        binding.guardRules.removeAllViews();
         binding.guardEmpty.setVisibility(cachedRules.isEmpty() ? View.VISIBLE : View.GONE);
-
-        if (rules.isEmpty() && !cachedRules.isEmpty()) {
-            TextView noMatches = new TextView(requireContext());
-            noMatches.setText("No matching rules found.");
-            noMatches.setTextColor(getResources().getColor(R.color.color_text_muted, null));
-            noMatches.setPadding(16, 24, 16, 24);
-            binding.guardRules.addView(noMatches);
-            return;
-        }
-
-        int dp8 = (int) (8 * getResources().getDisplayMetrics().density);
-        int dp12 = (int) (12 * getResources().getDisplayMetrics().density);
-        int dp16 = (int) (16 * getResources().getDisplayMetrics().density);
-
-        for (GuardRuleEntity rule : rules) {
-            MaterialCardView card = new MaterialCardView(requireContext());
-            LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            cardParams.bottomMargin = dp12;
-            card.setLayoutParams(cardParams);
-            card.setRadius(dp12);
-            card.setStrokeColor(getResources().getColor(R.color.color_border, null));
-            card.setStrokeWidth(1);
-            card.setCardBackgroundColor(getResources().getColor(R.color.color_surface_raised, null));
-
-            LinearLayout content = new LinearLayout(requireContext());
-            content.setOrientation(LinearLayout.VERTICAL);
-            content.setPadding(dp16, dp16, dp16, dp16);
-
-            // Row 1: Target label + sub + switch
-            LinearLayout topRow = new LinearLayout(requireContext());
-            topRow.setOrientation(LinearLayout.HORIZONTAL);
-            topRow.setGravity(Gravity.CENTER_VERTICAL);
-
-            LinearLayout textCol = new LinearLayout(requireContext());
-            textCol.setOrientation(LinearLayout.VERTICAL);
-            LinearLayout.LayoutParams textColParams = new LinearLayout.LayoutParams(
-                    0, ViewGroup.LayoutParams.WRAP_CONTENT, 1.0f);
-            textCol.setLayoutParams(textColParams);
-
-            TextView labelView = new TextView(requireContext());
-            labelView.setText(rule.label);
-            labelView.setTextSize(17);
-            labelView.setTextColor(getResources().getColor(R.color.color_text_primary, null));
-            labelView.setTypeface(null, android.graphics.Typeface.BOLD);
-            textCol.addView(labelView);
-
-            TextView subView = new TextView(requireContext());
-            subView.setText(rule.target + (rule.isDomain ? " • Website" : " • App"));
-            subView.setTextSize(13);
-            subView.setTextColor(getResources().getColor(R.color.color_text_muted, null));
-            textCol.addView(subView);
-
-            topRow.addView(textCol);
-
-            MaterialSwitch toggle = new MaterialSwitch(requireContext());
-            toggle.setChecked(rule.enabled);
-            toggle.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                viewModel.setEnabled(rule.id, isChecked);
-            });
-            topRow.addView(toggle);
-            content.addView(topRow);
-
-            // Row 2: Mode badge & schedule
-            LinearLayout bottomRow = new LinearLayout(requireContext());
-            bottomRow.setOrientation(LinearLayout.HORIZONTAL);
-            bottomRow.setGravity(Gravity.CENTER_VERTICAL);
-            LinearLayout.LayoutParams bottomParams = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            bottomParams.topMargin = dp8;
-            bottomRow.setLayoutParams(bottomParams);
-
-            TextView modeBadge = new TextView(requireContext());
-            modeBadge.setPadding(dp8, dp8 / 2, dp8, dp8 / 2);
-            modeBadge.setTextSize(12);
-            modeBadge.setTypeface(null, android.graphics.Typeface.BOLD);
-
-            if ("BUDGET".equals(rule.mode)) {
-                modeBadge.setText(String.format(Locale.ROOT, "BUDGET: %d min/day", rule.budgetMinutes));
-                modeBadge.setTextColor(getResources().getColor(R.color.color_hope, null));
-                modeBadge.setBackgroundColor(getResources().getColor(R.color.color_hope_subtle, null));
-            } else if ("BLOCK".equals(rule.mode)) {
-                modeBadge.setText("BLOCK");
-                modeBadge.setTextColor(getResources().getColor(R.color.color_crisis, null));
-                modeBadge.setBackgroundColor(getResources().getColor(R.color.color_crisis_subtle, null));
-            } else {
-                modeBadge.setText(String.format(Locale.ROOT, "PAUSE (%ds delay)", rule.delaySeconds));
-                modeBadge.setTextColor(getResources().getColor(R.color.color_friction, null));
-                modeBadge.setBackgroundColor(getResources().getColor(R.color.color_friction_subtle, null));
-            }
-            bottomRow.addView(modeBadge);
-
-            if (rule.startMinute != rule.endMinute) {
-                TextView scheduleView = new TextView(requireContext());
-                scheduleView.setText(String.format(Locale.ROOT, "  %02d:%02d - %02d:%02d",
-                        rule.startMinute / 60, rule.startMinute % 60,
-                        rule.endMinute / 60, rule.endMinute % 60));
-                scheduleView.setTextSize(12);
-                scheduleView.setTextColor(getResources().getColor(R.color.color_text_secondary, null));
-                bottomRow.addView(scheduleView);
-            }
-
-            if (rule.editProtection) {
-                TextView lockView = new TextView(requireContext());
-                lockView.setText("  🔒 Protected");
-                lockView.setTextSize(12);
-                lockView.setTextColor(getResources().getColor(R.color.color_identity, null));
-                bottomRow.addView(lockView);
-            }
-
-            content.addView(bottomRow);
-            card.addView(content);
-
-            card.setOnClickListener(ignored -> startActivity(
-                    GuardRuleEditActivity.editIntent(requireContext(), rule)));
-
-            card.setOnLongClickListener(ignored -> {
-                confirmDelete(rule);
-                return true;
-            });
-
-            binding.guardRules.addView(card);
-        }
+        binding.guardNoMatches.setVisibility(!cachedRules.isEmpty() && rules.isEmpty() ? View.VISIBLE : View.GONE);
+        adapter.submitList(rules);
     }
 
     private void confirmDelete(GuardRuleEntity rule) {

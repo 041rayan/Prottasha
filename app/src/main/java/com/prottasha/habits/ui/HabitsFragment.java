@@ -12,6 +12,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.prottasha.ProttashaApp;
 import com.prottasha.R;
@@ -20,12 +22,14 @@ import com.prottasha.databinding.ItemHabitTodayBinding;
 import com.prottasha.habits.domain.HabitModels;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public final class HabitsFragment extends Fragment {
 
     private FragmentHabitsBinding binding;
     private HabitsViewModel viewModel;
+    private HabitsAdapter adapter;
 
     @Nullable
     @Override
@@ -60,6 +64,61 @@ public final class HabitsFragment extends Fragment {
             }
         });
 
+        adapter = new HabitsAdapter(new HabitsAdapter.Listener() {
+            @Override
+            public void onAct(HabitModels.HabitTodayItem item, View actionBtn) {
+                viewModel.act(item, result -> {
+                    if (result.isSuccess() && result.valueOrNull() != null) {
+                        long eventId = result.valueOrNull().eventId;
+                        if (eventId > 0 && getView() != null) {
+                            Snackbar.make(binding.getRoot(), R.string.habit_note_saved, Snackbar.LENGTH_LONG)
+                                    .setAction(R.string.habit_undo, undoView ->
+                                            viewModel.undo(item.habit.id, eventId, undoResult -> {}))
+                                    .show();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onArchive(long habitId) {
+                viewModel.archive(habitId);
+            }
+
+            @Override
+            public void onMoveUp(HabitModels.HabitSnapshot habit, List<HabitModels.HabitSnapshot> list) {
+                viewModel.moveUp(habit, list);
+            }
+
+            @Override
+            public void onMoveDown(HabitModels.HabitSnapshot habit, List<HabitModels.HabitSnapshot> list) {
+                viewModel.moveDown(habit, list);
+            }
+
+            @Override
+            public void onClick(long habitId) {
+                startActivity(new Intent(requireContext(), HabitDetailActivity.class)
+                        .putExtra(HabitDetailActivity.EXTRA_HABIT_ID, habitId));
+            }
+
+            @Override
+            public void onRestore(long habitId) {
+                viewModel.restore(habitId);
+            }
+
+            @Override
+            public void onDelete(long habitId) {
+                new AlertDialog.Builder(requireContext())
+                        .setTitle(R.string.habit_delete_title)
+                        .setMessage(R.string.habit_delete_message)
+                        .setPositiveButton(R.string.habit_delete, (d, w) -> viewModel.delete(habitId))
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .show();
+            }
+        });
+        binding.habitsContainer.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.habitsContainer.setAdapter(adapter);
+
         viewModel.filter().observe(getViewLifecycleOwner(), filter -> updateList());
         viewModel.items().observe(getViewLifecycleOwner(), items -> updateList());
         viewModel.activeHabits().observe(getViewLifecycleOwner(), active -> updateList());
@@ -79,7 +138,6 @@ public final class HabitsFragment extends Fragment {
     }
 
     private void renderActive(List<HabitModels.HabitTodayItem> items, HabitsViewModel.Filter filter) {
-        binding.habitsContainer.removeAllViews();
         List<HabitModels.HabitTodayItem> filtered = new ArrayList<>();
         if (items != null) {
             for (HabitModels.HabitTodayItem item : items) {
@@ -96,108 +154,18 @@ public final class HabitsFragment extends Fragment {
         }
 
         binding.habitsEmpty.setVisibility(filtered.isEmpty() ? View.VISIBLE : View.GONE);
-        LayoutInflater inflater = LayoutInflater.from(requireContext());
-
         List<HabitModels.HabitSnapshot> activeList = viewModel.activeHabits().getValue();
-        if (activeList == null) activeList = new ArrayList<>();
-
-        for (int i = 0; i < filtered.size(); i++) {
-            HabitModels.HabitTodayItem item = filtered.get(i);
-            ItemHabitTodayBinding row = ItemHabitTodayBinding.inflate(
-                    inflater, binding.habitsContainer, false);
-            row.habitTitle.setText(item.habit.title);
-            row.habitType.setText(item.habit.type.name());
-
-            String unit = item.habit.unit.isEmpty() ? "" : " " + item.habit.unit;
-            row.habitProgress.setText(getString(
-                    R.string.habit_progress, item.value, item.habit.target) + unit);
-
-            if (!item.habit.cue.isEmpty()) {
-                row.habitCueSummary.setText(item.habit.cue);
-                row.habitCueSummary.setVisibility(View.VISIBLE);
-            }
-
-            row.habitAction.setText(actionText(item));
-            row.habitAction.setEnabled(!item.completed);
-            row.habitAction.setOnClickListener(ignored -> {
-                row.habitAction.setEnabled(false);
-                viewModel.act(item, result -> {
-                    if (result.isSuccess() && result.valueOrNull() != null) {
-                        long eventId = result.valueOrNull().eventId;
-                        if (eventId > 0 && getView() != null) {
-                            Snackbar.make(binding.getRoot(), R.string.habit_note_saved, Snackbar.LENGTH_LONG)
-                                    .setAction(R.string.habit_undo, undoView ->
-                                            viewModel.undo(item.habit.id, eventId, undoResult -> {}))
-                                    .show();
-                        }
-                    }
-                });
-            });
-
-            row.habitArchive.setOnClickListener(ignored -> viewModel.archive(item.habit.id));
-
-            final List<HabitModels.HabitSnapshot> listRef = activeList;
-            row.habitMoveUp.setOnClickListener(ignored -> viewModel.moveUp(item.habit, listRef));
-            row.habitMoveDown.setOnClickListener(ignored -> viewModel.moveDown(item.habit, listRef));
-
-            row.getRoot().setOnClickListener(ignored -> startActivity(
-                    new Intent(requireContext(), HabitDetailActivity.class)
-                            .putExtra(HabitDetailActivity.EXTRA_HABIT_ID, item.habit.id)));
-
-            binding.habitsContainer.addView(row.getRoot());
-        }
+        adapter.setActiveItems(filtered, activeList);
     }
 
     private void renderArchived(List<HabitModels.HabitSnapshot> archived) {
-        binding.habitsContainer.removeAllViews();
         if (archived == null || archived.isEmpty()) {
             binding.habitsEmpty.setVisibility(View.VISIBLE);
+            adapter.setArchivedItems(Collections.emptyList());
             return;
         }
         binding.habitsEmpty.setVisibility(View.GONE);
-        LayoutInflater inflater = LayoutInflater.from(requireContext());
-
-        for (HabitModels.HabitSnapshot habit : archived) {
-            ItemHabitTodayBinding row = ItemHabitTodayBinding.inflate(
-                    inflater, binding.habitsContainer, false);
-            row.habitTitle.setText(habit.title);
-            row.habitType.setText(habit.type.name() + " (Archived)");
-            row.habitProgress.setText("Target: " + habit.target);
-
-            row.habitAction.setVisibility(View.GONE);
-            row.habitArchive.setVisibility(View.GONE);
-            row.habitMoveUp.setVisibility(View.GONE);
-            row.habitMoveDown.setVisibility(View.GONE);
-
-            row.habitRestore.setVisibility(View.VISIBLE);
-            row.habitRestore.setOnClickListener(ignored -> viewModel.restore(habit.id));
-
-            row.habitDelete.setVisibility(View.VISIBLE);
-            row.habitDelete.setOnClickListener(ignored -> {
-                new AlertDialog.Builder(requireContext())
-                        .setTitle(R.string.habit_delete_title)
-                        .setMessage(R.string.habit_delete_message)
-                        .setPositiveButton(R.string.habit_delete, (d, w) -> viewModel.delete(habit.id))
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .show();
-            });
-
-            row.getRoot().setOnClickListener(ignored -> startActivity(
-                    new Intent(requireContext(), HabitDetailActivity.class)
-                            .putExtra(HabitDetailActivity.EXTRA_HABIT_ID, habit.id)));
-
-            binding.habitsContainer.addView(row.getRoot());
-        }
-    }
-
-    private String actionText(HabitModels.HabitTodayItem item) {
-        if (item.completed) return getString(R.string.habit_action_done);
-        if (item.habit.type == HabitModels.Type.AMOUNT) {
-            int inc = item.habit.incrementVal > 0 ? item.habit.incrementVal : 1;
-            return "+" + inc;
-        }
-        if (item.habit.type == HabitModels.Type.AVOID) return getString(R.string.habit_action_lapse);
-        return getString(R.string.habit_action_done);
+        adapter.setArchivedItems(archived);
     }
 
     @Override

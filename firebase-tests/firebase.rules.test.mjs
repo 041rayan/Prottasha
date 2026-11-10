@@ -274,6 +274,48 @@ describe('Closed Circle pod', () => {
     await assertSucceeds(deleteDoc(message));
   });
 
+  test('reactions can be managed only by the authoring member', async () => {
+    await seedPod();
+    const alice = firestoreFor('alice', verifiedClaims);
+    const bob = firestoreFor('bob', verifiedClaims);
+    const mallory = firestoreFor('mallory', verifiedClaims);
+    const message = doc(alice, 'pods/omega/messages/m1');
+    await assertSucceeds(setDoc(message, {
+      senderUid: 'alice', senderPseudonym: 'HopefulAlice', text: 'Hello',
+      createdAt: serverTimestamp(), updatedAt: serverTimestamp(), schemaVersion: 1,
+    }));
+
+    const aliceReaction = doc(alice, 'pods/omega/messages/m1/reactions/alice');
+    await assertSucceeds(setDoc(aliceReaction, { emoji: '👍' }));
+    await assertSucceeds(getDoc(aliceReaction));
+
+    // Bob cannot write Alice's reaction
+    await assertFails(setDoc(doc(bob, 'pods/omega/messages/m1/reactions/alice'), { emoji: '❤️' }));
+    // Mallory (nonmember) cannot read or write reactions
+    await assertFails(getDoc(doc(mallory, 'pods/omega/messages/m1/reactions/alice')));
+    await assertFails(setDoc(doc(mallory, 'pods/omega/messages/m1/reactions/mallory'), { emoji: '👍' }));
+    // Alice can delete her reaction
+    await assertSucceeds(deleteDoc(aliceReaction));
+  });
+
+  test('blocks are private to owner and self-blocking is prohibited', async () => {
+    const alice = firestoreFor('alice', verifiedClaims);
+    const bob = firestoreFor('bob', verifiedClaims);
+
+    // Alice can block Bob
+    await assertSucceeds(setDoc(doc(alice, 'users/alice/blocks/bob'), {
+      blockedAt: serverTimestamp(),
+    }));
+    // Alice cannot block herself
+    await assertFails(setDoc(doc(alice, 'users/alice/blocks/alice'), {
+      blockedAt: serverTimestamp(),
+    }));
+    // Bob cannot read Alice's block list
+    await assertFails(getDoc(doc(bob, 'users/alice/blocks/bob')));
+    // Alice can unblock Bob
+    await assertSucceeds(deleteDoc(doc(alice, 'users/alice/blocks/bob')));
+  });
+
   test('reports stay private while moderator can review status', async () => {
     await seedPod();
     const bob = firestoreFor('bob', verifiedClaims);
@@ -310,5 +352,29 @@ describe('Realtime Database', () => {
     }));
     await assertFails(get(ref(malloryDb, 'presence/omega')));
     await assertSucceeds(set(ref(aliceDb, 'podMembers/omega/alice'), null));
+  });
+
+  test('typing indicator is membership-scoped and users write only themselves', async () => {
+    await testEnv.withSecurityRulesDisabled(async (context) => {
+      const admin = context.database();
+      await set(ref(admin, 'podMembers/omega/alice'), true);
+      await set(ref(admin, 'podMembers/omega/bob'), true);
+    });
+    const guestDb = testEnv.unauthenticatedContext().database();
+    const aliceDb = testEnv.authenticatedContext('alice', verifiedClaims).database();
+    const malloryDb = testEnv.authenticatedContext('mallory', verifiedClaims).database();
+
+    await assertFails(get(ref(guestDb, 'typing/omega')));
+    await assertSucceeds(set(ref(aliceDb, 'typing/omega/alice'), {
+      typing: true, lastChanged: Date.now(),
+    }));
+    await assertSucceeds(get(ref(aliceDb, 'typing/omega')));
+    await assertFails(set(ref(aliceDb, 'typing/omega/bob'), {
+      typing: true, lastChanged: Date.now(),
+    }));
+    await assertFails(set(ref(aliceDb, 'typing/omega/alice'), {
+      typing: true, lastChanged: Date.now(), maliciousField: 'hack',
+    }));
+    await assertFails(get(ref(malloryDb, 'typing/omega')));
   });
 });

@@ -1,7 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="@dimen/spacing_large">
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/circle_title" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_display" android:textStyle="bold" />
-    <TextView android:id="@+id/circle_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_small" android:textColor="@color/color_text_secondary" android:textSize="@dimen/text_body" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/circle_open_pod" style="@style/Widget.Prottasha.Button.Pill" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_large" android:text="@string/circle_open" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/circle_accountability" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_small" android:text="@string/circle_accountability" />
-</LinearLayout>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_large">
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/circle_title"
+            android:textColor="@color/color_text_primary"
+            android:textSize="@dimen/text_display"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/circle_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/color_text_secondary"
+            android:textSize="14sp"
+            tools:text="@string/circle_closed_status" />
+
+        <!-- Closed Pod Action Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            app:cardBackgroundColor="@color/color_surface"
+            app:strokeColor="@color/color_border"
+            app:strokeWidth="1dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Closed Peer Pod"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Join your closed group of recovery peers. Chat anonymously using your pod pseudonym, see real-time presence, and share support."
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="13sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/circle_open_pod"
+                    style="@style/Widget.Prottasha.Button.Pill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:text="@string/circle_open" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Personal Accountability Partner Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            app:cardBackgroundColor="@color/color_surface"
+            app:strokeColor="@color/color_border"
+            app:strokeWidth="1dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Accountability Partner"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Designate a trusted personal ally. Send exact, truthful progress check-ins via your preferred messaging app."
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="13sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/circle_accountability"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:text="@string/circle_accountability"
+                    android:textColor="@color/color_hope" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Crisis & Hotlines Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            app:cardBackgroundColor="@color/color_surface"
+            app:strokeColor="@color/color_border"
+            app:strokeWidth="1dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Immediate Crisis Support"
+                    android:textColor="@color/color_crisis"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Free, 24/7 verified emergency and emotional mental health helplines in Bangladesh (999, Kaan Pete Roi, and more)."
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="13sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/circle_crisis_help"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:text="View Support Helplines"
+                    android:textColor="@color/color_crisis" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Methodology & Privacy Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_large"
+            app:cardBackgroundColor="@color/color_surface_raised"
+            app:strokeColor="@color/color_border"
+            app:strokeWidth="1dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Prottasha Circle Privacy"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Closed Pods are provisioned communities designed for mutual accountability without surveillance. Your personal email, recovery journal, usage history, and app rules remain completely private on your phone."
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/spacing_medium"
+    app:cardBackgroundColor="@color/color_surface"
+    app:strokeColor="@color/color_border"
+    app:strokeWidth="1dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_medium">
+
+        <!-- Header: Name & Verification Badge -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/support_entry_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/color_text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="National Mental Health Helpline" />
+
+            <TextView
+                android:id="@+id/support_entry_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_small"
+                android:background="@drawable/shape_pill"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:textColor="@color/color_hope"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                tools:text="VERIFIED" />
+
+        </LinearLayout>
+
+        <!-- Hours -->
+        <TextView
+            android:id="@+id/support_entry_hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/color_friction"
+            android:textSize="13sp"
+            tools:text="Hours: 24 hours" />
+
+        <!-- Source & Date -->
+        <TextView
+            android:id="@+id/support_entry_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/color_text_muted"
+            android:textSize="12sp"
+            tools:text="Source: Bangladesh Police • Checked 2026-11-10" />
+
+        <!-- Actions: Call & Website -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/support_entry_dial_button"
+                style="@style/Widget.Prottasha.Button.Pill"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/spacing_small"
+                tools:text="Call 999" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/support_entry_web_button"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Official Site"
+                android:textColor="@color/color_identity"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -14,4 +14,5 @@
     <string name="accountability_hint">Preview the exact message before sharing</string>
     <string name="accountability_pick">Choose one contact</string>
     <string name="accountability_share">Open Sharesheet</string>
+    <string name="crisis_title">Immediate Support &amp; Hotlines</string>
 </resources>

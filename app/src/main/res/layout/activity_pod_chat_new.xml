@@ -1,11 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="@dimen/spacing_medium">
-    <TextView android:id="@+id/pod_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/circle_empty" android:textColor="@color/color_text_secondary" />
-    <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
-        <LinearLayout android:id="@+id/pod_messages" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
-    </androidx.core.widget.NestedScrollView>
-    <com.google.android.material.textfield.TextInputLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/circle_message_hint">
-        <com.google.android.material.textfield.TextInputEditText android:id="@+id/pod_message_input" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxLength="1000" />
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.button.MaterialButton android:id="@+id/pod_send" style="@style/Widget.Prottasha.Button.Pill" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/circle_send" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_background">
+
+    <!-- Top App Bar / Pod Header -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/color_surface"
+        app:strokeColor="@color/color_border"
+        app:strokeWidth="1dp"
+        app:cardElevation="0dp"
+        app:cardCornerRadius="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/spacing_medium"
+            android:paddingEnd="@dimen/spacing_medium"
+            android:paddingTop="@dimen/spacing_medium"
+            android:paddingBottom="@dimen/spacing_medium">
+
+            <ImageButton
+                android:id="@+id/pod_back_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@android:drawable/ic_menu_revert"
+                android:contentDescription="Back"
+                app:tint="@color/color_text_primary" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/spacing_small"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/pod_header_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Closed Pod"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/pod_online_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_hope"
+                    android:textSize="12sp"
+                    tools:text="2 members online" />
+            </LinearLayout>
+
+            <!-- Leave Pod Action -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/pod_leave_button"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leave"
+                android:textColor="@color/color_crisis"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Pod Status / Membership Required Notice -->
+    <TextView
+        android:id="@+id/pod_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_small"
+        android:gravity="center"
+        android:background="@color/color_surface_raised"
+        android:textColor="@color/color_text_secondary"
+        android:textSize="13sp"
+        android:visibility="gone"
+        tools:text="Membership required to view or post"
+        tools:visibility="visible" />
+
+    <!-- Chat Messages Content -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingStart="@dimen/spacing_medium"
+        android:paddingEnd="@dimen/spacing_medium">
+
+        <!-- RecyclerView for durable Firestore chat -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/pod_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="@dimen/spacing_small"
+            android:paddingBottom="@dimen/spacing_small"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <!-- Empty State View -->
+        <TextView
+            android:id="@+id/pod_empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/circle_empty"
+            android:textColor="@color/color_text_muted"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+    <!-- Transient RTDB Typing Indicator -->
+    <TextView
+        android:id="@+id/pod_typing_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/spacing_medium"
+        android:paddingEnd="@dimen/spacing_medium"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:textColor="@color/color_identity"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:visibility="gone"
+        tools:text="HopefulAlice is typing…"
+        tools:visibility="visible" />
+
+    <!-- Message Input Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="@dimen/spacing_medium"
+        android:background="@color/color_surface">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/spacing_small"
+            app:boxBackgroundMode="none"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/pod_message_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/circle_message_hint"
+                android:textColor="@color/color_text_primary"
+                android:textColorHint="@color/color_text_muted"
+                android:maxLength="1000"
+                android:background="@drawable/shape_card_surface"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/pod_send"
+            style="@style/Widget.Prottasha.Button.Pill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/circle_send"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp" />
+
+    </LinearLayout>
+
 </LinearLayout>

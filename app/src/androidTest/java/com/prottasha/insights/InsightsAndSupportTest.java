@@ -8,6 +8,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
 import static org.junit.Assert.assertEquals;
 
 import android.graphics.Rect;
@@ -108,7 +109,7 @@ public final class InsightsAndSupportTest {
                      ActivityScenario.launch(CrisisHelpActivity.class)) {
             onView(withText(org.hamcrest.Matchers.containsString("999")))
                     .check(matches(isDisplayed()));
-            onView(withText(org.hamcrest.Matchers.containsString("VERIFIED")))
+            onView(allOf(withId(R.id.support_status_badge), withText(org.hamcrest.Matchers.containsString("VERIFIED"))))
                     .check(matches(isDisplayed()));
         }
     }

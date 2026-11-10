@@ -29,6 +29,8 @@ public final class CircleFragment extends Fragment {
                 startActivity(new Intent(requireContext(), PodChatActivity.class)));
         binding.circleAccountability.setOnClickListener(ignored ->
                 startActivity(new Intent(requireContext(), AccountabilityActivity.class)));
+        binding.circleCrisisHelp.setOnClickListener(ignored ->
+                startActivity(new Intent(requireContext(), com.prottasha.ui.crisis.CrisisHelpActivity.class)));
     }
 
     @Override public void onDestroyView() { binding = null; super.onDestroyView(); }

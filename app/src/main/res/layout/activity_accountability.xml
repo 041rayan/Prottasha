@@ -1,7 +1,270 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="@dimen/spacing_large">
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/accountability_title" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_headline" android:textStyle="bold" />
-    <EditText android:id="@+id/accountability_preview" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_medium" android:hint="@string/accountability_hint" android:inputType="textCapSentences|textMultiLine" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/accountability_pick" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/accountability_pick" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/accountability_share" style="@style/Widget.Prottasha.Button.Pill" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/accountability_share" />
-</LinearLayout>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_large">
+
+        <!-- Header -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/accountability_title"
+            android:textColor="@color/color_text_primary"
+            android:textSize="@dimen/text_display"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Designate a trusted personal ally and share your honest daily recovery commitments."
+            android:textColor="@color/color_text_secondary"
+            android:textSize="14sp" />
+
+        <!-- Current Partner Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/accountability_current_partner_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            app:cardBackgroundColor="@color/color_surface"
+            app:strokeColor="@color/color_border"
+            app:strokeWidth="1dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:id="@+id/accountability_partner_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Active Partner"
+                    android:textColor="@color/color_hope"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/accountability_partner_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="Rahim (+8801712345678)" />
+
+                <TextView
+                    android:id="@+id/accountability_partner_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/color_text_muted"
+                    android:textSize="12sp"
+                    tools:text="Connected on 2026-11-10" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/accountability_revoke"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:text="Revoke Partner"
+                    android:textColor="@color/color_crisis"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Partner Setup Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            app:cardBackgroundColor="@color/color_surface"
+            app:strokeColor="@color/color_border"
+            app:strokeWidth="1dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Set or Update Partner"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:hint="Partner name">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/accountability_name_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/color_text_primary" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:hint="Phone number">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/accountability_phone_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        android:textColor="@color/color_text_primary" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/accountability_pick"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="@dimen/spacing_small"
+                        android:text="@string/accountability_pick" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/accountability_save_button"
+                        style="@style/Widget.Prottasha.Button.Pill"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Save Partner" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Share Preview Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            app:cardBackgroundColor="@color/color_surface"
+            app:strokeColor="@color/color_border"
+            app:strokeWidth="1dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Exact Share Preview"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="This is the exact note that will be sent. You can edit it before sharing."
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/accountability_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:background="@drawable/shape_card_surface"
+                    android:hint="@string/accountability_hint"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:padding="@dimen/spacing_medium"
+                    android:textColor="@color/color_text_primary"
+                    android:textColorHint="@color/color_text_muted"
+                    android:textSize="14sp"
+                    android:minLines="4"
+                    android:gravity="top|start" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/accountability_share"
+                    style="@style/Widget.Prottasha.Button.Pill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:text="@string/accountability_share" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Privacy & Visibility Disclosure Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_large"
+            app:cardBackgroundColor="@color/color_surface_raised"
+            app:strokeColor="@color/color_border"
+            app:strokeWidth="1dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="What Circle and Partner Can See"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="• Circle Pod Members: See only your pseudonym, chat messages, and live online presence in the closed pod.\n\n• Accountability Partner: Sees ONLY the notes and messages you explicitly share with them. They have no access to your app.\n\n• Strictly Private: Your journal reflections, private photos, usage statistics, and passwords remain encrypted on this device."
+                    android:textColor="@color/color_text_secondary"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="2dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

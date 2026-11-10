@@ -22,6 +22,18 @@
           "$other": { ".validate": false }
         }
       }
+    },
+    "typing": {
+      "$podId": {
+        ".read": "auth != null && root.child('podMembers').child($podId).child(auth.uid).val() == true",
+        "$uid": {
+          ".write": "auth != null && auth.uid == $uid && root.child('podMembers').child($podId).child(auth.uid).val() == true",
+          ".validate": "newData.hasChildren(['typing', 'lastChanged'])",
+          "typing": { ".validate": "newData.isBoolean()" },
+          "lastChanged": { ".validate": "newData.isNumber()" },
+          "$other": { ".validate": false }
+        }
+      }
     }
   }
 }

@@ -2,7 +2,8 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,40 +12,49 @@
         android:padding="@dimen/spacing_medium">
 
         <TextView
+            style="@style/TextAppearance.Prottasha.Display"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/account_title"
-            android:textColor="@color/color_text_primary"
-            android:textSize="@dimen/text_headline"
-            android:textStyle="bold" />
+            android:text="@string/account_title" />
+
+        <TextView
+            style="@style/TextAppearance.Prottasha.Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xxsmall"
+            android:text="Manage your authenticated identity, session, and local recovery state"
+            android:textColor="@color/color_text_secondary" />
 
         <!-- Account Info Card -->
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            app:cardBackgroundColor="@color/color_surface_card"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:strokeColor="@color/color_border_subtle"
-            app:strokeWidth="1dp">
+            android:layout_marginTop="@dimen/spacing_medium">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/spacing_large">
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Account Profile" />
 
                 <TextView
                     android:id="@+id/account_email_display"
+                    style="@style/TextAppearance.Prottasha.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="@dimen/spacing_xsmall"
+                    android:textColor="@color/color_text_primary" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/account_edit_profile_button"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    style="@style/Widget.Prottasha.Button.Secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_medium"
@@ -55,31 +65,26 @@
 
         <!-- Security: Change Password & Email -->
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            app:cardBackgroundColor="@color/color_surface_card"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:strokeColor="@color/color_border_subtle"
-            app:strokeWidth="1dp">
+            android:layout_marginTop="@dimen/spacing_medium">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/spacing_large">
+                android:padding="@dimen/spacing_medium">
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/account_change_password_title"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:text="@string/account_change_password_title" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/account_reauth_password_layout"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.Prottasha.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
@@ -97,7 +102,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/account_new_password_layout"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.Prottasha.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
@@ -115,7 +120,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/account_change_password_button"
-                    style="@style/Widget.Material3.Button.TonalButton"
+                    style="@style/Widget.Prottasha.Button.Primary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
@@ -130,16 +135,14 @@
                     android:background="@color/color_border_subtle" />
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/account_change_email_title"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:text="@string/account_change_email_title" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/account_new_email_layout"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.Prottasha.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
@@ -155,7 +158,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/account_change_email_button"
-                    style="@style/Widget.Material3.Button.TonalButton"
+                    style="@style/Widget.Prottasha.Button.Primary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
@@ -167,31 +170,35 @@
 
         <!-- Session Management Card -->
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            app:cardBackgroundColor="@color/color_surface_card"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:strokeColor="@color/color_border_subtle"
-            app:strokeWidth="1dp">
+            android:layout_marginTop="@dimen/spacing_medium">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/spacing_large">
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Session &amp; Switching" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/account_sign_out_button"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    style="@style/Widget.Prottasha.Button.Secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_medium"
                     android:minHeight="@dimen/touch_target_min"
                     android:text="@string/account_sign_out_action" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/account_switch_button"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    style="@style/Widget.Prottasha.Button.Secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
@@ -213,11 +220,11 @@
 
         <!-- Permanent Deletion Card -->
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
-            app:cardBackgroundColor="@color/color_surface_card"
-            app:cardCornerRadius="@dimen/card_corner_radius"
+            android:layout_marginBottom="@dimen/spacing_large"
             app:strokeColor="@color/color_crisis"
             app:strokeWidth="1dp">
 
@@ -225,37 +232,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/spacing_large">
+                android:padding="@dimen/spacing_medium">
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/account_delete_action"
-                    android:textColor="@color/color_crisis"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/color_crisis" />
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_small"
+                    android:layout_marginTop="@dimen/spacing_xsmall"
                     android:text="@string/account_delete_explanation"
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="@dimen/text_body" />
+                    android:textColor="@color/color_text_secondary" />
 
                 <TextView
                     android:id="@+id/account_status"
+                    style="@style/TextAppearance.Prottasha.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_medium"
                     android:accessibilityLiveRegion="polite"
                     android:text="@string/account_ready"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="@dimen/text_body" />
+                    android:textColor="@color/color_text_primary" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/account_password_layout"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    style="@style/Widget.Prottasha.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_medium"
@@ -282,6 +288,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/account_delete_button"
+                    style="@style/Widget.Prottasha.Button.Primary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_medium"
@@ -291,7 +298,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/account_retry_button"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    style="@style/Widget.Prottasha.Button.Secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"

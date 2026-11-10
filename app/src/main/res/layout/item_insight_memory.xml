@@ -9,16 +9,17 @@
 
     <TextView
         android:id="@+id/memory_text"
+        style="@style/TextAppearance.Prottasha.Body"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textColor="@color/color_text_primary"
-        android:textSize="@dimen/text_body" />
+        android:layout_weight="1" />
 
     <ImageButton
         android:id="@+id/memory_delete_button"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/touch_target_min"
+        android:layout_height="@dimen/touch_target_min"
+        android:minWidth="@dimen/touch_target_min"
+        android:minHeight="@dimen/touch_target_min"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="Delete success memory"
         android:src="@android:drawable/ic_menu_delete"

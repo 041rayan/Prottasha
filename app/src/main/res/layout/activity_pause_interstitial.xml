@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FA0B0F17"
+    android:background="@color/color_pause_scrim"
     android:padding="@dimen/spacing_large">
 
     <!-- Top Badge -->
@@ -12,10 +12,10 @@
         android:id="@+id/tvPauseTag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MINDFUL FRICTION PAUSE (EX-01)"
-        android:textColor="@color/color_friction_amber"
+        android:fontFamily="@font/ibm_plex_mono_medium"
+        android:text="MINDFUL FRICTION PAUSE"
+        android:textColor="@color/color_friction"
         android:textSize="@dimen/text_caption"
-        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,13 +24,11 @@
     <!-- Core Question -->
     <TextView
         android:id="@+id/tvPauseQuestion"
+        style="@style/TextAppearance.Prottasha.Headline"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_medium"
         android:text="@string/pause_question"
-        android:textColor="@color/color_text_primary"
-        android:textSize="@dimen/text_headline"
-        android:textStyle="bold"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/tvPauseTag"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +39,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_small"
+        android:fontFamily="@font/newsreader_medium"
         android:text="“Every action you take is a vote for the type of person you wish to become.” — Atomic Habits"
         android:textColor="@color/color_text_secondary"
         android:textSize="@dimen/text_body"
@@ -65,10 +64,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:fontFamily="@font/ibm_plex_mono_medium"
             android:text="10s"
             android:textColor="@color/color_text_primary"
-            android:textSize="36sp"
-            android:textStyle="bold" />
+            android:textSize="36sp" />
 
         <TextView
             android:id="@+id/tvPauseBreathingText"
@@ -76,8 +75,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|bottom"
             android:layout_marginBottom="@dimen/spacing_large"
+            android:fontFamily="@font/ibm_plex_sans_regular"
             android:text="Inhale deeply…"
-            android:textColor="@color/color_identity_glow"
+            android:textColor="@color/color_identity"
             android:textSize="@dimen/text_caption" />
 
     </FrameLayout>
@@ -94,17 +94,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="@dimen/spacing_medium">
 
-        <!-- Primary Action: Explicit Low-Effort Exit (EX-01) -->
+        <!-- Primary Action: Explicit Low-Effort Exit -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnStepBack"
-            style="@style/Widget.Material3.Button"
+            style="@style/Widget.Prottasha.Button.Primary"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:backgroundTint="@color/color_vote_emerald"
-            android:text="Step back to my ideal self (+1 Vote)"
-            android:textColor="@color/color_text_inverse"
-            android:textSize="@dimen/text_body"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/touch_target_min"
+            android:text="Step back to my ideal self (+1 Vote)" />
 
         <!-- Optional conscious intention proceed (unlocked only after delay) -->
         <com.google.android.material.button.MaterialButton
@@ -113,8 +110,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_xsmall"
+            android:fontFamily="@font/ibm_plex_sans_medium"
+            android:minHeight="@dimen/touch_target_min"
             android:text="I need to use this app with intention (locked)"
-            android:textColor="@color/color_text_tertiary"
+            android:textColor="@color/color_text_secondary"
             android:enabled="false" />
 
     </LinearLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_background">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,32 +14,26 @@
 
         <!-- Header -->
         <TextView
+            style="@style/TextAppearance.Prottasha.Display"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/accountability_title"
-            android:textColor="@color/color_text_primary"
-            android:textSize="@dimen/text_display"
-            android:textStyle="bold" />
+            android:text="@string/accountability_title" />
 
         <TextView
+            style="@style/TextAppearance.Prottasha.Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/spacing_xxsmall"
             android:text="Designate a trusted personal ally and share your honest daily recovery commitments."
-            android:textColor="@color/color_text_secondary"
-            android:textSize="14sp" />
+            android:textColor="@color/color_text_secondary" />
 
         <!-- Current Partner Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/accountability_current_partner_card"
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
-            app:cardBackgroundColor="@color/color_surface"
-            app:strokeColor="@color/color_border"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:cardElevation="0dp">
+            android:layout_marginTop="@dimen/spacing_medium">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -49,30 +43,27 @@
 
                 <TextView
                     android:id="@+id/accountability_partner_header"
+                    style="@style/TextAppearance.Prottasha.Label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Active Partner"
-                    android:textColor="@color/color_hope"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/color_hope" />
 
                 <TextView
                     android:id="@+id/accountability_partner_details"
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/spacing_xxsmall"
                     tools:text="Rahim (+8801712345678)" />
 
                 <TextView
                     android:id="@+id/accountability_partner_status"
+                    style="@style/TextAppearance.Prottasha.Label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:textColor="@color/color_text_muted"
-                    android:textSize="12sp"
                     tools:text="Connected on 2026-11-10" />
 
                 <com.google.android.material.button.MaterialButton
@@ -81,6 +72,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
+                    android:fontFamily="@font/ibm_plex_sans_medium"
+                    android:minHeight="@dimen/touch_target_min"
                     android:text="Revoke Partner"
                     android:textColor="@color/color_crisis"
                     android:paddingStart="0dp"
@@ -91,14 +84,10 @@
 
         <!-- Partner Setup Card -->
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            app:cardBackgroundColor="@color/color_surface"
-            app:strokeColor="@color/color_border"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:cardElevation="0dp">
+            android:layout_marginTop="@dimen/spacing_medium">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -107,14 +96,13 @@
                 android:padding="@dimen/spacing_medium">
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Set or Update Partner"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:text="Set or Update Partner" />
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Prottasha.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
@@ -129,6 +117,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Prottasha.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
@@ -150,19 +139,21 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/accountability_pick"
-                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        style="@style/Widget.Prottasha.Button.Secondary"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginEnd="@dimen/spacing_small"
+                        android:minHeight="@dimen/touch_target_min"
                         android:text="@string/accountability_pick" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/accountability_save_button"
-                        style="@style/Widget.Prottasha.Button.Pill"
+                        style="@style/Widget.Prottasha.Button.Primary"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:minHeight="@dimen/touch_target_min"
                         android:text="Save Partner" />
                 </LinearLayout>
 
@@ -171,14 +162,10 @@
 
         <!-- Share Preview Card -->
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            app:cardBackgroundColor="@color/color_surface"
-            app:strokeColor="@color/color_border"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:cardElevation="0dp">
+            android:layout_marginTop="@dimen/spacing_medium">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -187,20 +174,18 @@
                 android:padding="@dimen/spacing_medium">
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Exact Share Preview"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:text="Exact Share Preview" />
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="@dimen/spacing_xxsmall"
                     android:text="This is the exact note that will be sent. You can edit it before sharing."
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="12sp" />
+                    android:textColor="@color/color_text_secondary" />
 
                 <EditText
                     android:id="@+id/accountability_preview"
@@ -211,6 +196,7 @@
                     android:hint="@string/accountability_hint"
                     android:inputType="textCapSentences|textMultiLine"
                     android:padding="@dimen/spacing_medium"
+                    android:fontFamily="@font/ibm_plex_sans_regular"
                     android:textColor="@color/color_text_primary"
                     android:textColorHint="@color/color_text_muted"
                     android:textSize="14sp"
@@ -219,10 +205,11 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/accountability_share"
-                    style="@style/Widget.Prottasha.Button.Pill"
+                    style="@style/Widget.Prottasha.Button.Primary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_medium"
+                    android:minHeight="@dimen/touch_target_min"
                     android:text="@string/accountability_share" />
 
             </LinearLayout>
@@ -230,15 +217,11 @@
 
         <!-- Privacy & Visibility Disclosure Card -->
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
-            android:layout_marginBottom="@dimen/spacing_large"
-            app:cardBackgroundColor="@color/color_surface_raised"
-            app:strokeColor="@color/color_border"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:cardElevation="0dp">
+            android:layout_marginBottom="@dimen/spacing_large">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -247,17 +230,16 @@
                 android:padding="@dimen/spacing_medium">
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="What Circle and Partner Can See"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:text="What Circle and Partner Can See" />
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="@dimen/spacing_xsmall"
                     android:text="• Circle Pod Members: See only your pseudonym, chat messages, and live online presence in the closed pod.\n\n• Accountability Partner: Sees ONLY the notes and messages you explicitly share with them. They have no access to your app.\n\n• Strictly Private: Your journal reflections, private photos, usage statistics, and passwords remain encrypted on this device."
                     android:textColor="@color/color_text_secondary"
                     android:textSize="13sp"

@@ -15,25 +15,27 @@
 
         <TextView
             android:id="@+id/trigger_cue_text"
+            style="@style/TextAppearance.Prottasha.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/color_friction"
-            android:textSize="@dimen/text_caption"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/trigger_plan_text"
+            style="@style/TextAppearance.Prottasha.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:textColor="@color/color_text_primary"
-            android:textSize="@dimen/text_body" />
+            android:textColor="@color/color_text_primary" />
     </LinearLayout>
 
     <ImageButton
         android:id="@+id/trigger_delete_button"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/touch_target_min"
+        android:layout_height="@dimen/touch_target_min"
+        android:minWidth="@dimen/touch_target_min"
+        android:minHeight="@dimen/touch_target_min"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="Delete trigger plan"
         android:src="@android:drawable/ic_menu_delete"

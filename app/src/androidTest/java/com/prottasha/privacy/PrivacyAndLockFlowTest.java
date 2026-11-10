@@ -199,7 +199,15 @@ public final class PrivacyAndLockFlowTest {
                 ViewParent parent = view.getParent();
                 while (parent != null) {
                     if (parent instanceof NestedScrollView) {
-                        ((NestedScrollView) parent).scrollTo(0, view.getTop());
+                        NestedScrollView nsv = (NestedScrollView) parent;
+                        int top = 0;
+                        View curr = view;
+                        while (curr != null && curr != nsv) {
+                            top += curr.getTop();
+                            ViewParent p = curr.getParent();
+                            curr = (p instanceof View) ? (View) p : null;
+                        }
+                        nsv.scrollTo(0, top);
                         uiController.loopMainThreadUntilIdle();
                         return;
                     }

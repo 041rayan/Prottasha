@@ -3,32 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_background">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_large">
+        android:padding="@dimen/spacing_medium">
 
         <TextView
+            style="@style/TextAppearance.Prottasha.Display"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/reflection_title"
-            android:textColor="@color/color_text_primary"
-            android:textSize="@dimen/text_headline"
-            android:textStyle="bold" />
+            android:text="@string/reflection_title" />
 
         <TextView
+            style="@style/TextAppearance.Prottasha.Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_xxsmall"
             android:text="Separate facts from interpretations, then identify the constructive lesson."
-            android:textColor="@color/color_text_secondary"
-            android:textSize="@dimen/text_caption" />
+            android:textColor="@color/color_text_secondary" />
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/Widget.Prottasha.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
@@ -44,7 +42,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/Widget.Prottasha.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
@@ -60,7 +58,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/Widget.Prottasha.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
@@ -96,25 +94,29 @@
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:minHeight="@dimen/touch_target_min"
                 android:text="Remove Image"
                 android:textColor="@color/color_crisis" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/reflection_attach_image"
-            style="@style/Widget.Material3.Button.OutlinedButton"
+            style="@style/Widget.Prottasha.Button.Secondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
+            android:minHeight="@dimen/touch_target_min"
             android:text="Attach Private Image"
             android:textColor="@color/color_text_secondary" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/reflection_save"
-            style="@style/Widget.Prottasha.Button.Pill"
+            style="@style/Widget.Prottasha.Button.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_large"
+            android:minHeight="@dimen/touch_target_min"
             android:text="@string/reflection_save" />
 
         <com.google.android.material.button.MaterialButton
@@ -123,6 +125,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:fontFamily="@font/ibm_plex_sans_medium"
+            android:minHeight="@dimen/touch_target_min"
             android:text="Delete Reflection"
             android:textColor="@color/color_crisis"
             android:visibility="gone" />

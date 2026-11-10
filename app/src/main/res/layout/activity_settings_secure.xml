@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_background">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,31 +12,26 @@
         android:padding="@dimen/spacing_medium">
 
         <TextView
+            style="@style/TextAppearance.Prottasha.Display"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/settings_title"
-            android:textColor="@color/color_text_primary"
-            android:textSize="@dimen/text_display"
-            android:textStyle="bold" />
+            android:text="@string/settings_title" />
 
         <TextView
+            style="@style/TextAppearance.Prottasha.Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/spacing_xxsmall"
             android:layout_marginBottom="@dimen/spacing_medium"
             android:text="Account identity, privacy lock, and guard boundaries"
-            android:textColor="@color/color_text_secondary"
-            android:textSize="@dimen/text_body" />
+            android:textColor="@color/color_text_secondary" />
 
+        <!-- Account & Security Section -->
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_medium"
-            app:cardBackgroundColor="@color/color_surface"
-            app:strokeColor="@color/color_border"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:cardElevation="0dp">
+            android:layout_marginBottom="@dimen/spacing_medium">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,6 +46,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/touch_target_min"
                     android:gravity="center_vertical|start"
+                    android:fontFamily="@font/ibm_plex_sans_medium"
                     android:text="@string/settings_profile"
                     android:textColor="@color/color_text_primary" />
 
@@ -66,6 +62,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/touch_target_min"
                     android:gravity="center_vertical|start"
+                    android:fontFamily="@font/ibm_plex_sans_medium"
                     android:text="@string/settings_account"
                     android:textColor="@color/color_text_primary" />
 
@@ -81,21 +78,19 @@
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/touch_target_min"
                     android:gravity="center_vertical|start"
+                    android:fontFamily="@font/ibm_plex_sans_medium"
                     android:text="@string/settings_privacy"
                     android:textColor="@color/color_text_primary" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Guard & Methodology Section -->
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_medium"
-            app:cardBackgroundColor="@color/color_surface"
-            app:strokeColor="@color/color_border"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:cardElevation="0dp">
+            android:layout_marginBottom="@dimen/spacing_medium">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,6 +105,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/touch_target_min"
                     android:gravity="center_vertical|start"
+                    android:fontFamily="@font/ibm_plex_sans_medium"
                     android:text="@string/settings_guard_permission"
                     android:textColor="@color/color_text_primary" />
 
@@ -125,6 +121,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/touch_target_min"
                     android:gravity="center_vertical|start"
+                    android:fontFamily="@font/ibm_plex_sans_medium"
                     android:text="@string/settings_focus"
                     android:textColor="@color/color_text_primary" />
 
@@ -140,6 +137,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/touch_target_min"
                     android:gravity="center_vertical|start"
+                    android:fontFamily="@font/ibm_plex_sans_medium"
                     android:text="@string/settings_methodology"
                     android:textColor="@color/color_text_primary" />
 

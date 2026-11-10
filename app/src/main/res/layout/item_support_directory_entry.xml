@@ -2,14 +2,10 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Prottasha.Surface.Tonal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/spacing_medium"
-    app:cardBackgroundColor="@color/color_surface"
-    app:strokeColor="@color/color_border"
-    app:strokeWidth="1dp"
-    app:cardCornerRadius="@dimen/card_corner_radius"
-    app:cardElevation="0dp">
+    android:layout_marginBottom="@dimen/spacing_medium">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,12 +22,10 @@
 
             <TextView
                 android:id="@+id/support_entry_name"
+                style="@style/TextAppearance.Prottasha.Title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="@color/color_text_primary"
-                android:textSize="16sp"
-                android:textStyle="bold"
                 tools:text="National Mental Health Helpline" />
 
             <TextView
@@ -44,9 +38,9 @@
                 android:paddingEnd="8dp"
                 android:paddingTop="2dp"
                 android:paddingBottom="2dp"
+                android:fontFamily="@font/ibm_plex_sans_semibold"
                 android:textColor="@color/color_hope"
                 android:textSize="11sp"
-                android:textStyle="bold"
                 tools:text="VERIFIED" />
 
         </LinearLayout>
@@ -54,16 +48,17 @@
         <!-- Hours -->
         <TextView
             android:id="@+id/support_entry_hours"
+            style="@style/TextAppearance.Prottasha.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textColor="@color/color_friction"
-            android:textSize="13sp"
             tools:text="Hours: 24 hours" />
 
         <!-- Source & Date -->
         <TextView
             android:id="@+id/support_entry_source"
+            style="@style/TextAppearance.Prottasha.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -80,18 +75,20 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/support_entry_dial_button"
-                style="@style/Widget.Prottasha.Button.Pill"
+                style="@style/Widget.Prottasha.Button.Primary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="@dimen/spacing_small"
+                android:minHeight="@dimen/touch_target_min"
                 tools:text="Call 999" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/support_entry_web_button"
-                style="@style/Widget.Material3.Button.OutlinedButton"
+                style="@style/Widget.Prottasha.Button.Secondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target_min"
                 android:text="Official Site"
                 android:textColor="@color/color_identity"
                 android:visibility="gone"

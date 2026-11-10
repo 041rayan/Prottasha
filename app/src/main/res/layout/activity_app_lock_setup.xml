@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_background">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,31 +14,25 @@
 
         <!-- Title -->
         <TextView
+            style="@style/TextAppearance.Prottasha.Display"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="App Privacy Lock"
-            android:textColor="@color/color_text_primary"
-            android:textSize="@dimen/text_display"
-            android:textStyle="bold" />
+            android:text="App Privacy Lock" />
 
         <TextView
+            style="@style/TextAppearance.Prottasha.Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/spacing_xxsmall"
             android:text="Protect your recovery logs, reflections, and habits with biometric authentication or a custom PIN."
-            android:textColor="@color/color_text_secondary"
-            android:textSize="14sp" />
+            android:textColor="@color/color_text_secondary" />
 
         <!-- Master Lock Toggle Card -->
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
-            app:cardBackgroundColor="@color/color_surface"
-            app:strokeColor="@color/color_border"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:cardElevation="0dp">
+            android:layout_marginTop="@dimen/spacing_medium">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,20 +48,18 @@
                     android:orientation="vertical">
 
                     <TextView
+                        style="@style/TextAppearance.Prottasha.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Enable App Lock"
-                        android:textColor="@color/color_text_primary"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:text="Enable App Lock" />
 
                     <TextView
+                        style="@style/TextAppearance.Prottasha.Label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="@dimen/spacing_xxsmall"
                         android:text="Require PIN or fingerprint to open Prottasha"
-                        android:textColor="@color/color_text_secondary"
-                        android:textSize="12sp" />
+                        android:textColor="@color/color_text_secondary" />
                 </LinearLayout>
 
                 <com.google.android.material.materialswitch.MaterialSwitch
@@ -81,14 +73,10 @@
         <!-- PIN Settings Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/app_lock_pin_card"
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            app:cardBackgroundColor="@color/color_surface"
-            app:strokeColor="@color/color_border"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:cardElevation="0dp">
+            android:layout_marginTop="@dimen/spacing_medium">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,24 +86,23 @@
 
                 <TextView
                     android:id="@+id/app_lock_pin_title"
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Security PIN"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:text="Security PIN" />
 
                 <TextView
                     android:id="@+id/app_lock_pin_status"
+                    style="@style/TextAppearance.Prottasha.Label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="@dimen/spacing_xxsmall"
                     android:text="PIN is configured"
-                    android:textColor="@color/color_text_muted"
-                    android:textSize="12sp" />
+                    android:textColor="@color/color_text_muted" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/app_lock_new_pin_layout"
+                    style="@style/Widget.Prottasha.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
@@ -125,6 +112,7 @@
                         android:id="@+id/app_lock_new_pin_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/ibm_plex_mono_medium"
                         android:inputType="numberPassword"
                         android:maxLength="6"
                         android:textColor="@color/color_text_primary" />
@@ -132,6 +120,7 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/app_lock_confirm_pin_layout"
+                    style="@style/Widget.Prottasha.TextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
@@ -141,6 +130,7 @@
                         android:id="@+id/app_lock_confirm_pin_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/ibm_plex_mono_medium"
                         android:inputType="numberPassword"
                         android:maxLength="6"
                         android:textColor="@color/color_text_primary" />
@@ -148,10 +138,11 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/app_lock_save_pin_button"
-                    style="@style/Widget.Prottasha.Button.Pill"
+                    style="@style/Widget.Prottasha.Button.Primary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_medium"
+                    android:minHeight="@dimen/touch_target_min"
                     android:text="Update PIN" />
 
             </LinearLayout>
@@ -160,14 +151,10 @@
         <!-- Biometric Toggle Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/app_lock_biometric_card"
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            app:cardBackgroundColor="@color/color_surface"
-            app:strokeColor="@color/color_border"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:cardElevation="0dp">
+            android:layout_marginTop="@dimen/spacing_medium">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -183,20 +170,18 @@
                     android:orientation="vertical">
 
                     <TextView
+                        style="@style/TextAppearance.Prottasha.Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Biometric Unlock"
-                        android:textColor="@color/color_text_primary"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:text="Biometric Unlock" />
 
                     <TextView
+                        style="@style/TextAppearance.Prottasha.Label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="@dimen/spacing_xxsmall"
                         android:text="Use fingerprint or face recognition"
-                        android:textColor="@color/color_text_secondary"
-                        android:textSize="12sp" />
+                        android:textColor="@color/color_text_secondary" />
                 </LinearLayout>
 
                 <com.google.android.material.materialswitch.MaterialSwitch
@@ -210,14 +195,11 @@
         <!-- Lock Timeout Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/app_lock_timeout_card"
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
-            app:cardBackgroundColor="@color/color_surface"
-            app:strokeColor="@color/color_border"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:cardElevation="0dp">
+            android:layout_marginBottom="@dimen/spacing_large">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -226,20 +208,18 @@
                 android:padding="@dimen/spacing_medium">
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Lock Timeout"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:text="Lock Timeout" />
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="@dimen/spacing_xxsmall"
                     android:text="Lock automatically when leaving app"
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="12sp" />
+                    android:textColor="@color/color_text_secondary" />
 
                 <RadioGroup
                     android:id="@+id/app_lock_timeout_group"
@@ -251,6 +231,7 @@
                         android:id="@+id/radio_timeout_immediate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/ibm_plex_sans_medium"
                         android:text="Immediately"
                         android:textColor="@color/color_text_primary" />
 
@@ -258,6 +239,7 @@
                         android:id="@+id/radio_timeout_30s"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/ibm_plex_sans_medium"
                         android:text="After 30 seconds"
                         android:textColor="@color/color_text_primary" />
 
@@ -265,6 +247,7 @@
                         android:id="@+id/radio_timeout_1m"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/ibm_plex_sans_medium"
                         android:text="After 1 minute"
                         android:textColor="@color/color_text_primary" />
 
@@ -272,6 +255,7 @@
                         android:id="@+id/radio_timeout_5m"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/ibm_plex_sans_medium"
                         android:text="After 5 minutes"
                         android:textColor="@color/color_text_primary" />
                 </RadioGroup>

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_bg_primary">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,28 +13,26 @@
         android:padding="@dimen/spacing_medium">
 
         <TextView
+            style="@style/TextAppearance.Prottasha.Display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="If-Then Implementation Plan"
-            android:textColor="@color/color_text_primary"
-            android:textSize="@dimen/text_headline"
-            android:textStyle="bold" />
+            android:text="If-Then Implementation Plan" />
 
         <TextView
             android:id="@+id/tvTriggerIdLabel"
+            style="@style/TextAppearance.Prottasha.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_xxsmall"
             android:text="Trigger Plan ID: #"
-            android:textColor="@color/color_identity_glow"
-            android:textSize="@dimen/text_caption" />
+            android:textColor="@color/color_identity_glow" />
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Prottasha.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
-            android:hint="Situation / High-Risk Cue"
-            app:boxStrokeColor="@color/color_identity_glow">
+            android:hint="Situation / High-Risk Cue">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSituation"
@@ -45,11 +43,11 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Prottasha.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_small"
-            android:hint="Underlying Motive (e.g. Stress relief)"
-            app:boxStrokeColor="@color/color_identity_glow">
+            android:hint="Underlying Motive (e.g. Stress relief)">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etMotive"
@@ -60,11 +58,11 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Prottasha.TextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_small"
-            android:hint="If-Then Pre-Commitment Rule"
-            app:boxStrokeColor="@color/color_identity_glow">
+            android:hint="If-Then Pre-Commitment Rule">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etIfThenRule"
@@ -82,11 +80,11 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSaveTrigger"
-                style="@style/Widget.Material3.Button"
+                style="@style/Widget.Prottasha.Button.Primary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/color_identity_glow"
+                android:minHeight="@dimen/touch_target_min"
                 android:text="Save Plan" />
 
             <com.google.android.material.button.MaterialButton
@@ -95,8 +93,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_small"
+                android:fontFamily="@font/ibm_plex_sans_medium"
+                android:minHeight="@dimen/touch_target_min"
                 android:text="Delete"
-                android:textColor="@color/color_crisis_coral" />
+                android:textColor="@color/color_crisis" />
 
         </LinearLayout>
 

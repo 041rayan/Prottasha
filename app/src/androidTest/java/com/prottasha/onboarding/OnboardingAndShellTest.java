@@ -30,6 +30,10 @@ import com.prottasha.R;
 import com.prottasha.auth.domain.SessionUser;
 import com.prottasha.data.local.user.UserDatabase;
 import com.prottasha.guard.data.GuardRuleEntity;
+import com.prottasha.habits.data.HabitDayAggregateEntity;
+import com.prottasha.habits.data.HabitEntity;
+import com.prottasha.habits.domain.HabitModels;
+import com.prottasha.habits.domain.HabitSchedule;
 import com.prottasha.identity.data.IdentityEntity;
 import com.prottasha.identity.data.SuccessMemoryEntity;
 import com.prottasha.intervention.data.InterventionEventEntity;
@@ -41,6 +45,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.time.LocalDate;
 import java.util.UUID;
 import java.util.concurrent.FutureTask;
 
@@ -216,6 +221,21 @@ public final class OnboardingAndShellTest {
                     0L, "com.example.distraction", "Distraction", "PAUSE", 0, 0, 0, true));
             db.interventionDao().insert(new InterventionEventEntity(
                     0L, "com.example.distraction", "STEP_BACK", System.currentTimeMillis(), ""));
+            long today = LocalDate.now().toEpochDay();
+            long habitId = db.habitDao().insert(new HabitEntity(
+                    0L,
+                    "Read one page",
+                    HabitModels.Type.BUILD.name(),
+                    1,
+                    HabitSchedule.Frequency.DAILY.name(),
+                    today,
+                    1,
+                    0,
+                    false,
+                    0,
+                    System.currentTimeMillis()));
+            db.habitDao().upsertAggregate(new HabitDayAggregateEntity(
+                    habitId, today, 1, true, false, System.currentTimeMillis()));
             return null;
         });
 
@@ -228,10 +248,16 @@ public final class OnboardingAndShellTest {
             onView(withId(R.id.today_success_memory))
                     .check(matches(isDisplayed()));
             onView(withId(R.id.today_boundaries_count))
-                    .check(matches(withText("1 app boundaries guarded")));
+                    .check(matches(withText("1 active boundary")));
             waitForView(withId(R.id.today_hope_horizon_content), 5000);
             onView(withId(R.id.today_hope_horizon_summary))
                     .check(matches(withText("100% mindful exits")));
+            onView(withId(R.id.today_consistency_active_days)).perform(scrollToInNested())
+                    .check(matches(withText("1")));
+            onView(withId(R.id.today_consistency_best_run))
+                    .check(matches(withText("1")));
+            onView(withId(R.id.today_consistency_percent))
+                    .check(matches(withText("100%")));
         }
     }
 

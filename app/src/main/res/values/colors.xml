@@ -17,6 +17,12 @@
     <color name="color_on_identity">#07090D</color>
     <color name="color_identity_subtle">#1F8B91FF</color>
 
+    <!-- Habit consistency intensity; meaning is repeated in visible/TalkBack summaries. -->
+    <color name="color_consistency_level_1">#22382F</color>
+    <color name="color_consistency_level_2">#2B6953</color>
+    <color name="color_consistency_level_3">#369D78</color>
+    <color name="color_consistency_level_4">@color/color_hope</color>
+
     <color name="color_friction">#F0BD66</color>
     <color name="color_on_friction">#07090D</color>
     <color name="color_friction_subtle">#1FF0BD66</color>

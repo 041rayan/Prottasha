@@ -5,28 +5,33 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.button.MaterialButton;
 import com.prottasha.ProttashaApp;
 import com.prottasha.R;
+import com.prottasha.auth.domain.SessionUser;
 import com.prottasha.databinding.FragmentTodayBinding;
+import com.prottasha.databinding.ItemTodayHabitBinding;
 import com.prottasha.focus.ui.FocusActivity;
 import com.prottasha.guard.data.GuardRuleEntity;
 import com.prottasha.habits.domain.HabitAction;
 import com.prottasha.habits.domain.HabitModels;
+import com.prottasha.habits.domain.HabitSchedule;
+import com.prottasha.habits.ui.HabitConsistencyGridState;
 import com.prottasha.identity.data.IdentityEntity;
 import com.prottasha.intervention.platform.AccessibilityServiceHealth;
 import com.prottasha.intervention.ui.AccessibilityDisclosureActivity;
+import com.prottasha.settings.account.ProfileActivity;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public final class TodayFragment extends Fragment {
@@ -50,8 +55,12 @@ public final class TodayFragment extends Fragment {
         viewModel = new ViewModelProvider(this, new TodayViewModel.Factory(
                 application.appGraph())).get(TodayViewModel.class);
 
+        bindHeader(application);
+
         binding.todayFocusButton.setOnClickListener(ignored ->
                 startActivity(new Intent(requireContext(), FocusActivity.class)));
+        binding.todayAvatar.setOnClickListener(ignored ->
+                startActivity(new Intent(requireContext(), ProfileActivity.class)));
 
         View.OnClickListener openDisclosure = ignored ->
                 startActivity(new Intent(requireContext(), AccessibilityDisclosureActivity.class));
@@ -62,14 +71,15 @@ public final class TodayFragment extends Fragment {
         viewModel.activeIdentity().observe(getViewLifecycleOwner(), this::bindIdentity);
         viewModel.latestSuccessMemory().observe(getViewLifecycleOwner(), memory -> {
             if (memory != null && memory.text != null && !memory.text.trim().isEmpty()) {
-                binding.todaySuccessMemory.setText(
-                        getString(R.string.onboarding_success_memory_hint) + ": " + memory.text);
+                binding.todaySuccessMemory.setText(getString(
+                        R.string.today_success_memory_format, memory.text));
                 binding.todaySuccessMemory.setVisibility(View.VISIBLE);
             } else {
                 binding.todaySuccessMemory.setVisibility(View.GONE);
             }
         });
         viewModel.hopeHorizon().observe(getViewLifecycleOwner(), this::bindHopeHorizon);
+        viewModel.consistency().observe(getViewLifecycleOwner(), this::bindConsistency);
         viewModel.dueHabits().observe(getViewLifecycleOwner(), this::bindHabits);
         viewModel.activeRules().observe(getViewLifecycleOwner(), this::bindBoundaries);
     }
@@ -95,8 +105,8 @@ public final class TodayFragment extends Fragment {
             binding.todayHealthTitle.setText(R.string.today_health_title);
             binding.todayHealthBody.setText(R.string.today_health_body);
         } else if (state == AccessibilityServiceHealth.State.BATTERY_RISK) {
-            binding.todayHealthTitle.setText("Battery Optimization Alert");
-            binding.todayHealthBody.setText("Battery restrictions may pause intervention service.");
+            binding.todayHealthTitle.setText(R.string.today_health_battery_title);
+            binding.todayHealthBody.setText(R.string.today_health_battery_body);
         }
     }
 
@@ -127,11 +137,23 @@ public final class TodayFragment extends Fragment {
         }
         binding.todayHopeHorizonEmpty.setVisibility(View.GONE);
         binding.todayHopeHorizonContent.setVisibility(View.VISIBLE);
-        binding.todayHopeHorizonSummary.setText(
-                state.mindfulExitPercentage() + "% mindful exits");
-        binding.todayHopeHorizonDetails.setText(
-                state.mindfulExits + " mindful exits · " + state.intentionalContinues
-                        + " intentional continues (" + state.totalPrompts + " total prompts)");
+        binding.todayHopeHorizonSummary.setText(getString(
+                R.string.today_horizon_summary_format, state.mindfulExitPercentage()));
+        binding.todayHopeHorizonDetails.setText(getString(
+                R.string.today_horizon_details_format,
+                state.mindfulExits,
+                state.intentionalContinues,
+                state.totalPrompts));
+    }
+
+    private void bindConsistency(HabitConsistencyGridState state) {
+        if (state == null) return;
+        binding.todayConsistencyHeatmap.setState(state);
+        binding.todayConsistencyActiveDays.setText(String.valueOf(state.activeDays));
+        binding.todayConsistencyBestRun.setText(String.valueOf(state.bestRun));
+        binding.todayConsistencyPercent.setText(getString(
+                R.string.today_percent_format, state.consistencyPercent));
+        binding.todayConsistencyEmpty.setVisibility(state.hasData ? View.GONE : View.VISIBLE);
     }
 
     private void bindHabits(List<HabitModels.HabitTodayItem> items) {
@@ -147,54 +169,41 @@ public final class TodayFragment extends Fragment {
         long epochDay = LocalDate.now().toEpochDay();
         LayoutInflater inflater = LayoutInflater.from(requireContext());
         for (HabitModels.HabitTodayItem item : items) {
-            View itemView = inflater.inflate(android.R.layout.simple_list_item_2,
-                    binding.todayHabitsContainer, false);
-            TextView text1 = itemView.findViewById(android.R.id.text1);
-            TextView text2 = itemView.findViewById(android.R.id.text2);
-
-            String status = item.completed ? "Completed" : (item.lapsed ? "Lapsed" : "Due");
-            text1.setText(item.habit.title + " (" + status + ")");
-
-            StringBuilder subtitle = new StringBuilder();
-            subtitle.append("Target: ").append(item.habit.target).append(" · Current: ").append(item.value);
-            if (item.lapsed) {
-                subtitle.append("\n").append(getString(R.string.today_rebound_prompt));
-            }
-            text2.setText(subtitle.toString());
-
-            MaterialButton actionButton = new MaterialButton(requireContext());
-            actionButton.setMinHeight(getResources().getDimensionPixelSize(R.dimen.touch_target_min));
+            ItemTodayHabitBinding row = ItemTodayHabitBinding.inflate(
+                    inflater, binding.todayHabitsContainer, false);
+            row.todayHabitTitle.setText(item.habit.title);
+            row.todayHabitMeta.setText(getString(
+                    R.string.today_habit_meta_format,
+                    typeLabel(item.habit.type),
+                    scheduleLabel(item.habit.schedule),
+                    habitStatus(item)));
+            row.todayHabitRebound.setVisibility(item.lapsed ? View.VISIBLE : View.GONE);
 
             if (item.habit.type == HabitModels.Type.BUILD) {
-                actionButton.setText(item.completed ? "Done" : "Mark Done");
-                actionButton.setEnabled(!item.completed);
-                actionButton.setOnClickListener(v -> {
-                    actionButton.setEnabled(false);
+                row.todayHabitAction.setText(R.string.today_habit_mark_done);
+                row.todayHabitAction.setEnabled(!item.completed);
+                row.todayHabitAction.setOnClickListener(v -> {
+                    row.todayHabitAction.setEnabled(false);
                     viewModel.recordHabitAction(
                             HabitAction.complete(UUID.randomUUID().toString()).forHabit(item.habit.id, epochDay),
-                            result -> {});
+                            result -> viewModel.refreshConsistency());
                 });
             } else if (item.habit.type == HabitModels.Type.AMOUNT) {
-                actionButton.setText("+1");
-                actionButton.setOnClickListener(v -> {
+                row.todayHabitAction.setText(getString(R.string.today_habit_increment, 1));
+                row.todayHabitAction.setOnClickListener(v -> {
                     viewModel.recordHabitAction(
                             HabitAction.increment(UUID.randomUUID().toString(), 1).forHabit(item.habit.id, epochDay),
-                            result -> {});
+                            result -> viewModel.refreshConsistency());
                 });
             } else {
-                actionButton.setText("Check In");
-                actionButton.setOnClickListener(v -> {
+                row.todayHabitAction.setText(R.string.today_habit_stayed_clear);
+                row.todayHabitAction.setOnClickListener(v -> {
                     viewModel.recordHabitAction(
                             HabitAction.complete(UUID.randomUUID().toString()).forHabit(item.habit.id, epochDay),
-                            result -> {});
+                            result -> viewModel.refreshConsistency());
                 });
             }
-
-            LinearLayout itemWrapper = new LinearLayout(requireContext());
-            itemWrapper.setOrientation(LinearLayout.VERTICAL);
-            itemWrapper.addView(itemView);
-            itemWrapper.addView(actionButton);
-            binding.todayHabitsContainer.addView(itemWrapper);
+            binding.todayHabitsContainer.addView(row.getRoot());
         }
     }
 
@@ -209,14 +218,85 @@ public final class TodayFragment extends Fragment {
         binding.todayBoundariesCount.setVisibility(View.VISIBLE);
         binding.todayBoundariesList.setVisibility(View.VISIBLE);
 
-        binding.todayBoundariesCount.setText(rules.size() + " app boundaries guarded");
+        binding.todayBoundariesCount.setText(getResources().getQuantityString(
+                R.plurals.today_boundary_count, rules.size(), rules.size()));
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < rules.size(); i++) {
+        int visibleRules = Math.min(2, rules.size());
+        for (int i = 0; i < visibleRules; i++) {
             GuardRuleEntity rule = rules.get(i);
-            sb.append("• ").append(rule.target).append(" (").append(rule.mode).append(")");
-            if (i < rules.size() - 1) sb.append("\n");
+            sb.append(getString(R.string.today_boundary_item, rule.target, rule.mode));
+            if (i < visibleRules - 1) sb.append("\n");
+        }
+        if (rules.size() > visibleRules) {
+            if (sb.length() > 0) sb.append("\n");
+            sb.append(getString(R.string.today_boundary_more, rules.size() - visibleRules));
         }
         binding.todayBoundariesList.setText(sb.toString());
+    }
+
+    private void bindHeader(ProttashaApp application) {
+        LocalDate today = LocalDate.now();
+        binding.todayDate.setText(today.format(DateTimeFormatter.ofPattern(
+                "EEEE · d MMMM", Locale.getDefault())));
+
+        SessionUser user = application.appGraph().authRepository().currentState().userOrNull();
+        try {
+            user = application.appGraph().userSessionManager().requireUser();
+        } catch (IllegalStateException ignored) {
+            // Auth state is the safe fallback while session restoration completes.
+        }
+        String displayName = user == null || user.displayNameOrNull() == null
+                || user.displayNameOrNull().trim().isEmpty()
+                ? getString(R.string.today_member_name)
+                : user.displayNameOrNull().trim();
+        String firstName = displayName.split("\\s+")[0];
+        int greeting = LocalTime.now().getHour() < 12
+                ? R.string.today_greeting_morning
+                : LocalTime.now().getHour() < 18
+                ? R.string.today_greeting_afternoon
+                : R.string.today_greeting_evening;
+        binding.todayGreeting.setText(getString(greeting, firstName));
+        binding.todayAvatar.setText(initials(displayName));
+        binding.todayAvatar.setContentDescription(getString(
+                R.string.today_avatar_description, displayName));
+    }
+
+    private String typeLabel(HabitModels.Type type) {
+        switch (type) {
+            case AVOID:
+                return getString(R.string.today_habit_avoid);
+            case AMOUNT:
+                return getString(R.string.today_habit_amount);
+            default:
+                return getString(R.string.today_habit_build);
+        }
+    }
+
+    private String scheduleLabel(HabitSchedule schedule) {
+        switch (schedule.frequency) {
+            case DAILY:
+                return getString(R.string.today_habit_daily);
+            case WEEKDAYS:
+                return getString(R.string.today_habit_weekdays);
+            default:
+                return getString(R.string.today_habit_scheduled);
+        }
+    }
+
+    private String habitStatus(HabitModels.HabitTodayItem item) {
+        if (item.lapsed) return getString(R.string.today_habit_lapsed);
+        if (item.completed) return getString(R.string.today_habit_completed);
+        return getString(R.string.today_habit_due);
+    }
+
+    private static String initials(String displayName) {
+        String[] parts = displayName.trim().split("\\s+");
+        if (parts.length == 1) {
+            return parts[0].substring(0, Math.min(2, parts[0].length()))
+                    .toUpperCase(Locale.getDefault());
+        }
+        return (parts[0].substring(0, 1) + parts[parts.length - 1].substring(0, 1))
+                .toUpperCase(Locale.getDefault());
     }
 
     @Override

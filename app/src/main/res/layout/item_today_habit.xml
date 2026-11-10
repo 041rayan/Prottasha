@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_row_selector"
+    android:gravity="center_vertical"
+    android:minHeight="64dp"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/spacing_compact"
+    android:paddingBottom="@dimen/spacing_compact">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/spacing_small">
+
+        <TextView
+            android:id="@+id/today_habit_title"
+            style="@style/TextAppearance.Prottasha.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:breakStrategy="balanced"
+            android:maxLines="3" />
+
+        <TextView
+            android:id="@+id/today_habit_meta"
+            style="@style/TextAppearance.Prottasha.Metric"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xsmall"
+            android:maxLines="3" />
+
+        <TextView
+            android:id="@+id/today_habit_rebound"
+            style="@style/TextAppearance.Prottasha.Metric"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xsmall"
+            android:text="@string/today_rebound_prompt"
+            android:textColor="@color/color_friction"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/today_habit_action"
+        style="@style/Widget.Prottasha.Button.Secondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/touch_target_min" />
+</LinearLayout>

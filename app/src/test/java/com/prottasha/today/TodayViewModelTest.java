@@ -60,6 +60,8 @@ public final class TodayViewModelTest {
         assertNotNull(vm.latestSuccessMemory());
         assertNotNull(vm.hopeHorizon());
         assertNotNull(vm.serviceHealth());
+        assertNotNull(vm.consistency());
+        assertFalse(vm.consistency().getValue().hasData);
         assertEquals(AccessibilityServiceHealth.State.HEALTHY, vm.serviceHealth().getValue());
 
         IdentityEntity identity = new IdentityEntity(1L, "Focused", "Purpose", 100L, true);

@@ -14,9 +14,13 @@ import com.prottasha.data.local.user.UserDatabase;
 import com.prottasha.data.local.user.UserSessionDatabaseProvider;
 import com.prottasha.guard.data.GuardRuleEntity;
 import com.prottasha.guard.data.GuardRuleRepository;
+import com.prottasha.habits.data.HabitDayAggregateEntity;
+import com.prottasha.habits.data.HabitEntity;
 import com.prottasha.habits.data.HabitRepository;
 import com.prottasha.habits.domain.HabitAction;
 import com.prottasha.habits.domain.HabitModels;
+import com.prottasha.habits.ui.HabitConsistencyGridBuilder;
+import com.prottasha.habits.ui.HabitConsistencyGridState;
 import com.prottasha.identity.data.IdentityEntity;
 import com.prottasha.identity.data.IdentityRepository;
 import com.prottasha.identity.data.SuccessMemoryEntity;
@@ -30,6 +34,8 @@ import java.util.concurrent.Executor;
 
 public final class TodayViewModel extends ViewModel {
 
+    private static final int CONSISTENCY_WEEKS = 12;
+
     private final IdentityRepository identityRepository;
     private final HabitRepository habitRepository;
     private final GuardRuleRepository guardRuleRepository;
@@ -41,6 +47,12 @@ public final class TodayViewModel extends ViewModel {
             new MutableLiveData<>(AccessibilityServiceHealth.State.HEALTHY);
     private final MutableLiveData<HopeHorizonState> hopeHorizon =
             new MutableLiveData<>(new HopeHorizonState(0, 0, 0));
+    private final MutableLiveData<HabitConsistencyGridState> consistency =
+            new MutableLiveData<>(HabitConsistencyGridBuilder.build(
+                    Collections.emptyList(),
+                    Collections.emptyList(),
+                    LocalDate.now(),
+                    CONSISTENCY_WEEKS));
 
     @VisibleForTesting
     public TodayViewModel(
@@ -93,9 +105,14 @@ public final class TodayViewModel extends ViewModel {
         return hopeHorizon;
     }
 
+    public LiveData<HabitConsistencyGridState> consistency() {
+        return consistency;
+    }
+
     public void refresh() {
         refreshHealth();
         refreshHopeHorizon();
+        refreshConsistency();
     }
 
     public void refreshHealth() {
@@ -135,6 +152,27 @@ public final class TodayViewModel extends ViewModel {
                 hopeHorizon.postValue(new HopeHorizonState(prompts, mindfulExits, intentionalContinues));
             } catch (Exception ignored) {
                 // User database might not be initialized or currently switching
+            }
+        });
+    }
+
+    public void refreshConsistency() {
+        if (databaseProvider == null || diskExecutor == null) return;
+        diskExecutor.execute(() -> {
+            try {
+                UserDatabase db = databaseProvider.requireOpen();
+                List<HabitEntity> habits = db.habitDao().listActive();
+                LocalDate today = LocalDate.now();
+                long fromDay = today.minusWeeks(CONSISTENCY_WEEKS).toEpochDay();
+                for (HabitEntity habit : habits) {
+                    fromDay = Math.min(fromDay, habit.startEpochDay);
+                }
+                List<HabitDayAggregateEntity> aggregates = db.habitDao()
+                        .listAllAggregatesBetween(fromDay, today.toEpochDay());
+                consistency.postValue(HabitConsistencyGridBuilder.build(
+                        habits, aggregates, today, CONSISTENCY_WEEKS));
+            } catch (Exception ignored) {
+                // User database might not be initialized or currently switching.
             }
         });
     }

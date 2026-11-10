@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="habits_title">Habits</string>
+    <string name="habits_subtitle">Consistent small actions compound over time.</string>
     <string name="habits_add">Add a real habit</string>
     <string name="habits_empty">No habits yet. Create Build, Avoid, or Amount tracking without sample progress.</string>
     <string name="habit_edit_title">New habit</string>

@@ -2,21 +2,18 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/guard_rule_card"
+    style="@style/Widget.Prottasha.Surface.Tonal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
+    android:layout_marginBottom="@dimen/spacing_medium"
     android:clickable="true"
-    android:focusable="true"
-    app:cardBackgroundColor="@color/color_surface_raised"
-    app:cardCornerRadius="12dp"
-    app:strokeColor="@color/color_border"
-    app:strokeWidth="1dp">
+    android:focusable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/spacing_medium">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,18 +29,17 @@
 
                 <TextView
                     android:id="@+id/guard_rule_item_label"
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/guard_rule_item_target"
+                    style="@style/TextAppearance.Prottasha.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/color_text_muted"
-                    android:textSize="13sp" />
+                    android:layout_marginTop="@dimen/spacing_xxsmall"
+                    android:textColor="@color/color_text_secondary" />
             </LinearLayout>
 
             <com.google.android.material.materialswitch.MaterialSwitch
@@ -56,38 +52,35 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/spacing_small"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/guard_rule_item_mode_badge"
+                style="@style/TextAppearance.Prottasha.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="8dp"
-                android:paddingTop="4dp"
-                android:paddingEnd="8dp"
-                android:paddingBottom="4dp"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:paddingHorizontal="@dimen/spacing_small"
+                android:paddingVertical="@dimen/spacing_xxsmall" />
 
             <TextView
                 android:id="@+id/guard_rule_item_schedule"
+                style="@style/TextAppearance.Prottasha.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/spacing_small"
                 android:textColor="@color/color_text_secondary"
-                android:textSize="12sp"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/guard_rule_item_protected"
+                style="@style/TextAppearance.Prottasha.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/spacing_small"
                 android:text="Protected"
                 android:textColor="@color/color_identity"
-                android:textSize="12sp"
                 android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>

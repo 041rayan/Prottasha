@@ -8,7 +8,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/app_picker_add_website_button"
-        style="@style/Widget.Material3.Button.OutlinedButton"
+        style="@style/Widget.Prottasha.Button.Secondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/spacing_medium"
@@ -31,12 +31,12 @@
 
     <TextView
         android:id="@+id/app_picker_empty"
+        style="@style/TextAppearance.Prottasha.Body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_medium"
         android:text="No apps found."
         android:textColor="@color/color_text_muted"
-        android:textSize="14sp"
         android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView

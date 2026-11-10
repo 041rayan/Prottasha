@@ -9,35 +9,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_medium">
+        android:paddingHorizontal="@dimen/spacing_medium"
+        android:paddingTop="@dimen/spacing_large"
+        android:paddingBottom="@dimen/spacing_xlarge">
 
         <!-- Title & Header -->
         <TextView
+            style="@style/TextAppearance.Prottasha.Display"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/guard_title"
-            android:textColor="@color/color_text_primary"
-            android:textSize="@dimen/text_display"
-            android:textStyle="bold" />
+            android:text="@string/guard_title" />
 
         <TextView
+            style="@style/TextAppearance.Prottasha.Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_xsmall"
             android:text="@string/guard_body"
-            android:textColor="@color/color_text_secondary"
-            android:textSize="@dimen/text_body" />
+            android:textColor="@color/color_text_secondary" />
 
         <!-- Protection Health Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/guard_health_card"
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            app:cardBackgroundColor="@color/color_surface_raised"
-            app:cardCornerRadius="16dp"
-            app:strokeColor="@color/color_border"
-            app:strokeWidth="1dp">
+            android:layout_marginTop="@dimen/spacing_medium">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,22 +43,20 @@
                 android:padding="@dimen/spacing_medium">
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/guard_health_title"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="@dimen/text_headline"
-                    android:textStyle="bold" />
+                    android:text="@string/guard_health_title" />
 
                 <!-- Healthy Banner -->
                 <TextView
                     android:id="@+id/guard_health_status_all_good"
+                    style="@style/TextAppearance.Prottasha.Label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
                     android:text="@string/guard_health_healthy"
                     android:textColor="@color/color_hope"
-                    android:textSize="@dimen/text_body"
                     android:visibility="gone" />
 
                 <!-- Accessibility Missing Alert -->
@@ -74,18 +69,18 @@
 
                     <TextView
                         android:id="@+id/guard_health_accessibility_text"
+                        style="@style/TextAppearance.Prottasha.Body"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/guard_health_accessibility_missing"
-                        android:textColor="@color/color_crisis"
-                        android:textSize="@dimen/text_body" />
+                        android:textColor="@color/color_crisis" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/guard_enable_service"
-                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        style="@style/Widget.Prottasha.Button.Secondary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/spacing_small"
                         android:minHeight="@dimen/touch_target_min"
                         android:text="@string/guard_enable_service" />
                 </LinearLayout>
@@ -100,18 +95,18 @@
                     android:visibility="gone">
 
                     <TextView
+                        style="@style/TextAppearance.Prottasha.Body"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/guard_health_usage_missing"
-                        android:textColor="@color/color_friction"
-                        android:textSize="@dimen/text_body" />
+                        android:textColor="@color/color_friction" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/guard_health_fix_usage"
-                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        style="@style/Widget.Prottasha.Button.Secondary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/spacing_small"
                         android:minHeight="@dimen/touch_target_min"
                         android:text="Grant Usage Access" />
                 </LinearLayout>
@@ -126,17 +121,18 @@
                     android:visibility="gone">
 
                     <TextView
+                        style="@style/TextAppearance.Prottasha.Body"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/guard_health_battery_warning"
-                        android:textColor="@color/color_text_secondary"
-                        android:textSize="@dimen/text_caption" />
+                        android:textColor="@color/color_text_secondary" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/guard_health_fix_battery"
-                        style="@style/Widget.Material3.Button.TextButton"
+                        style="@style/Widget.Prottasha.Button.Secondary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_small"
                         android:minHeight="@dimen/touch_target_min"
                         android:text="Disable Battery Optimization" />
                 </LinearLayout>
@@ -144,11 +140,11 @@
                 <!-- Grayscale Guidance -->
                 <TextView
                     android:id="@+id/guard_grayscale_status"
+                    style="@style/TextAppearance.Prottasha.Metric"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
-                    android:textColor="@color/color_text_muted"
-                    android:textSize="@dimen/text_caption" />
+                    android:textColor="@color/color_text_muted" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -162,17 +158,17 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/guard_add_button"
-                style="@style/Widget.Prottasha.Button.Pill"
+                style="@style/Widget.Prottasha.Button.Primary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginEnd="@dimen/spacing_small"
+                android:layout_weight="1"
                 android:minHeight="@dimen/touch_target_min"
                 android:text="@string/guard_add" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/guard_add_website_button"
-                style="@style/Widget.Material3.Button.OutlinedButton"
+                style="@style/Widget.Prottasha.Button.Secondary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -257,21 +253,21 @@
         <!-- Empty State -->
         <TextView
             android:id="@+id/guard_empty"
+            style="@style/TextAppearance.Prottasha.Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_large"
             android:text="@string/guard_empty"
-            android:textColor="@color/color_text_secondary"
-            android:textSize="@dimen/text_body" />
+            android:textColor="@color/color_text_secondary" />
 
         <TextView
             android:id="@+id/guard_no_matches"
+            style="@style/TextAppearance.Prottasha.Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
             android:text="No matching rules found."
             android:textColor="@color/color_text_muted"
-            android:textSize="@dimen/text_body"
             android:visibility="gone" />
 
         <!-- Rules Container -->

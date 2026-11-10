@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base application theme: Obsidian Hope. -->
+    <!-- Base application theme: Quiet Precision. -->
     <style name="Theme.Prottasha" parent="Theme.Material3.Dark.NoActionBar">
         <item name="android:windowBackground">@color/color_background</item>
         <item name="android:colorBackground">@color/color_background</item>
@@ -17,6 +17,8 @@
         <item name="android:navigationBarColor">@color/color_background</item>
         <item name="android:statusBarColor">@color/color_background</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:fontFamily">@font/ibm_plex_sans_regular</item>
+        <item name="fontFamily">@font/ibm_plex_sans_regular</item>
     </style>
 
     <!-- Splash Screen Theme -->
@@ -48,5 +50,45 @@
         <item name="android:textColor">@color/color_on_hope</item>
         <item name="cornerRadius">@dimen/pill_button_radius</item>
         <item name="backgroundTint">@color/color_hope</item>
+    </style>
+
+    <style name="TextAppearance.Prottasha.Display" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="android:fontFamily">@font/newsreader_semibold</item>
+        <item name="fontFamily">@font/newsreader_semibold</item>
+        <item name="android:textSize">@dimen/text_display</item>
+        <item name="android:textColor">@color/color_text_primary</item>
+    </style>
+
+    <style name="TextAppearance.Prottasha.Headline" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:fontFamily">@font/newsreader_medium</item>
+        <item name="fontFamily">@font/newsreader_medium</item>
+        <item name="android:textSize">@dimen/text_headline</item>
+        <item name="android:textColor">@color/color_text_primary</item>
+    </style>
+
+    <style name="TextAppearance.Prottasha.Title" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:fontFamily">@font/ibm_plex_sans_semibold</item>
+        <item name="fontFamily">@font/ibm_plex_sans_semibold</item>
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textColor">@color/color_text_primary</item>
+    </style>
+
+    <style name="TextAppearance.Prottasha.Body" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:fontFamily">@font/ibm_plex_sans_regular</item>
+        <item name="fontFamily">@font/ibm_plex_sans_regular</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:textColor">@color/color_text_primary</item>
+    </style>
+
+    <style name="TextAppearance.Prottasha.Label" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:fontFamily">@font/ibm_plex_sans_medium</item>
+        <item name="fontFamily">@font/ibm_plex_sans_medium</item>
+        <item name="android:textSize">@dimen/text_label</item>
+    </style>
+
+    <style name="TextAppearance.Prottasha.Metric" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:fontFamily">@font/ibm_plex_mono_medium</item>
+        <item name="fontFamily">@font/ibm_plex_mono_medium</item>
+        <item name="android:textColor">@color/color_text_secondary</item>
     </style>
 </resources>

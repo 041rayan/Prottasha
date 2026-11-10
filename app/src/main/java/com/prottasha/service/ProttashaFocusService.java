@@ -165,7 +165,7 @@ public final class ProttashaFocusService extends Service {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 this, ProttashaApp.FOCUS_NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_notification_prottasha)
                 .setContentTitle(getString(R.string.focus_notification_title))
                 .setContentText(contentText)
                 .setContentIntent(open)

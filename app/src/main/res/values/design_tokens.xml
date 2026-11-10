@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="motion_fast_ms">120</integer>
-    <integer name="motion_normal_ms">240</integer>
-    <integer name="motion_emphasized_ms">400</integer>
+    <integer name="motion_normal_ms">220</integer>
+    <integer name="motion_emphasized_ms">340</integer>
 </resources>

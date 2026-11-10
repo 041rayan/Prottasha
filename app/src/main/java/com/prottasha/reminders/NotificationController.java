@@ -49,7 +49,7 @@ public final class NotificationController {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_notification_prottasha)
                 .setContentTitle(habit.title)
                 .setContentText(context.getString(R.string.reminder_private_body))
                 .setContentIntent(content)

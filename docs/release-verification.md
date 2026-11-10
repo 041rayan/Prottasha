@@ -11,7 +11,7 @@
 
 | Artifact | Output Path | SHA-256 Checksum | Size |
 |---|---|---|---|
-| Release APK | `app/build/outputs/apk/release/app-release.apk` | `2660924d9a500948f7f05abf99460efe8b834b1863acbc200a6741616db7023f` | 35 MB |
+| Release APK | `app/build/outputs/apk/release/app-release.apk` | `cf230ad884e7df03b863e83597dfb5a1054a3340ae445c6f1f33f0dfa3f9735e` | 35 MB |
 | Debug APK | `app/build/outputs/apk/debug/app-debug.apk` | Generated via Gradle | 40 MB |
 
 Signing configuration is externalized via `keystore.properties.example` and `.gitignore` so no private keys or signing secrets are checked into source control.

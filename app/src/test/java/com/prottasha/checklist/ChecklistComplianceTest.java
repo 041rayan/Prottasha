@@ -15,7 +15,7 @@ public class ChecklistComplianceTest {
         assertNotNull(Class.forName("com.prottasha.ui.detail.TriggerDetailActivity"));
         assertNotNull(Class.forName("com.prottasha.ui.pause.PauseInterstitialActivity"));
         assertNotNull(Class.forName("com.prottasha.ui.crisis.CrisisHelpActivity"));
-        assertNotNull(Class.forName("com.prottasha.ui.pod.PodChatActivity"));
+        assertNotNull(Class.forName("com.prottasha.circle.ui.PodChatActivity"));
         assertNotNull(Class.forName("com.prottasha.ui.settings.SettingsActivity"));
     }
 
@@ -36,19 +36,16 @@ public class ChecklistComplianceTest {
         // UI and lists: RecyclerView with Adapter and ViewHolder
         assertNotNull(Class.forName("com.prottasha.ui.adapter.HabitAdapter"));
         assertNotNull(Class.forName("com.prottasha.ui.adapter.TriggerAdapter"));
-        assertNotNull(Class.forName("com.prottasha.ui.adapter.TherapistAdapter"));
-        assertNotNull(Class.forName("com.prottasha.ui.adapter.PodMessageAdapter"));
+        assertNotNull(Class.forName("com.prottasha.habits.ui.HabitsFragment"));
     }
 
     @Test
     public void verifyNetworkingAndFirebaseManagersExist() throws ClassNotFoundException {
         // Networking & Firebase
-        assertNotNull(Class.forName("com.prottasha.data.remote.QuoteApiClient"));
-        assertNotNull(Class.forName("com.prottasha.data.remote.TherapistApiClient"));
         assertNotNull(Class.forName("com.prottasha.auth.data.FirebaseAuthGateway"));
         assertNotNull(Class.forName("com.prottasha.auth.data.CloudUserProfileRepository"));
-        assertNotNull(Class.forName("com.prottasha.util.ImageStorageHelper"));
-        assertNotNull(Class.forName("com.prottasha.util.GrayscaleManager"));
+        assertNotNull(Class.forName("com.prottasha.core.security.EncryptedPrivateFileStore"));
+        assertNotNull(Class.forName("com.prottasha.guard.platform.GrayscaleCapabilityController"));
     }
 
     @Test

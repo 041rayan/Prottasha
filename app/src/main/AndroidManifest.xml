@@ -18,6 +18,8 @@
     <application
         android:name=".ProttashaApp"
         android:allowBackup="false"
+        android:fullBackupContent="@xml/backup_rules"
+        android:dataExtractionRules="@xml/data_extraction_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
@@ -76,6 +78,7 @@
         <activity android:name=".methodology.MethodologyActivity" android:exported="false" />
         <activity android:name=".circle.ui.PodChatActivity" android:exported="false" />
         <activity android:name=".circle.ui.AccountabilityActivity" android:exported="false" />
+        <activity android:name=".settings.privacy.PrivacyActivity" android:exported="false" />
 
         <!-- Main Dashboard Activity -->
         <activity
@@ -104,12 +107,6 @@
         <!-- Crisis Help & Directory Activity -->
         <activity
             android:name=".ui.crisis.CrisisHelpActivity"
-            android:exported="false"
-            android:parentActivityName=".ui.main.MainActivity" />
-
-        <!-- Pod Chat Activity (Firestore Realtime) -->
-        <activity
-            android:name=".ui.pod.PodChatActivity"
             android:exported="false"
             android:parentActivityName=".ui.main.MainActivity" />
 

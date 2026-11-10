@@ -32,4 +32,5 @@ Each row must link a rubric-visible capability to real implementation, automated
 | Realtime Database | Mirrored-membership presence with own-write-only authority | Emulator membership/cross-write tests; remote semantic hash exact | Rules deployed; live disconnect presence awaits membership | PARTIAL |
 | Local encrypted image | Bounded metadata-scrubbed JPEG + UID AES-GCM store | `EncryptedPrivateFileStoreTest` 5/5 on API 33 | BG7 key-loss, tamper, A/B, reopen, quarantine/restore proof; feature UI integration remains | PARTIAL |
 | Rotation and saved state | Forms, onboarding, editors, timers | Recreation tests | Rotate during each critical draft | PENDING |
-| Accessibility and dynamic UI | TalkBack, 48dp, 200% font, reduced motion | Quality tests + lint | Accessibility checklist | PENDING |
+| Privacy/export | Salted PIN primitive, honest UI-lock model, PBKDF2 + AES-GCM archive, backup exclusion | Privacy unit suite + quality device tests 2/2 | Export picker writes ciphertext only; app backup disabled | PARTIAL |
+| Accessibility and dynamic UI | Labels, 48dp targets, scalable scroll layouts, chart alternatives, reduced animation | Quality tests + lint | Checklist complete except final manual TalkBack/200% capture | PARTIAL |

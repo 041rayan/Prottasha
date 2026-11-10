@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="@dimen/spacing_large">
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/privacy_title" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_headline" android:textStyle="bold" />
+    <TextView android:id="@+id/privacy_lock_copy" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_small" android:text="@string/privacy_lock_copy" android:textColor="@color/color_text_secondary" android:textSize="@dimen/text_body" />
+    <com.google.android.material.textfield.TextInputLayout android:id="@+id/privacy_password_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_large" android:hint="@string/privacy_export_password">
+        <com.google.android.material.textfield.TextInputEditText android:id="@+id/privacy_password" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textPassword" android:saveEnabled="false" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.button.MaterialButton android:id="@+id/privacy_export" style="@style/Widget.Prottasha.Button.Pill" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/privacy_export" />
+    <TextView android:id="@+id/privacy_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_medium" android:accessibilityLiveRegion="polite" android:textColor="@color/color_text_secondary" />
+</LinearLayout>

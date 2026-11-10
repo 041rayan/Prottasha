@@ -30,7 +30,8 @@ public final class ForegroundAndroidJUnitRunner extends AndroidJUnitRunner {
                 || requestedPackage.contains("com.prottasha.intervention")
                 || requestedPackage.contains("com.prottasha.focus")
                 || requestedClass.contains("InsightsAndSupportTest")
-                || requestedPackage.contains("com.prottasha.circle")) {
+                || requestedPackage.contains("com.prottasha.circle")
+                || requestedPackage.contains("com.prottasha.quality")) {
             Intent host = new Intent(getTargetContext(), AuthActivity.class)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivitySync(host);

@@ -149,3 +149,12 @@ Task 5 performs no live account deletion and no legacy-source contraction. The c
 | Live deploy dry run | PASS: Firestore and RTDB rules compile |
 | Circle/accountability UI on TECNO BG7/API 33 | PASS, 2/2 tests |
 | Live provisioning/deployment | PENDING explicit approval and two disposable verified UIDs |
+
+## Task 14 privacy/quality gate
+
+| Gate | Result |
+|---|---|
+| Privacy/security unit suite | PASS: PIN, timeout, account switch, archive wrong-password/tamper |
+| Whole-app quality on TECNO BG7/API 33 | PASS, 2/2 tests |
+| Backup policy | `allowBackup=false` plus database/file/shared-pref exclusions |
+| Prototype contraction | Canonical compile/lint passes after dead fragment/fake support paths removed |

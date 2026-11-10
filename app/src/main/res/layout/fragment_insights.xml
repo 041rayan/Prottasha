@@ -4,22 +4,22 @@
     android:id="@+id/insights_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_background">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_medium">
+        android:paddingHorizontal="@dimen/spacing_medium"
+        android:paddingTop="@dimen/spacing_large"
+        android:paddingBottom="@dimen/spacing_xlarge">
 
         <!-- Title & Range Selector -->
         <TextView
+            style="@style/TextAppearance.Prottasha.Display"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/insights_title"
-            android:textColor="@color/color_text_primary"
-            android:textSize="@dimen/text_display"
-            android:textStyle="bold" />
+            android:text="@string/insights_title" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/insights_range_group"
@@ -54,7 +54,7 @@
 
         <!-- Summary & Trend Card -->
         <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Prottasha.Card"
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium">
@@ -67,11 +67,9 @@
 
                 <TextView
                     android:id="@+id/insights_summary"
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="@dimen/text_title"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content" />
 
                 <com.prottasha.insights.ui.AccessibleTrendView
                     android:id="@+id/insights_trend"
@@ -81,30 +79,30 @@
 
                 <TextView
                     android:id="@+id/insights_sample"
+                    style="@style/TextAppearance.Prottasha.Label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="@dimen/text_caption" />
+                    android:textColor="@color/color_text_secondary" />
 
                 <!-- Text Breakdown -->
                 <TextView
                     android:id="@+id/insights_text_breakdown"
+                    style="@style/TextAppearance.Prottasha.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_medium"
                     android:lineSpacingExtra="4dp"
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="@dimen/text_caption" />
+                    android:textColor="@color/color_text_secondary" />
 
                 <!-- Usage overview -->
                 <TextView
                     android:id="@+id/insights_usage_overview"
+                    style="@style/TextAppearance.Prottasha.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="@dimen/text_body" />
+                    android:textColor="@color/color_text_primary" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -112,7 +110,7 @@
         <!-- Patterns Observation Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/insights_patterns_card"
-            style="@style/Widget.Prottasha.Card"
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium">
@@ -124,27 +122,25 @@
                 android:padding="@dimen/spacing_medium">
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Observed Patterns"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="@dimen/text_title"
-                    android:textStyle="bold" />
+                    android:text="Observed Patterns" />
 
                 <TextView
                     android:id="@+id/insights_pattern_text"
+                    style="@style/TextAppearance.Prottasha.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="@dimen/text_caption" />
+                    android:textColor="@color/color_text_secondary" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Target Drill-Down Card -->
         <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Prottasha.Card"
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium">
@@ -156,21 +152,19 @@
                 android:padding="@dimen/spacing_medium">
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Monitored Target Usage"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="@dimen/text_title"
-                    android:textStyle="bold" />
+                    android:text="Monitored Target Usage" />
 
                 <TextView
                     android:id="@+id/insights_targets_empty"
+                    style="@style/TextAppearance.Prottasha.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
                     android:text="No monitored usage in this period."
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="@dimen/text_caption" />
+                    android:textColor="@color/color_text_secondary" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/insights_targets_recycler"
@@ -184,7 +178,7 @@
 
         <!-- Reflections Card -->
         <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Prottasha.Card"
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium">
@@ -196,21 +190,19 @@
                 android:padding="@dimen/spacing_medium">
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Reflections (Fact, Interpretation, Lesson)"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="@dimen/text_title"
-                    android:textStyle="bold" />
+                    android:text="Reflections (Fact, Interpretation, Lesson)" />
 
                 <TextView
                     android:id="@+id/insights_reflections_empty"
+                    style="@style/TextAppearance.Prottasha.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
                     android:text="No reflections written yet."
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="@dimen/text_caption" />
+                    android:textColor="@color/color_text_secondary" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/insights_reflections_recycler"
@@ -221,10 +213,11 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/insights_reflect"
-                    style="@style/Widget.Prottasha.Button.Pill"
+                    style="@style/Widget.Prottasha.Button.Primary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_medium"
+                    android:minHeight="@dimen/touch_target_min"
                     android:text="@string/insights_reflect" />
 
             </LinearLayout>
@@ -232,7 +225,7 @@
 
         <!-- Trigger & Rebound Plans Card -->
         <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Prottasha.Card"
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium">
@@ -244,29 +237,27 @@
                 android:padding="@dimen/spacing_medium">
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Trigger &amp; Rebound Plans"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="@dimen/text_title"
-                    android:textStyle="bold" />
+                    android:text="Trigger &amp; Rebound Plans" />
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Metric"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:text="Implementation intentions: If [Cue] → Then [Plan]"
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="@dimen/text_caption" />
+                    android:textColor="@color/color_text_secondary" />
 
                 <TextView
                     android:id="@+id/insights_triggers_empty"
+                    style="@style/TextAppearance.Prottasha.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
                     android:text="No trigger plans configured yet."
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="@dimen/text_caption" />
+                    android:textColor="@color/color_text_secondary" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/insights_triggers_recycler"
@@ -277,19 +268,19 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/insights_add_trigger"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    style="@style/Widget.Prottasha.Button.Secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_medium"
-                    android:text="Add Trigger Plan"
-                    android:textColor="@color/color_hope" />
+                    android:minHeight="@dimen/touch_target_min"
+                    android:text="Add Trigger Plan" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Success Memory Bank Card -->
         <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Prottasha.Card"
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium">
@@ -301,29 +292,27 @@
                 android:padding="@dimen/spacing_medium">
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Success Memory Bank"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="@dimen/text_title"
-                    android:textStyle="bold" />
+                    android:text="Success Memory Bank" />
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Metric"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="Psycho-Cybernetics: anchor real past moments of calm and self-control."
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="@dimen/text_caption" />
+                    android:text="Anchor real past moments of calm and self-control."
+                    android:textColor="@color/color_text_secondary" />
 
                 <TextView
                     android:id="@+id/insights_memories_empty"
+                    style="@style/TextAppearance.Prottasha.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
                     android:text="No success memories stored yet."
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="@dimen/text_caption" />
+                    android:textColor="@color/color_text_secondary" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/insights_memories_recycler"
@@ -334,19 +323,19 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/insights_add_memory"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    style="@style/Widget.Prottasha.Button.Secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_medium"
-                    android:text="Add Success Memory"
-                    android:textColor="@color/color_identity" />
+                    android:minHeight="@dimen/touch_target_min"
+                    android:text="Add Success Memory" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Rehearsal Card -->
         <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Prottasha.Card"
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium">
@@ -358,28 +347,27 @@
                 android:padding="@dimen/spacing_medium">
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Future-Self Mental Rehearsal"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="@dimen/text_title"
-                    android:textStyle="bold" />
+                    android:text="Mental Rehearsal" />
 
                 <TextView
                     android:id="@+id/insights_rehearsal_status"
+                    style="@style/TextAppearance.Prottasha.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_small"
                     android:text="Rehearse handling high-friction moments with calm course-correction."
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="@dimen/text_caption" />
+                    android:textColor="@color/color_text_secondary" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/insights_rehearsal"
-                    style="@style/Widget.Prottasha.Button.Pill"
+                    style="@style/Widget.Prottasha.Button.Primary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_medium"
+                    android:minHeight="@dimen/touch_target_min"
                     android:text="Start Mental Rehearsal" />
 
             </LinearLayout>
@@ -392,6 +380,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
+            android:minHeight="@dimen/touch_target_min"
             android:text="@string/insights_methodology" />
 
     </LinearLayout>

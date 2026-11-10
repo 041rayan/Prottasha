@@ -4,71 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_background">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_medium">
+        android:paddingStart="@dimen/spacing_medium"
+        android:paddingEnd="@dimen/spacing_medium"
+        android:paddingTop="@dimen/spacing_small"
+        android:paddingBottom="@dimen/spacing_medium">
 
         <!-- Title -->
         <TextView
+            style="@style/TextAppearance.Prottasha.Display"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/circle_title"
-            android:textColor="@color/color_text_primary"
-            android:textSize="@dimen/text_display"
-            android:textStyle="bold" />
+            android:text="@string/circle_title" />
 
         <TextView
             android:id="@+id/circle_status"
+            style="@style/TextAppearance.Prottasha.Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/spacing_xxsmall"
             android:textColor="@color/color_text_secondary"
-            android:textSize="14sp"
             tools:text="@string/circle_closed_status" />
 
         <!-- Closed Pod Action Card -->
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
-            app:cardBackgroundColor="@color/color_surface"
-            app:strokeColor="@color/color_border"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="0dp">
+            android:layout_marginTop="@dimen/spacing_compact">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/spacing_medium">
+                android:padding="@dimen/spacing_compact">
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Closed Peer Pod"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:text="Closed Peer Pod" />
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/spacing_xxsmall"
+                    android:textSize="13sp"
                     android:text="Join your closed group of recovery peers. Chat anonymously using your pod pseudonym, see real-time presence, and share support."
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="13sp" />
+                    android:textColor="@color/color_text_secondary" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/circle_open_pod"
-                    style="@style/Widget.Prottasha.Button.Pill"
+                    style="@style/Widget.Prottasha.Button.Primary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:minHeight="@dimen/touch_target_min"
                     android:text="@string/circle_open" />
 
             </LinearLayout>
@@ -76,88 +73,80 @@
 
         <!-- Personal Accountability Partner Card -->
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            app:cardBackgroundColor="@color/color_surface"
-            app:strokeColor="@color/color_border"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="0dp">
+            android:layout_marginTop="@dimen/spacing_compact">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/spacing_medium">
+                android:padding="@dimen/spacing_compact">
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Accountability Partner"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:text="Accountability Partner" />
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/spacing_xxsmall"
+                    android:textSize="13sp"
                     android:text="Designate a trusted personal ally. Send exact, truthful progress check-ins via your preferred messaging app."
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="13sp" />
+                    android:textColor="@color/color_text_secondary" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/circle_accountability"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    style="@style/Widget.Prottasha.Button.Secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_medium"
-                    android:text="@string/circle_accountability"
-                    android:textColor="@color/color_hope" />
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:minHeight="@dimen/touch_target_min"
+                    android:text="@string/circle_accountability" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Crisis & Hotlines Card -->
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            app:cardBackgroundColor="@color/color_surface"
-            app:strokeColor="@color/color_border"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="0dp">
+            android:layout_marginTop="@dimen/spacing_compact">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/spacing_medium">
+                android:padding="@dimen/spacing_compact">
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Immediate Crisis Support"
-                    android:textColor="@color/color_crisis"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/color_crisis" />
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="@dimen/spacing_xxsmall"
+                    android:textSize="13sp"
                     android:text="Free, 24/7 verified emergency and emotional mental health helplines in Bangladesh (999, Kaan Pete Roi, and more)."
-                    android:textColor="@color/color_text_secondary"
-                    android:textSize="13sp" />
+                    android:textColor="@color/color_text_secondary" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/circle_crisis_help"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    style="@style/Widget.Prottasha.Button.Secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:minHeight="@dimen/touch_target_min"
                     android:text="View Support Helplines"
                     android:textColor="@color/color_crisis" />
 
@@ -166,38 +155,33 @@
 
         <!-- Methodology & Privacy Card -->
         <com.google.android.material.card.MaterialCardView
+            style="@style/Widget.Prottasha.Surface.Tonal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:layout_marginBottom="@dimen/spacing_large"
-            app:cardBackgroundColor="@color/color_surface_raised"
-            app:strokeColor="@color/color_border"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="0dp">
+            android:layout_marginTop="@dimen/spacing_compact"
+            android:layout_marginBottom="@dimen/spacing_compact">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/spacing_medium">
+                android:padding="@dimen/spacing_compact">
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Prottasha Circle Privacy"
-                    android:textColor="@color/color_text_primary"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:text="Prottasha Circle Privacy" />
 
                 <TextView
+                    style="@style/TextAppearance.Prottasha.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="Closed Pods are provisioned communities designed for mutual accountability without surveillance. Your personal email, recovery journal, usage history, and app rules remain completely private on your phone."
-                    android:textColor="@color/color_text_secondary"
+                    android:layout_marginTop="@dimen/spacing_xxsmall"
+                    android:lineSpacingExtra="2dp"
                     android:textSize="13sp"
-                    android:lineSpacingExtra="2dp" />
+                    android:text="Closed Pods are provisioned communities designed for mutual accountability without surveillance. Your personal email, recovery journal, usage history, and app rules remain completely private on your phone."
+                    android:textColor="@color/color_text_secondary" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

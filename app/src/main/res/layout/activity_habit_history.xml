@@ -254,7 +254,85 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Daily Note Card -->
+        <!-- Scheduled Reminders Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/habit_reminders_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            app:cardBackgroundColor="@color/color_surface"
+            app:strokeColor="@color/color_border"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_medium">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reminder_card_title"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="@dimen/text_title"
+                    android:textStyle="bold" />
+
+                <!-- Notification Permission Warning Banner -->
+                <LinearLayout
+                    android:id="@+id/habit_reminder_permission_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:background="@color/color_surface_raised"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_small"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/reminder_permission_warning"
+                        android:textColor="@color/color_friction"
+                        android:textSize="@dimen/text_caption" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/habit_reminder_permission_button"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_xsmall"
+                        android:minHeight="@dimen/touch_target_min"
+                        android:text="@string/reminder_permission_fix" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/habit_reminders_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:text="@string/reminder_empty"
+                    android:textColor="@color/color_text_muted"
+                    android:textSize="@dimen/text_caption" />
+
+                <LinearLayout
+                    android:id="@+id/habit_reminders_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:orientation="vertical" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/habit_add_reminder_button"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/touch_target_min"
+                    android:text="@string/reminder_add_button" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Daily Note & Image Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -272,10 +350,44 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Daily Reflection Note"
+                    android:text="Daily Reflection &amp; Evidence"
                     android:textColor="@color/color_text_primary"
                     android:textSize="@dimen/text_title"
                     android:textStyle="bold" />
+
+                <!-- Attached image preview -->
+                <ImageView
+                    android:id="@+id/habit_image_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_xsmall"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/habit_attach_image_button"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/touch_target_min"
+                        android:text="Attach Photo" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/habit_remove_image_button"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/touch_target_min"
+                        android:text="Remove Photo"
+                        android:textColor="@color/color_crisis"
+                        android:visibility="gone" />
+                </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"

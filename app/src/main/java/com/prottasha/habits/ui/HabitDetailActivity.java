@@ -1,6 +1,11 @@
 package com.prottasha.habits.ui;
 
+import android.Manifest;
+import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,23 +13,35 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.button.MaterialButton;
 import com.prottasha.ProttashaApp;
 import com.prottasha.R;
+import com.prottasha.auth.domain.SessionUser;
+import com.prottasha.core.security.EncryptedPrivateFileStore;
+import com.prottasha.core.security.UserDatabaseIdentity;
 import com.prottasha.databinding.ActivityHabitHistoryBinding;
 import com.prottasha.habits.data.HabitDayAggregateEntity;
+import com.prottasha.habits.data.HabitDayImageEntity;
+import com.prottasha.habits.data.HabitReminderEntity;
 import com.prottasha.habits.data.HabitSubstepEntity;
 import com.prottasha.habits.data.HabitVacationEntity;
 import com.prottasha.habits.domain.HabitAction;
 import com.prottasha.habits.domain.HabitModels;
+import com.prottasha.reminders.ReminderScheduler;
 
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 
 public final class HabitDetailActivity extends AppCompatActivity {
 
@@ -32,7 +49,15 @@ public final class HabitDetailActivity extends AppCompatActivity {
 
     private ActivityHabitHistoryBinding binding;
     private HabitDetailViewModel viewModel;
+    private ReminderScheduler reminderScheduler;
+    private EncryptedPrivateFileStore fileStore;
+    private UserDatabaseIdentity identity;
+    private String ownerHash;
     private long habitId;
+    private String currentStorageId;
+
+    private ActivityResultLauncher<String> notificationPermissionLauncher;
+    private ActivityResultLauncher<String> photoPickerLauncher;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +75,23 @@ public final class HabitDetailActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this, new HabitDetailViewModel.Factory(
                 application.appGraph().habitRepository(), habitId)).get(HabitDetailViewModel.class);
 
+        reminderScheduler = new ReminderScheduler(this);
+        fileStore = application.appGraph().encryptedPrivateFileStore();
+
+        try {
+            SessionUser user = application.appGraph().userSessionManager().requireUser();
+            identity = UserDatabaseIdentity.fromUid(user.uid());
+            ownerHash = identity.uidHash();
+        } catch (Exception ignored) {
+            ownerHash = application.appGraph().userSessionDatabaseProvider().verifiedBackgroundOwnerHashOrNull();
+            if (ownerHash != null) {
+                identity = UserDatabaseIdentity.fromUidHash(ownerHash);
+            }
+        }
+
+        setupPermissionLaunchers();
+        checkNotificationPermission();
+
         binding.habitNoteSave.setOnClickListener(ignored -> {
             String note = binding.habitNoteInput.getText() == null ? ""
                     : binding.habitNoteInput.getText().toString();
@@ -63,6 +105,14 @@ public final class HabitDetailActivity extends AppCompatActivity {
 
         binding.habitBackfillButton.setOnClickListener(ignored -> showBackfillDialog());
         binding.habitAddVacationButton.setOnClickListener(ignored -> showAddVacationDialog());
+        binding.habitAddReminderButton.setOnClickListener(ignored -> showAddReminderDialog());
+        binding.habitAttachImageButton.setOnClickListener(ignored -> photoPickerLauncher.launch("image/*"));
+        binding.habitRemoveImageButton.setOnClickListener(ignored -> {
+            if (currentStorageId != null) {
+                viewModel.deleteDayImage(currentStorageId, fileStore, identity);
+                currentStorageId = null;
+            }
+        });
 
         binding.habitDeleteButton.setOnClickListener(ignored -> {
             new AlertDialog.Builder(this)
@@ -79,6 +129,20 @@ public final class HabitDetailActivity extends AppCompatActivity {
         viewModel.history().observe(this, this::bindHistory);
         viewModel.substeps().observe(this, this::bindSubsteps);
         viewModel.vacations().observe(this, this::bindVacations);
+        viewModel.reminders().observe(this, this::bindReminders);
+        viewModel.dayImages().observe(this, this::bindDayImages);
+        viewModel.currentImageBitmap().observe(this, bitmap -> {
+            if (bitmap != null) {
+                binding.habitImagePreview.setImageBitmap(bitmap);
+                binding.habitImagePreview.setVisibility(View.VISIBLE);
+                binding.habitRemoveImageButton.setVisibility(View.VISIBLE);
+                binding.habitAttachImageButton.setText("Replace Photo");
+            } else {
+                binding.habitImagePreview.setVisibility(View.GONE);
+                binding.habitRemoveImageButton.setVisibility(View.GONE);
+                binding.habitAttachImageButton.setText("Attach Photo");
+            }
+        });
         viewModel.note().observe(this, noteText -> {
             if (binding.habitNoteInput.getText() == null
                     || !binding.habitNoteInput.getText().toString().equals(noteText)) {
@@ -87,9 +151,46 @@ public final class HabitDetailActivity extends AppCompatActivity {
         });
     }
 
+    private void setupPermissionLaunchers() {
+        notificationPermissionLauncher = registerForActivityResult(
+                new ActivityResultContracts.RequestPermission(),
+                isGranted -> checkNotificationPermission());
+
+        photoPickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                (Uri uri) -> {
+                    if (uri != null) {
+                        try (InputStream stream = getContentResolver().openInputStream(uri)) {
+                            if (stream != null) {
+                                viewModel.saveDayImage(stream, fileStore, identity);
+                            }
+                        } catch (Exception ignored) {
+                            Toast.makeText(this, "Failed to load photo", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+        binding.habitReminderPermissionButton.setOnClickListener(v -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+            }
+        });
+    }
+
+    private void checkNotificationPermission() {
+        boolean enabled = NotificationManagerCompat.from(this).areNotificationsEnabled();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            boolean hasPermission = ContextCompat.checkSelfPermission(
+                    this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
+            enabled = enabled && hasPermission;
+        }
+        binding.habitReminderPermissionBanner.setVisibility(enabled ? View.GONE : View.VISIBLE);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+        checkNotificationPermission();
         if (viewModel != null) {
             viewModel.refresh();
         }
@@ -199,6 +300,56 @@ public final class HabitDetailActivity extends AppCompatActivity {
             row.addView(removeBtn);
             binding.habitVacationsContainer.addView(row);
         }
+    }
+
+    private void bindReminders(List<HabitReminderEntity> list) {
+        binding.habitRemindersContainer.removeAllViews();
+        if (list == null || list.isEmpty()) {
+            binding.habitRemindersEmpty.setVisibility(View.VISIBLE);
+            return;
+        }
+        binding.habitRemindersEmpty.setVisibility(View.GONE);
+        for (HabitReminderEntity r : list) {
+            LinearLayout row = new LinearLayout(this);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setPadding(0, 4, 0, 4);
+
+            String timeStr = String.format(Locale.getDefault(), "%02d:%02d", r.hour, r.minute);
+            TextView text = new TextView(this);
+            text.setText("⏰ " + timeStr + (r.enabled ? "" : " (Disabled)"));
+            text.setTextColor(getResources().getColor(R.color.color_text_primary, null));
+            text.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
+
+            MaterialButton removeBtn = new MaterialButton(this, null, androidx.appcompat.R.attr.borderlessButtonStyle);
+            removeBtn.setText("✕");
+            removeBtn.setOnClickListener(click -> {
+                viewModel.deleteReminder(r.id, reminderScheduler);
+                Toast.makeText(this, R.string.reminder_removed, Toast.LENGTH_SHORT).show();
+            });
+
+            row.addView(text);
+            row.addView(removeBtn);
+            binding.habitRemindersContainer.addView(row);
+        }
+    }
+
+    private void bindDayImages(List<HabitDayImageEntity> images) {
+        if (images != null && !images.isEmpty()) {
+            currentStorageId = images.get(0).storageId;
+            viewModel.loadDayImage(currentStorageId, fileStore, identity);
+        } else {
+            currentStorageId = null;
+            binding.habitImagePreview.setVisibility(View.GONE);
+            binding.habitRemoveImageButton.setVisibility(View.GONE);
+            binding.habitAttachImageButton.setText("Attach Photo");
+        }
+    }
+
+    private void showAddReminderDialog() {
+        new TimePickerDialog(this, (view, hourOfDay, minute) -> {
+            viewModel.addReminder(hourOfDay, minute, 0, ownerHash, reminderScheduler);
+            Toast.makeText(this, R.string.reminder_added, Toast.LENGTH_SHORT).show();
+        }, 8, 0, false).show();
     }
 
     private void showBackfillDialog() {

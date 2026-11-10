@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import com.prottasha.habits.data.HabitReminderEntity;
 
@@ -33,8 +34,31 @@ public final class ReminderScheduler {
         Instant next = ReminderOccurrenceCalculator.next(
                 Instant.now(), ZoneId.systemDefault(), LocalTime.of(reminder.hour, reminder.minute),
                 days(reminder.dayMask), LocalTime.of(22, 0), LocalTime.of(7, 0));
-        alarmManager.setAndAllowWhileIdle(
-                AlarmManager.RTC_WAKEUP, next.toEpochMilli(), pending(uidHash, reminder.id));
+        setAlarm(next.toEpochMilli(), pending(uidHash, reminder.id));
+    }
+
+    public void scheduleSnooze(String uidHash, long reminderId, int minutes) {
+        if (alarmManager == null) return;
+        long triggerAt = ReminderOccurrenceCalculator.snooze(Instant.now(), minutes).toEpochMilli();
+        setAlarm(triggerAt, pending(uidHash, reminderId));
+    }
+
+    public void cancel(long reminderId) {
+        if (alarmManager == null) return;
+        alarmManager.cancel(pending(null, reminderId));
+    }
+
+    private void setAlarm(long triggerAtMillis, PendingIntent operation) {
+        if (alarmManager == null) return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (alarmManager.canScheduleExactAlarms()) {
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, operation);
+            } else {
+                alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, operation);
+            }
+        } else {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, operation);
+        }
     }
 
     private PendingIntent pending(String uidHash, long reminderId) {

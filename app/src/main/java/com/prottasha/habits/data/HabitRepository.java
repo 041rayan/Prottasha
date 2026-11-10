@@ -335,6 +335,75 @@ public class HabitRepository {
         });
     }
 
+    public void getReminders(long habitId, ResultCallback<List<HabitReminderEntity>> callback) {
+        diskExecutor.execute(() -> {
+            try {
+                List<HabitReminderEntity> reminders =
+                        databaseProvider.requireOpen().habitDao().listRemindersForHabit(habitId);
+                callback.onResult(AppResult.success(reminders));
+            } catch (Exception error) {
+                callback.onResult(AppResult.failure(error));
+            }
+        });
+    }
+
+    public void saveReminder(HabitReminderEntity reminder, ResultCallback<Long> callback) {
+        diskExecutor.execute(() -> {
+            try {
+                long id = databaseProvider.requireOpen().habitDao().upsertReminder(reminder);
+                callback.onResult(AppResult.success(id));
+            } catch (Exception error) {
+                callback.onResult(AppResult.failure(error));
+            }
+        });
+    }
+
+    public void deleteReminder(long reminderId, ResultCallback<Boolean> callback) {
+        diskExecutor.execute(() -> {
+            try {
+                databaseProvider.requireOpen().habitDao().deleteReminder(reminderId);
+                callback.onResult(AppResult.success(true));
+            } catch (Exception error) {
+                callback.onResult(AppResult.failure(error));
+            }
+        });
+    }
+
+    public void listDayImages(long habitId, long epochDay, ResultCallback<List<HabitDayImageEntity>> callback) {
+        diskExecutor.execute(() -> {
+            try {
+                List<HabitDayImageEntity> images =
+                        databaseProvider.requireOpen().habitDao().listImagesForDay(habitId, epochDay);
+                callback.onResult(AppResult.success(images));
+            } catch (Exception error) {
+                callback.onResult(AppResult.failure(error));
+            }
+        });
+    }
+
+    public void saveDayImage(long habitId, long epochDay, String storageId, ResultCallback<Long> callback) {
+        diskExecutor.execute(() -> {
+            try {
+                long id = databaseProvider.requireOpen().habitDao().insertImage(
+                        new HabitDayImageEntity(0L, habitId, epochDay, storageId));
+                callback.onResult(AppResult.success(id));
+            } catch (Exception error) {
+                callback.onResult(AppResult.failure(error));
+            }
+        });
+    }
+
+    public void deleteDayImage(long habitId, String storageId, ResultCallback<Boolean> callback) {
+        diskExecutor.execute(() -> {
+            try {
+                databaseProvider.requireOpen().habitDao().deleteImageByStorageId(habitId, storageId);
+                callback.onResult(AppResult.success(true));
+            } catch (Exception error) {
+                callback.onResult(AppResult.failure(error));
+            }
+        });
+    }
+
     private void refresh(long epochDay) {
         if (databaseProvider == null || epochDay == 0L) {
             return;

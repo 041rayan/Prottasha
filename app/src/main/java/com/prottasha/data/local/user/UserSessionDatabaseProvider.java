@@ -163,6 +163,10 @@ public final class UserSessionDatabaseProvider {
         }
     }
 
+    public synchronized boolean isOpen() {
+        return activeDatabase != null && activeDatabase.isOpen();
+    }
+
     public synchronized UserDatabase requireOpen() {
         if (activeDatabase == null || !activeDatabase.isOpen()) {
             throw new IllegalStateException("No user database is open");

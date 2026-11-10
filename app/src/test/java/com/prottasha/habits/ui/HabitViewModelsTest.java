@@ -242,4 +242,42 @@ public final class HabitViewModelsTest {
         vm.backfill(99L, HabitAction.Kind.COMPLETE, 1, r -> assertTrue(r.isSuccess()));
         assertEquals(99L, backfillDay.get());
     }
+
+    @Test
+    public void habitDetailViewModelManagesRemindersAndImages() {
+        AtomicBoolean reminderSaved = new AtomicBoolean();
+        AtomicBoolean reminderDeleted = new AtomicBoolean();
+        AtomicBoolean imageDeleted = new AtomicBoolean();
+
+        HabitRepository fakeRepo = new HabitRepository(null, Runnable::run) {
+            @Override
+            public void saveReminder(com.prottasha.habits.data.HabitReminderEntity reminder, ResultCallback<Long> callback) {
+                reminderSaved.set(true);
+                callback.onResult(AppResult.success(10L));
+            }
+
+            @Override
+            public void deleteReminder(long reminderId, ResultCallback<Boolean> callback) {
+                reminderDeleted.set(true);
+                callback.onResult(AppResult.success(true));
+            }
+
+            @Override
+            public void deleteDayImage(long habitId, String storageId, ResultCallback<Boolean> callback) {
+                imageDeleted.set(true);
+                callback.onResult(AppResult.success(true));
+            }
+        };
+
+        HabitDetailViewModel vm = new HabitDetailViewModel(fakeRepo, 42L);
+
+        vm.addReminder(8, 30, 0, null, null);
+        assertTrue(reminderSaved.get());
+
+        vm.deleteReminder(10L, null);
+        assertTrue(reminderDeleted.get());
+
+        vm.deleteDayImage("dummy-storage-id", null, null);
+        assertTrue(imageDeleted.get());
+    }
 }

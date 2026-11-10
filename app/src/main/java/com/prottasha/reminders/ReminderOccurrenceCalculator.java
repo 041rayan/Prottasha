@@ -44,6 +44,13 @@ public final class ReminderOccurrenceCalculator {
         throw new IllegalStateException("No reminder occurrence found");
     }
 
+    public static Instant snooze(Instant now, int minutes) {
+        if (now == null) {
+            throw new NullPointerException("now is required");
+        }
+        return now.plusSeconds(Math.max(1, minutes) * 60L);
+    }
+
     private static boolean isQuiet(LocalTime time, LocalTime start, LocalTime end) {
         if (start.equals(end)) {
             return false;

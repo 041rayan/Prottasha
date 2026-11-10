@@ -82,6 +82,24 @@ public interface HabitDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long upsertReminder(HabitReminderEntity reminder);
 
+    @Query("SELECT * FROM habit_reminders WHERE habitId = :habitId")
+    List<HabitReminderEntity> listRemindersForHabit(long habitId);
+
+    @Query("DELETE FROM habit_reminders WHERE id = :reminderId")
+    void deleteReminder(long reminderId);
+
+    @Query("SELECT * FROM habit_day_images WHERE habitId = :habitId AND epochDay = :epochDay")
+    List<HabitDayImageEntity> listImagesForDay(long habitId, long epochDay);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    long insertImage(HabitDayImageEntity image);
+
+    @Query("DELETE FROM habit_day_images WHERE id = :id")
+    void deleteImage(long id);
+
+    @Query("DELETE FROM habit_day_images WHERE habitId = :habitId AND storageId = :storageId")
+    void deleteImageByStorageId(long habitId, String storageId);
+
     @Query("SELECT * FROM habit_substeps WHERE habitId = :habitId ORDER BY sortOrder, id")
     List<HabitSubstepEntity> listSubsteps(long habitId);
 

@@ -66,4 +66,13 @@ public final class ReminderOccurrenceCalculatorTest {
         assertEquals(7, result.getHour());
         assertTrue(result.toLocalDate().isAfter(now.atZone(zone).toLocalDate()));
     }
+
+    @Test
+    public void snoozeAddsSpecifiedMinutes() {
+        Instant now = Instant.ofEpochMilli(1000000L);
+        assertEquals(Instant.ofEpochMilli(1000000L + (15 * 60 * 1000L)),
+                ReminderOccurrenceCalculator.snooze(now, 15));
+        assertEquals(Instant.ofEpochMilli(1000000L + (60 * 1000L)),
+                ReminderOccurrenceCalculator.snooze(now, 0)); // Minimum 1 minute
+    }
 }

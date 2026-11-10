@@ -3,7 +3,20 @@
     <string name="reminder_channel">Habit reminders</string>
     <string name="reminder_private_body">Open Prottasha to review today’s private progress.</string>
     <string name="reminder_action">Record</string>
+    <string name="reminder_done">Done</string>
+    <string name="reminder_add">Add</string>
+    <string name="reminder_snooze">Snooze</string>
+    <string name="reminder_open">Open</string>
+    <string name="reminder_check_in">Check-in</string>
+    <string name="reminder_card_title">Scheduled Reminders</string>
+    <string name="reminder_empty">No reminders scheduled for this habit.</string>
+    <string name="reminder_add_button">Add Reminder</string>
+    <string name="reminder_permission_warning">Notifications are disabled. Scheduled reminders cannot alert you.</string>
+    <string name="reminder_permission_fix">Enable Notifications</string>
+    <string name="reminder_added">Reminder scheduled</string>
+    <string name="reminder_removed">Reminder removed</string>
+
     <string name="widget_neutral_title">Prottasha Today</string>
-    <string name="widget_neutral_body">Open to review your private plan.</string>
+    <string name="widget_neutral_body">Protected by local privacy lock. Tap to open.</string>
     <string name="widget_description">Private daily Prottasha shortcut</string>
 </resources>

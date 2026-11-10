@@ -1,19 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/spacing_small">
+    android:layout_marginBottom="@dimen/spacing_small"
+    app:cardBackgroundColor="@color/color_surface"
+    app:strokeColor="@color/color_border"
+    app:strokeWidth="1dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/spacing_medium">
-        <TextView android:id="@+id/habit_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_title" android:textStyle="bold" />
-        <TextView android:id="@+id/habit_type" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/color_text_secondary" android:textSize="@dimen/text_label" />
-        <TextView android:id="@+id/habit_progress" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/color_text_secondary" android:textSize="@dimen/text_body" />
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:orientation="horizontal">
-            <com.google.android.material.button.MaterialButton android:id="@+id/habit_archive" style="@style/Widget.Material3.Button.TextButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="@dimen/touch_target_min" android:text="@string/habit_archive" />
-            <com.google.android.material.button.MaterialButton android:id="@+id/habit_action" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="@dimen/touch_target_min" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/habit_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/color_text_primary"
+                android:textSize="@dimen/text_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/habit_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_text_secondary"
+                android:textSize="@dimen/text_caption"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/habit_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xsmall"
+            android:textColor="@color/color_text_secondary"
+            android:textSize="@dimen/text_body" />
+
+        <TextView
+            android:id="@+id/habit_cue_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xsmall"
+            android:textColor="@color/color_text_muted"
+            android:textSize="@dimen/text_caption"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/habit_move_up"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="▲" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/habit_move_down"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="▼" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/habit_restore"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="@string/habit_restore"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/habit_delete"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="@string/habit_delete"
+                android:textColor="@color/color_crisis"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/habit_archive"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="@string/habit_archive" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/habit_action"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_small"
+                android:minHeight="@dimen/touch_target_min" />
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

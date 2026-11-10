@@ -57,7 +57,7 @@ import com.prottasha.triggers.data.TriggerPlanEntity;
                 JournalImageEntity.class,
                 TriggerPlanEntity.class
         },
-        version = 8,
+        version = 9,
         exportSchema = true)
 public abstract class UserDatabase extends RoomDatabase {
     public abstract LocalAccountDao localAccountDao();

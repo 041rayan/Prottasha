@@ -8,22 +8,36 @@ public final class HabitStatsCalculator {
     }
 
     public static HabitModels.HabitStats calculate(List<Boolean> completedDueDays) {
-        if (completedDueDays.isEmpty()) {
-            return new HabitModels.HabitStats(false, 0.0, 0);
+        if (completedDueDays == null || completedDueDays.isEmpty()) {
+            return new HabitModels.HabitStats(false, 0.0, 0, 0, 0, 0);
         }
         int completed = 0;
-        int streak = 0;
+        int lapses = 0;
+        int currentStreak = 0;
+        int bestStreak = 0;
+        int runStreak = 0;
+
         for (Boolean value : completedDueDays) {
             if (Boolean.TRUE.equals(value)) {
                 completed++;
+                runStreak++;
+                if (runStreak > bestStreak) {
+                    bestStreak = runStreak;
+                }
+            } else {
+                lapses++;
+                runStreak = 0;
             }
         }
+
         for (int index = completedDueDays.size() - 1;
              index >= 0 && Boolean.TRUE.equals(completedDueDays.get(index));
              index--) {
-            streak++;
+            currentStreak++;
         }
+
+        double consistency = completed / (double) completedDueDays.size();
         return new HabitModels.HabitStats(
-                true, completed / (double) completedDueDays.size(), streak);
+                true, consistency, currentStreak, bestStreak, completed, lapses);
     }
 }

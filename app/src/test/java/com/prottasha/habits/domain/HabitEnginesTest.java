@@ -82,4 +82,30 @@ public final class HabitEnginesTest {
         assertFalse(ReboundEvaluator.isRebound(100L, 100L));
         assertFalse(ReboundEvaluator.isRebound(100L, null));
     }
+
+    @Test
+    public void scheduleEvaluatorSupportsEveryNWeeksAndVacationExemption() {
+        long monday = LocalDate.of(2026, 11, 9).toEpochDay();
+        HabitSchedule biweekly = HabitSchedule.everyNWeeks(monday, 2);
+        assertTrue(HabitScheduleEvaluator.isDue(biweekly, monday, null));
+        assertFalse(HabitScheduleEvaluator.isDue(biweekly, monday + 7, null));
+        assertTrue(HabitScheduleEvaluator.isDue(biweekly, monday + 14, null));
+
+        com.prottasha.habits.data.HabitVacationEntity vacation =
+                new com.prottasha.habits.data.HabitVacationEntity(1L, monday + 13, monday + 15);
+        assertFalse(HabitScheduleEvaluator.isDue(
+                biweekly, monday + 14, null, Collections.singletonList(vacation)));
+    }
+
+    @Test
+    public void statsCalculatorComputesBestStreakAndTotalsAccurately() {
+        HabitModels.HabitStats stats = HabitStatsCalculator.calculate(
+                Arrays.asList(true, true, true, false, true, true));
+        assertTrue(stats.hasData);
+        assertEquals(2, stats.currentStreak);
+        assertEquals(3, stats.bestStreak);
+        assertEquals(5, stats.totalCompletions);
+        assertEquals(1, stats.totalLapses);
+        assertEquals(5.0 / 6.0, stats.consistency, 0.0001);
+    }
 }

@@ -137,9 +137,25 @@ public final class UserDatabaseMigrations {
         }
     };
 
+    public static final Migration MIGRATION_8_9 = new Migration(8, 9) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE habits ADD COLUMN cue TEXT NOT NULL DEFAULT ''");
+            database.execSQL("ALTER TABLE habits ADD COLUMN twoMinuteAction TEXT NOT NULL DEFAULT ''");
+            database.execSQL("ALTER TABLE habits ADD COLUMN reward TEXT NOT NULL DEFAULT ''");
+            database.execSQL("ALTER TABLE habits ADD COLUMN ifThenPlan TEXT NOT NULL DEFAULT ''");
+            database.execSQL("ALTER TABLE habits ADD COLUMN reboundPlan TEXT NOT NULL DEFAULT ''");
+            database.execSQL("ALTER TABLE habits ADD COLUMN unit TEXT NOT NULL DEFAULT ''");
+            database.execSQL("ALTER TABLE habits ADD COLUMN incrementVal INTEGER NOT NULL DEFAULT 1");
+            database.execSQL("ALTER TABLE habits ADD COLUMN maximumVal INTEGER NOT NULL DEFAULT 0");
+            database.execSQL("ALTER TABLE habits ADD COLUMN focusMinutes INTEGER NOT NULL DEFAULT 0");
+            database.execSQL("ALTER TABLE habits ADD COLUMN accountability TEXT NOT NULL DEFAULT ''");
+        }
+    };
+
     public static final Migration[] ALL = {
             MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5,
-            MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8
+            MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9
     };
     public static final RoomDatabase.Callback ENABLE_FOREIGN_KEYS =
             new RoomDatabase.Callback() {

@@ -1,40 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/spacing_large">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/habits_title"
-            android:textColor="@color/color_text_primary"
-            android:textSize="@dimen/text_display"
-            android:textStyle="bold" />
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/habits_add_button"
-            style="@style/Widget.Prottasha.Button.Pill"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:minHeight="@dimen/touch_target_min"
-            android:text="@string/habits_add" />
-        <TextView
-            android:id="@+id/habits_empty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:text="@string/habits_empty"
-            android:textColor="@color/color_text_secondary"
-            android:textSize="@dimen/text_body" />
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
         <LinearLayout
-            android:id="@+id/habits_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_small"
-            android:orientation="vertical" />
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_large">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/habits_title"
+                android:textColor="@color/color_text_primary"
+                android:textSize="@dimen/text_display"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/habits_add_button"
+                style="@style/Widget.Prottasha.Button.Pill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="@string/habits_add" />
+
+            <!-- Filter Chips -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:scrollbars="none">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/habits_filter_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/habits_filter_all"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/habit_filter_all" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/habits_filter_build"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/habit_filter_build" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/habits_filter_avoid"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/habit_filter_avoid" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/habits_filter_amount"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/habit_filter_amount" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/habits_filter_archived"
+                        style="@style/Widget.Material3.Chip.Filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/habit_filter_archived" />
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/habits_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:text="@string/habits_empty"
+                android:textColor="@color/color_text_secondary"
+                android:textSize="@dimen/text_body" />
+
+            <LinearLayout
+                android:id="@+id/habits_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

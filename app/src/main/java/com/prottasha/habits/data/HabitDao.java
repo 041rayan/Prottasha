@@ -13,6 +13,15 @@ public interface HabitDao {
     @Query("SELECT * FROM habits WHERE archived = 0 ORDER BY sortOrder, id")
     List<HabitEntity> listActive();
 
+    @Query("SELECT * FROM habits WHERE archived = 1 ORDER BY sortOrder, id")
+    List<HabitEntity> listArchived();
+
+    @Query("SELECT * FROM habits ORDER BY sortOrder, id")
+    List<HabitEntity> listAll();
+
+    @Query("SELECT * FROM habits WHERE archived = 0 AND type = :type ORDER BY sortOrder, id")
+    List<HabitEntity> listByType(String type);
+
     @Query("SELECT * FROM habits WHERE id = :habitId")
     HabitEntity find(long habitId);
 
@@ -49,6 +58,15 @@ public interface HabitDao {
     @Query("SELECT * FROM habit_day_aggregates WHERE habitId = :habitId ORDER BY epochDay DESC LIMIT :limit")
     List<HabitDayAggregateEntity> listAggregates(long habitId, int limit);
 
+    @Query("SELECT * FROM habit_day_aggregates WHERE habitId = :habitId AND epochDay BETWEEN :fromDay AND :toDay ORDER BY epochDay ASC")
+    List<HabitDayAggregateEntity> listAggregatesBetween(long habitId, long fromDay, long toDay);
+
+    @Query("SELECT COUNT(*) FROM habit_day_aggregates WHERE habitId = :habitId AND completed = 1")
+    int countCompletedDays(long habitId);
+
+    @Query("SELECT COUNT(*) FROM habit_day_aggregates WHERE habitId = :habitId AND lapsed = 1")
+    int countLapsedDays(long habitId);
+
     @Query("SELECT * FROM habit_day_notes WHERE habitId = :habitId AND epochDay = :epochDay")
     HabitDayNoteEntity findNote(long habitId, long epochDay);
 
@@ -63,4 +81,25 @@ public interface HabitDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long upsertReminder(HabitReminderEntity reminder);
+
+    @Query("SELECT * FROM habit_substeps WHERE habitId = :habitId ORDER BY sortOrder, id")
+    List<HabitSubstepEntity> listSubsteps(long habitId);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    long insertSubstep(HabitSubstepEntity substep);
+
+    @Query("DELETE FROM habit_substeps WHERE id = :substepId")
+    void deleteSubstep(long substepId);
+
+    @Query("DELETE FROM habit_substeps WHERE habitId = :habitId")
+    void deleteSubstepsForHabit(long habitId);
+
+    @Query("SELECT * FROM habit_vacations WHERE habitId = :habitId ORDER BY startEpochDay")
+    List<HabitVacationEntity> listVacations(long habitId);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertVacation(HabitVacationEntity vacation);
+
+    @Query("DELETE FROM habit_vacations WHERE habitId = :habitId AND startEpochDay = :startEpochDay")
+    void deleteVacation(long habitId, long startEpochDay);
 }

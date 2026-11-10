@@ -1,24 +1,379 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/spacing_large">
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/habit_edit_title" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_headline" android:textStyle="bold" />
-        <com.google.android.material.textfield.TextInputLayout android:id="@+id/habit_title_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_medium" android:hint="@string/habit_title_hint">
-            <com.google.android.material.textfield.TextInputEditText android:id="@+id/habit_title_input" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textCapSentences" android:maxLength="100" />
+
+        <TextView
+            android:id="@+id/habit_edit_screen_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/habit_edit_title"
+            android:textColor="@color/color_text_primary"
+            android:textSize="@dimen/text_headline"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/habit_title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:hint="@string/habit_title_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/habit_title_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:maxLength="100" />
         </com.google.android.material.textfield.TextInputLayout>
-        <RadioGroup android:id="@+id/habit_type_group" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_medium" android:checkedButton="@id/habit_type_build">
-            <RadioButton android:id="@+id/habit_type_build" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/touch_target_min" android:text="@string/habit_type_build" />
-            <RadioButton android:id="@+id/habit_type_avoid" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/touch_target_min" android:text="@string/habit_type_avoid" />
-            <RadioButton android:id="@+id/habit_type_amount" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="@dimen/touch_target_min" android:text="@string/habit_type_amount" />
+
+        <!-- Habit Type RadioGroup -->
+        <RadioGroup
+            android:id="@+id/habit_type_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:checkedButton="@id/habit_type_build">
+
+            <RadioButton
+                android:id="@+id/habit_type_build"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="@string/habit_type_build" />
+
+            <RadioButton
+                android:id="@+id/habit_type_avoid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="@string/habit_type_avoid" />
+
+            <RadioButton
+                android:id="@+id/habit_type_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="@string/habit_type_amount" />
         </RadioGroup>
-        <com.google.android.material.textfield.TextInputLayout android:id="@+id/habit_target_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/habit_target_hint" android:visibility="gone">
-            <com.google.android.material.textfield.TextInputEditText android:id="@+id/habit_target_input" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:text="@string/habit_default_target" />
+
+        <!-- Target Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/habit_target_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:hint="@string/habit_target_hint"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/habit_target_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="@string/habit_default_target" />
         </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.button.MaterialButton android:id="@+id/habit_save_button" style="@style/Widget.Prottasha.Button.Pill" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/spacing_large" android:minHeight="@dimen/touch_target_min" android:text="@string/habit_save" />
+
+        <!-- Amount Specific Fields -->
+        <LinearLayout
+            android:id="@+id/habit_amount_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/habit_unit_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:hint="@string/habit_unit_hint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/habit_unit_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/habit_increment_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:hint="@string/habit_increment_hint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/habit_increment_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/habit_maximum_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:hint="@string/habit_maximum_hint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/habit_maximum_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Frequency Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:text="@string/habit_frequency_title"
+            android:textColor="@color/color_text_primary"
+            android:textSize="@dimen/text_title"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/habit_frequency_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:checkedButton="@id/habit_freq_daily">
+
+            <RadioButton
+                android:id="@+id/habit_freq_daily"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="@string/habit_freq_daily" />
+
+            <RadioButton
+                android:id="@+id/habit_freq_weekdays"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="@string/habit_freq_weekdays" />
+
+            <RadioButton
+                android:id="@+id/habit_freq_every_n_days"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="@string/habit_freq_every_n_days" />
+
+            <RadioButton
+                android:id="@+id/habit_freq_every_n_weeks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="@string/habit_freq_every_n_weeks" />
+
+            <RadioButton
+                android:id="@+id/habit_freq_from_last_done"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="@string/habit_freq_from_last_done" />
+        </RadioGroup>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/habit_interval_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:hint="@string/habit_interval_hint"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/habit_interval_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="2" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Progressive Disclosure Planning Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:text="Mindful Planning (Atomic Habits)"
+            android:textColor="@color/color_text_primary"
+            android:textSize="@dimen/text_title"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/habit_cue_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:hint="@string/habit_cue_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/habit_cue_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/habit_two_minute_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:hint="@string/habit_two_minute_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/habit_two_minute_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/habit_reward_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:hint="@string/habit_reward_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/habit_reward_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/habit_if_then_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:hint="@string/habit_if_then_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/habit_if_then_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/habit_rebound_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:hint="@string/habit_rebound_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/habit_rebound_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/habit_focus_minutes_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:hint="@string/habit_focus_minutes_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/habit_focus_minutes_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/habit_accountability_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:hint="@string/habit_accountability_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/habit_accountability_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Substeps Checklist Section (for Build) -->
+        <LinearLayout
+            android:id="@+id/habit_substeps_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/habit_substeps_title"
+                android:textColor="@color/color_text_primary"
+                android:textSize="@dimen/text_title"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/habit_substeps_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/habit_substep_hint">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/habit_substep_new_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/habit_add_substep_button"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing_small"
+                    android:minHeight="@dimen/touch_target_min"
+                    android:text="@string/habit_add_substep" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Save Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/habit_save_button"
+            style="@style/Widget.Prottasha.Button.Pill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xlarge"
+            android:minHeight="@dimen/touch_target_min"
+            android:text="@string/habit_save" />
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

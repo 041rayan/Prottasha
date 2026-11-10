@@ -68,15 +68,15 @@ public final class GuardRulesAdapter extends ListAdapter<GuardRuleEntity, GuardR
             });
 
             if ("BUDGET".equals(rule.mode)) {
-                binding.guardRuleItemModeBadge.setText(String.format(Locale.ROOT, "BUDGET: %d min/day", rule.budgetMinutes));
+                binding.guardRuleItemModeBadge.setText(String.format(Locale.ROOT, "Budget: %d min/day", rule.budgetMinutes));
                 binding.guardRuleItemModeBadge.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.color_hope));
                 binding.guardRuleItemModeBadge.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.color_hope_subtle));
             } else if ("BLOCK".equals(rule.mode)) {
-                binding.guardRuleItemModeBadge.setText("BLOCK");
+                binding.guardRuleItemModeBadge.setText("Block");
                 binding.guardRuleItemModeBadge.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.color_crisis));
                 binding.guardRuleItemModeBadge.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.color_crisis_subtle));
             } else {
-                binding.guardRuleItemModeBadge.setText(String.format(Locale.ROOT, "PAUSE (%ds delay)", rule.delaySeconds));
+                binding.guardRuleItemModeBadge.setText(String.format(Locale.ROOT, "Pause (%ds delay)", rule.delaySeconds));
                 binding.guardRuleItemModeBadge.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.color_friction));
                 binding.guardRuleItemModeBadge.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.color_friction_subtle));
             }

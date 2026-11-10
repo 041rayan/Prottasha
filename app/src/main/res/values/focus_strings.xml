@@ -13,7 +13,7 @@
     <string name="focus_status_ready">Set a timer to dedicate intentional, distraction-free focus.</string>
     <string name="focus_status_running">Focus in progress</string>
     <string name="focus_status_paused">Session paused</string>
-    <string name="focus_status_completed">Focus session completed! Great work.</string>
+    <string name="focus_status_completed">Focus session complete</string>
     <string name="focus_preset_15">15m</string>
     <string name="focus_preset_25">25m (Pomodoro)</string>
     <string name="focus_preset_45">45m</string>

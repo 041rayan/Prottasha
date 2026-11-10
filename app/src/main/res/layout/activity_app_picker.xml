@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/spacing_medium"
-        android:hint="Search installed apps">
+        android:hint="Search apps">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/app_picker_search_input"

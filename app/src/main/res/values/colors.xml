@@ -1,35 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Obsidian Hope semantic palette. -->
-    <color name="color_background">#090C11</color>
+    <!-- Obsidian Hope semantic palette: deep slate graphite with disciplined accents -->
+    <color name="color_background">#0B0E14</color>
     <color name="color_surface">#151A22</color>
-    <color name="color_surface_raised">#202833</color>
-    <color name="color_border">#303946</color>
-    <color name="color_hope">#34D399</color>
-    <color name="color_on_hope">#090C11</color>
-    <color name="color_identity">#7C8DFF</color>
-    <color name="color_on_identity">#090C11</color>
-    <color name="color_friction">#FBBF24</color>
-    <color name="color_on_friction">#090C11</color>
-    <color name="color_crisis">#F87171</color>
-    <color name="color_on_crisis">#090C11</color>
-    <color name="color_crisis_subtle">#33F87171</color>
-    <color name="color_hope_subtle">#3334D399</color>
-    <color name="color_friction_subtle">#33FBBF24</color>
-    <color name="color_identity_subtle">#337C8DFF</color>
-    <color name="color_text_primary">#F4F7FA</color>
-    <color name="color_text_secondary">#A9B3C0</color>
-    <color name="color_text_muted">#8B96A4</color>
-    <color name="color_pause_scrim">#E6090C11</color>
+    <color name="color_surface_raised">#1C232D</color>
+    <color name="color_border">#2B3340</color>
+    <color name="color_border_subtle">#1F2633</color>
 
-    <!-- Compatibility aliases for prototype layouts while each screen is replaced. -->
+    <!-- Accent: Restrained Emerald -->
+    <color name="color_hope">#34D399</color>
+    <color name="color_on_hope">#0B0E14</color>
+    <color name="color_hope_subtle">#1A34D399</color>
+
+    <!-- Semantic roles -->
+    <color name="color_identity">#7C8DFF</color>
+    <color name="color_on_identity">#0B0E14</color>
+    <color name="color_identity_subtle">#1A7C8DFF</color>
+
+    <color name="color_friction">#FBBF24</color>
+    <color name="color_on_friction">#0B0E14</color>
+    <color name="color_friction_subtle">#1AFBBF24</color>
+
+    <color name="color_crisis">#F87171</color>
+    <color name="color_on_crisis">#0B0E14</color>
+    <color name="color_crisis_subtle">#1AF87171</color>
+
+    <!-- Typographic hierarchy -->
+    <color name="color_text_primary">#F0F3F6</color>
+    <color name="color_text_secondary">#9DA7B3</color>
+    <color name="color_text_muted">#6E7783</color>
+    <color name="color_pause_scrim">#E60B0E14</color>
+
+    <!-- Quiet compatibility aliases without glow/glass artifacts -->
     <color name="color_bg_primary">@color/color_background</color>
     <color name="color_bg_secondary">@color/color_surface</color>
     <color name="color_surface_card">@color/color_surface</color>
     <color name="color_surface_elevated">@color/color_surface_raised</color>
-    <color name="color_surface_glass">#80151A22</color>
-    <color name="color_border_subtle">@color/color_border</color>
-    <color name="color_border_focus">@color/color_identity</color>
+    <color name="color_surface_glass">@color/color_surface</color>
+    <color name="color_border_focus">@color/color_hope</color>
     <color name="color_identity_glow">@color/color_identity</color>
     <color name="color_identity_dark">#5B6CE0</color>
     <color name="color_vote_emerald">@color/color_hope</color>
@@ -40,7 +48,7 @@
     <color name="color_crisis_coral_dark">#D95B5B</color>
     <color name="color_text_tertiary">@color/color_text_muted</color>
     <color name="color_text_inverse">@color/color_background</color>
-    <color name="color_ripple_light">#33FFFFFF</color>
-    <color name="color_ripple_identity">#337C8DFF</color>
-    <color name="color_ripple_emerald">#3334D399</color>
+    <color name="color_ripple_light">#1AFFFFFF</color>
+    <color name="color_ripple_identity">#1A7C8DFF</color>
+    <color name="color_ripple_emerald">#1A34D399</color>
 </resources>

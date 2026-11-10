@@ -126,7 +126,7 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
             String responseText = "Step: " + (habit.getResponse() != null ? habit.getResponse() : "Take 2-minute starter action");
             binding.tvHabitResponse.setText(responseText);
 
-            String stats = "🔥 " + habit.getCurrentStreak() + " streak • " + habit.getVotesFor() + " votes cast";
+            String stats = habit.getCurrentStreak() + "-day streak • " + habit.getVotesFor() + " votes cast";
             binding.tvStreakAndVotes.setText(stats);
         }
     }

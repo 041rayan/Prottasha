@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_large">
+        android:padding="@dimen/spacing_medium">
 
         <!-- Title -->
         <TextView
@@ -38,7 +38,7 @@
             app:cardBackgroundColor="@color/color_surface"
             app:strokeColor="@color/color_border"
             app:strokeWidth="1dp"
-            app:cardCornerRadius="16dp"
+            app:cardCornerRadius="@dimen/card_corner_radius"
             app:cardElevation="0dp">
 
             <LinearLayout
@@ -84,7 +84,7 @@
             app:cardBackgroundColor="@color/color_surface"
             app:strokeColor="@color/color_border"
             app:strokeWidth="1dp"
-            app:cardCornerRadius="16dp"
+            app:cardCornerRadius="@dimen/card_corner_radius"
             app:cardElevation="0dp">
 
             <LinearLayout
@@ -144,7 +144,7 @@
             app:cardBackgroundColor="@color/color_surface"
             app:strokeColor="@color/color_border"
             app:strokeWidth="1dp"
-            app:cardCornerRadius="16dp"
+            app:cardCornerRadius="@dimen/card_corner_radius"
             app:cardElevation="0dp">
 
             <LinearLayout

@@ -1,17 +1,24 @@
 package com.prottasha.focus;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.prottasha.ProttashaApp;
+import com.prottasha.R;
 import com.prottasha.auth.domain.SessionUser;
+import com.prottasha.focus.ui.FocusActivity;
 import com.prottasha.service.ProttashaFocusService;
 
 import org.junit.After;
@@ -51,10 +58,25 @@ public final class FocusServiceTest {
                 .requireOpen().focusDao().find().durationMillis);
 
         context.startService(new Intent(context, ProttashaFocusService.class)
+                .setAction(ProttashaFocusService.ACTION_PAUSE));
+        waitForState("PAUSED");
+
+        context.startService(new Intent(context, ProttashaFocusService.class)
+                .setAction(ProttashaFocusService.ACTION_RESUME));
+        waitForState("RUNNING");
+
+        context.startService(new Intent(context, ProttashaFocusService.class)
                 .setAction(ProttashaFocusService.ACTION_END));
         waitForState(null);
         assertNull(application.appGraph().userSessionDatabaseProvider()
                 .requireOpen().focusDao().find());
+    }
+
+    @Test public void focusActivityDisplaysCountdownAndControls() {
+        try (ActivityScenario<FocusActivity> ignored = ActivityScenario.launch(FocusActivity.class)) {
+            onView(withId(R.id.focus_countdown)).check(matches(isDisplayed()));
+            onView(withId(R.id.focus_start)).check(matches(isDisplayed()));
+        }
     }
 
     private void waitForState(String expected) throws Exception {

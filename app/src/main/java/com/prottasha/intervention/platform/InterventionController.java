@@ -10,4 +10,8 @@ public final class InterventionController {
     public void intervene(String target, String mode) {
         overlay.show(target, mode);
     }
+
+    public void intervene(long ruleId, String target, String mode, int delaySeconds, String replacementAction) {
+        overlay.show(ruleId, target, mode, delaySeconds, replacementAction);
+    }
 }

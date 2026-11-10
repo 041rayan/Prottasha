@@ -166,10 +166,22 @@ public final class UserDatabaseMigrations {
         }
     };
 
+    public static final Migration MIGRATION_10_11 = new Migration(10, 11) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE intervention_events ADD COLUMN ruleId INTEGER NOT NULL DEFAULT 0");
+            database.execSQL("ALTER TABLE intervention_events ADD COLUMN resolvedAt INTEGER NOT NULL DEFAULT 0");
+            database.execSQL("ALTER TABLE intervention_events ADD COLUMN delaySeconds INTEGER NOT NULL DEFAULT 0");
+            database.execSQL("ALTER TABLE intervention_events ADD COLUMN source TEXT NOT NULL DEFAULT 'ACCESSIBILITY'");
+            database.execSQL("ALTER TABLE intervention_events ADD COLUMN outcome TEXT NOT NULL DEFAULT ''");
+            database.execSQL("ALTER TABLE intervention_events ADD COLUMN followThrough TEXT NOT NULL DEFAULT 'PENDING'");
+        }
+    };
+
     public static final Migration[] ALL = {
             MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5,
             MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9,
-            MIGRATION_9_10
+            MIGRATION_9_10, MIGRATION_10_11
     };
     public static final RoomDatabase.Callback ENABLE_FOREIGN_KEYS =
             new RoomDatabase.Callback() {

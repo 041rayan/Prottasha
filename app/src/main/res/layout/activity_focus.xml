@@ -1,9 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:padding="@dimen/spacing_large">
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/focus_title" android:textColor="@color/color_text_primary" android:textSize="@dimen/text_headline" android:textStyle="bold" />
-    <EditText android:id="@+id/focus_minutes" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/focus_minutes_hint" android:inputType="number" android:text="@string/focus_default_minutes" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/focus_start" style="@style/Widget.Prottasha.Button.Pill" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/focus_start" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/focus_pause" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/focus_pause" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/focus_resume" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/focus_resume" />
-    <com.google.android.material.button.MaterialButton android:id="@+id/focus_end" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/focus_end" />
-</LinearLayout>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_large">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/focus_title"
+            android:textColor="@color/color_text_primary"
+            android:textSize="@dimen/text_display"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/focus_status_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:gravity="center"
+            android:text="@string/focus_status_ready"
+            android:textColor="@color/color_text_secondary"
+            android:textSize="@dimen/text_body" />
+
+        <!-- Big Countdown Timer Display -->
+        <TextView
+            android:id="@+id/focus_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_xlarge"
+            android:layout_marginBottom="@dimen/spacing_xlarge"
+            android:fontFamily="sans-serif-medium"
+            android:text="25:00"
+            android:textColor="@color/color_hope"
+            android:textSize="56sp"
+            android:textStyle="bold" />
+
+        <!-- Minutes Input & Presets Container -->
+        <LinearLayout
+            android:id="@+id/focus_input_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/focus_minutes_hint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/focus_minutes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="@string/focus_default_minutes" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Completion Summary Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/focus_summary_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/color_hope_subtle"
+            app:cardCornerRadius="16dp"
+            app:strokeColor="@color/color_hope"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_large">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Session Complete! 🎉"
+                    android:textColor="@color/color_hope"
+                    android:textSize="@dimen/text_headline"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/focus_summary_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:gravity="center"
+                    android:text="@string/focus_status_completed"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="@dimen/text_body" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Control Buttons -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/focus_start"
+            style="@style/Widget.Prottasha.Button.Pill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:minHeight="@dimen/touch_target_min"
+            android:text="@string/focus_start" />
+
+        <LinearLayout
+            android:id="@+id/focus_active_controls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/focus_pause"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="@string/focus_pause" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/focus_resume"
+                style="@style/Widget.Prottasha.Button.Pill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="@string/focus_resume"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/focus_end"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:minHeight="@dimen/touch_target_min"
+                android:text="@string/focus_end"
+                android:textColor="@color/color_crisis" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

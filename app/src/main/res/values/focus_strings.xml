@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="focus_title">Focus session</string>
+    <string name="focus_title">Focus Session</string>
     <string name="focus_minutes_hint">Minutes</string>
     <string name="focus_default_minutes">25</string>
-    <string name="focus_start">Start focus</string>
+    <string name="focus_start">Start Focus</string>
     <string name="focus_pause">Pause</string>
     <string name="focus_resume">Resume</string>
-    <string name="focus_end">End session</string>
+    <string name="focus_end">End Session</string>
     <string name="focus_notification_title">Focus session active</string>
     <string name="focus_notification_body">Tap to pause, resume, or end.</string>
+
+    <string name="focus_status_ready">Set a timer to dedicate intentional, distraction-free focus.</string>
+    <string name="focus_status_running">Focus in progress</string>
+    <string name="focus_status_paused">Session paused</string>
+    <string name="focus_status_completed">Focus session completed! Great work.</string>
+    <string name="focus_preset_15">15m</string>
+    <string name="focus_preset_25">25m (Pomodoro)</string>
+    <string name="focus_preset_45">45m</string>
 </resources>

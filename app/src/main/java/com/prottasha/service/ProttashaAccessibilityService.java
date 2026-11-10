@@ -162,11 +162,11 @@ public final class ProttashaAccessibilityService extends AccessibilityService {
             long cooldownMillis = ruleEntity.cooldownMinutes * 60_000L;
             app.appGraph().guardRuntime().startCooldown(target, System.currentTimeMillis() + cooldownMillis);
             if (interventionController != null) {
-                interventionController.intervene(target, "PAUSE");
+                interventionController.intervene(ruleEntity.id, target, "PAUSE", ruleEntity.delaySeconds, ruleEntity.replacementAction);
             }
         } else if (decision == GuardDecision.BLOCK) {
             if (interventionController != null) {
-                interventionController.intervene(target, "BLOCK");
+                interventionController.intervene(ruleEntity.id, target, "BLOCK", 0, ruleEntity.replacementAction);
             }
         }
     }
